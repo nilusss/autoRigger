@@ -53,10 +53,10 @@ class Control():
                                      (-0.5, -0.5, 0.5), (-0.5, 0.5, 0.5),
                                      (-0.5, 0.5, -0.5)],
                                   k=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18])
-            mc.setAttr(ctrlObject + '.scale', scale)
+            mc.setAttr(ctrlObject+'.scale', scale)
 
         if not ctrlObject:
-            ctrlObject = mc.circle(name=prefix+'ctrl', constructionHistory=False,
+            ctrlObject = mc.circle(name=prefix+'_ctrl', constructionHistory=False,
                                    normal=circleNormal, radius=scale)[0]
 
         ctrlOffset = mc.group(n=prefix+'Offset_grp', em=1)

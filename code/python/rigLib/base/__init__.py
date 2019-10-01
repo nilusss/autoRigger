@@ -1,2 +1,2 @@
-import module
 import control
+import module
