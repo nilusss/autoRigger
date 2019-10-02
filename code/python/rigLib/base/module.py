@@ -1,5 +1,5 @@
 """
-module for making controls for the rig
+module for making top rig structure and rig module
 """
 
 import maya.cmds as mc
@@ -10,6 +10,10 @@ sceneObjectType = 'rig'
 
 
 class Base():
+
+    """
+    class for building top rig structure
+    """
 
     def __init__(self,
                  characterName='new',
@@ -34,16 +38,52 @@ class Base():
 
         # make global control and offset control
         globalCtrl = control.Control(prefix='global',
-                                     scale=scale,
+                                     scale=scale * 20,
                                      parent=self.rigGrp,
-                                     shape='circle',
+                                     shape='global',
                                      lockChannels=['v']
                                      )
 
         offsetCtrl = control.Control(prefix='offset',
-                                     scale=scale,
+                                     scale=scale * 18,
                                      parent=globalCtrl.C,
-                                     shape='circle',
+                                     shape='offset',
                                      lockChannels=['s', 'v']
                                      )
 
+        for axis in ['y', 'z']:
+            mc.connectAttr(globalCtrl.C + '.sx', globalCtrl.C + '.s' + axis)
+            mc.setAttr(globalCtrl.C + '.s' + axis,  k=0)
+
+        self.jointsGrp = mc.group(n='joints_grp', em=1, p=offsetCtrl.C)
+        self.modulesGrp = mc.group(n='modules_grp', em=1, p=offsetCtrl.C)
+
+        self.extraNodesGrp = mc.group(n='extraNodes_grp', em=1, p=self.rigGrp)
+        mc.setAttr(self.extraNodesGrp + '.it', 0, l=1)
+
+
+class Module():
+
+    """
+    class for building module rig structure
+    """
+
+    def __init__(self,
+                 prefix='new',
+                 baseObj=None
+                 ):
+
+        # create initial rig structure groups
+        self.topGrp = mc.group(name=prefix + 'Module_grp', em=1)
+
+        self.controlsGrp = mc.group(name=prefix + 'Controls_grp', em=1, p=self.topGrp)
+        self.jointsGrp = mc.group(name=prefix + 'Joints_grp', em=1, p=self.topGrp)
+        self.partsGrp = mc.group(name=prefix + 'Parts_grp', em=1, p=self.topGrp)
+        self.partsNoTransGrp = mc.group(name=prefix + 'PartsNoTrans_grp', em=1, p=self.topGrp)
+
+        mc.setAttr(self.partsNoTransGrp + '.it', 0, l=1)
+
+        # parent module
+
+        if baseObj:
+            mc.parent(self.topGrp, baseObj.modulesGrp)
