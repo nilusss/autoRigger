@@ -79,9 +79,10 @@ class Module():
         self.controlsGrp = mc.group(name=prefix + 'Controls_grp', em=1, p=self.topGrp)
         self.jointsGrp = mc.group(name=prefix + 'Joints_grp', em=1, p=self.topGrp)
         self.partsGrp = mc.group(name=prefix + 'Parts_grp', em=1, p=self.topGrp)
-        self.partsNoTransGrp = mc.group(name=prefix + 'PartsNoTrans_grp', em=1, p=self.topGrp)
+        self.partsStaticGrp = mc.group(name=prefix + 'PartsStatic_grp', em=1, p=self.topGrp)
 
-        mc.setAttr(self.partsNoTransGrp + '.it', 0, l=1)
+        mc.hide(self.partsGrp, self.partsStaticGrp)
+        mc.setAttr(self.partsStaticGrp + '.it', 0, l=1)
 
         # parent module
 
