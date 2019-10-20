@@ -29,6 +29,7 @@ def removePrefix(name):
     """
 
     edits = name.split('_')
+
     if len(edits) < 2:
         return name
 

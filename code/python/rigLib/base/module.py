@@ -17,7 +17,8 @@ class Base():
 
     def __init__(self,
                  characterName='new',
-                 scale=1.0
+                 scale=1.0,
+                 globalCtrlScale = 20
                  ):
 
         # create initial rig structure groups
@@ -32,20 +33,20 @@ class Base():
             mc.addAttr(self.topGrp, ln=at, dt='string')
 
         mc.setAttr(self.topGrp + '.' + characterNameAt, characterName,
-                   type='string', l=1)
+                   type='string', lock=1)
         mc.setAttr(self.topGrp + '.' + sceneObjectTypeAt, sceneObjectType,
-                   type='string', l=1)
+                   type='string', lock=1)
 
         # make global control and offset control
         globalCtrl = control.Control(prefix='global',
-                                     scale=scale * 20,
+                                     scale=scale * globalCtrlScale,
                                      parent=self.rigGrp,
                                      shape='global',
                                      lockChannels=['v']
                                      )
 
         offsetCtrl = control.Control(prefix='offset',
-                                     scale=scale * 18,
+                                     scale=scale * globalCtrlScale - 2,
                                      parent=globalCtrl.C,
                                      shape='offset',
                                      lockChannels=['s', 'v']
@@ -53,13 +54,13 @@ class Base():
 
         for axis in ['y', 'z']:
             mc.connectAttr(globalCtrl.C + '.sx', globalCtrl.C + '.s' + axis)
-            mc.setAttr(globalCtrl.C + '.s' + axis,  k=0)
+            mc.setAttr(globalCtrl.C + '.s' + axis,  keyable=0)
 
         self.jointsGrp = mc.group(n='joints_grp', em=1, p=offsetCtrl.C)
         self.modulesGrp = mc.group(n='modules_grp', em=1, p=offsetCtrl.C)
 
         self.extraNodesGrp = mc.group(n='extraNodes_grp', em=1, p=self.rigGrp)
-        mc.setAttr(self.extraNodesGrp + '.it', 0, l=1)
+        mc.setAttr(self.extraNodesGrp + '.it', 0, lock=1)
 
 
 class Module():
