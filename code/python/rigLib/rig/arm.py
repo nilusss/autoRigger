@@ -31,28 +31,14 @@ def build(armJoints,
     mc.delete(mc.parentConstraint(getOffsetJoint, jointsOffsetGrp, mo=0))
 
     # create triple chain setup
-    for i, j in enumerate(armJoints):
-        fkNN = j.replace('Result_jnt', 'FK_jnt')
-        fkAppend = mc.duplicate(j, parentOnly=True, n=fkNN)
-        mc.parent(fkAppend[0], jointsOffsetGrp)
-        fkChain.extend(fkAppend)
-        prevFKJnt = i-1
-        if i > 0:
-            mc.parent(fkAppend, fkChain[prevFKJnt])
-
-        ikNN = j.replace('Result_jnt', 'IK_jnt')
-        ikAppend = mc.duplicate(j, parentOnly=True, n=ikNN)
-        mc.parent(ikAppend[0], jointsOffsetGrp)
-        ikChain.extend(ikAppend)
-        prevIKJnt = i-1
-        if i > 0:
-            mc.parent(ikAppend, ikChain[prevIKJnt])
+    ikChain = joint.jointDuplicate(jointChain=armJoints, jointType="IK", offsetGrp=jointsOffsetGrp)
+    fkChain = joint.jointDuplicate(jointChain=armJoints, jointType="FK", offsetGrp=jointsOffsetGrp)
 
     """
     setup of the IK module
     """
     armIK = mc.ikHandle(n=prefix + 'Main_hdl', sol='ikRPsolver', sj=ikChain[0], ee=ikChain[-1])[0]
-    armIKCtrl = control.Control(prefix=prefix + 'IK_ctrl', translateTo=ikChain[-1], rotateTo=ikChain[-1],
+    armIKCtrl = control.Control(prefix=prefix + 'IK', translateTo=ikChain[-1], rotateTo=ikChain[-1],
                                 scale=rigScale * 2, parent=rigModule.controlsGrp, shape='cube')
     mc.parent(armIK, armIKCtrl.C)
     # mc.parent(ikChain)
@@ -69,5 +55,8 @@ def build(armJoints,
         prevFKCtrl = i-1
         if i > 0:
             mc.parent(fkCtrl.Off, fkCtrlChain[prevFKCtrl])
-        
-        #constrain.matrixConstrain(fkCtrl.C, j)
+
+        constrain.matrixConstrain(fkCtrl.C, j)
+
+    joint.jointBlend(resultChain=resultChain, ikChain=ikChain, fkChain=fkChain, blender="")
+

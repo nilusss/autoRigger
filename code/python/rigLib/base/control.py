@@ -77,7 +77,6 @@ class Control():
 
             globalExtraShapes = []
             globalExtraShapes.extend([worldForward, worldBackward, worldLeft, worldRight])
-
             for shape in globalExtraShapes:
                 getShape = mc.listRelatives(shape, s=True)
                 nn = shape + 'Shape'
@@ -86,7 +85,14 @@ class Control():
                 mc.scale(scale, scale, scale, newShapeName + '.cv[0:2]')
 
             mc.delete(worldForward, worldBackward, worldLeft, worldRight)
-
+        elif shape == 'settings':
+            ctrlObject = mc.curve(name=prefix+'IKFK_ctrl', d=1, 
+                                  p=[(0, 0, 1), (-1, 0, 1), (-1, 0, 0),
+                                     (-2, 0, 0), (-2, 0, -1), (-1, 0, -1),
+                                     (-1, 0, -2), (0, 0, -2), (0, 0, -1),
+                                     (1, 0, -1), (1, 0, 0), (0, 0, 0),
+                                     (0, 0, 1)],
+                                  k=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 1])
         elif shape == 'offset':
             ctrlObject = mc.curve(name=prefix+'_ctrl', d=1,
                                   p=[(-5.472546, 0, 1.778139), (-5.472546, 0, -1.778137),
