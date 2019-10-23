@@ -48,7 +48,7 @@ def jointDuplicate(jointChain=[], jointType="FK", offsetGrp=""):
     return jChain
 
 
-def jointBlend(resultChain=[], ikChain=[], fkChain=[], blender=""):
+def jointBlend(resultChain, ikChain, fkChain, blender=""):
 
     for i, j in enumerate(resultChain):
         qP = mc.createNode("quatProd")
@@ -60,6 +60,7 @@ def jointBlend(resultChain=[], ikChain=[], fkChain=[], blender=""):
         blendMatrix = mc.createNode("wtAddMatrix")
         blendMult = mc.createNode("multMatrix")
         blendDecomp = mc.createNode("decomposeMatrix")
+        reverse = mc.createNode("reverse")
 
         #mc.connectAttr(ikChain[i] + '.worldMatrix', ikMult + '.matrixIn[0]')
         mc.connectAttr(ikChain[i] + '.worldMatrix', ikMult + '.matrixIn[1]')
@@ -77,11 +78,15 @@ def jointBlend(resultChain=[], ikChain=[], fkChain=[], blender=""):
         mc.connectAttr(blendMult + '.matrixSum', blendDecomp + '.inputMatrix')
 
         mc.connectAttr(blendDecomp + '.outputQuat', qP + '.input1Quat')
-        mc.connectAttr(resultChain + '.jointOrient', eTQ + '.inputRotate')
+        mc.connectAttr(j + '.jointOrient', eTQ + '.inputRotate')
         mc.connectAttr(eTQ + '.outputQuat', qI + '.inputQuat')
         mc.connectAttr(qI + '.outputQuat', qP + '.input2Quat')
         mc.connectAttr(qP + '.outputQuat', qTE + '.inputQuat')
-        mc.connectAttr(qTE + '.outputRotate', resultChain + '.r')
 
-        mc.connectAttr(blendDecomp + '.outputTranslate', resultChain + '.t')
-        mc.connectAttr(blendDecomp + '.outputScale', resultChain + '.s')
+        mc.connectAttr(blender + '.blend', blendMatrix + '.wtMatrix[0].weightIn')
+        mc.connectAttr(blender + '.blend', reverse + '.inputX')
+        mc.connectAttr(reverse + '.outputX', blendMatrix + '.wtMatrix[1].weightIn')
+
+        mc.connectAttr(qTE + '.outputRotate', j + '.r')
+        mc.connectAttr(blendDecomp + '.outputTranslate', j + '.t')
+        mc.connectAttr(blendDecomp + '.outputScale', j + '.s')

@@ -24,7 +24,7 @@ def build(armJoints,
     resultChain = []
     rigModule = module.Module(prefix=prefix, baseObj=baseRig)
     getOffsetJoint = mc.listRelatives(armJoints[0], parent=True)
-    resultChain.append(armJoints)
+    resultChain.extend(armJoints)
 
     jointsOffsetGrp = mc.createNode('transform', n=prefix + 'JointsOffset_grp')
     mc.parent(jointsOffsetGrp, rigModule.jointsGrp)
@@ -58,5 +58,10 @@ def build(armJoints,
 
         constrain.matrixConstrain(fkCtrl.C, j)
 
-    joint.jointBlend(resultChain=resultChain, ikChain=ikChain, fkChain=fkChain, blender="")
+    armBlendCtrl = control.Control(prefix=prefix, translateTo=armJoints[-1], rotateTo=armJoints[-1],
+                                   scale=rigScale * 2, parent=rigModule.controlsGrp, shape='settings')
+    mc.addAttr(armBlendCtrl.C, shortName='blend', longName='FKIKBlend', defaultValue=0, minValue=0.0, maxValue=1.0, k=1)
+    mc.move(-30, z=True)
+
+    joint.jointBlend(resultChain=armJoints, ikChain=ikChain, fkChain=fkChain, blender=armBlendCtrl.C)
 
