@@ -33,6 +33,7 @@ def build(armJoints,
     # create triple chain setup
     ikChain = joint.jointDuplicate(jointChain=armJoints, jointType="IK", offsetGrp=jointsOffsetGrp)
     fkChain = joint.jointDuplicate(jointChain=armJoints, jointType="FK", offsetGrp=jointsOffsetGrp)
+    measureChain = joint.jointDuplicate(jointChain=armJoints, jointType="Meas", offsetGrp=jointsOffsetGrp)
 
     """
     setup of the IK module

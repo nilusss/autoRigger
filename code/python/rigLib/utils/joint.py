@@ -4,6 +4,8 @@ joint utils @ utils
 
 import maya.cmds as mc
 
+from utils import name
+
 
 def listHierarchy(topJoint, endJoint, withEndJoints=True):
 
@@ -90,3 +92,35 @@ def jointBlend(resultChain, ikChain, fkChain, blender=""):
         mc.connectAttr(qTE + '.outputRotate', j + '.r')
         mc.connectAttr(blendDecomp + '.outputTranslate', j + '.t')
         mc.connectAttr(blendDecomp + '.outputScale', j + '.s')
+
+
+def jointStretchyIK(ikChain, measureChain, ctrl):
+
+    for i, j in enumerate(measureChain):
+        if j == measureChain[-1]:
+            break
+        else:
+            jFirst = j
+            jSecond = measureChain[i+1]
+
+            nnFirst = name.removePrefix(jFirst)
+            nnFirst = name.removeSuffix(nnFirst)
+            nnSecond = name.removePrefix(jSecond)
+            nnSecond = name.removeSuffix(nnSecond)
+
+            dis = mc.createNode("distanceBetween", n=nnFirst + nnSecond + "_Dist")
+
+            mc.connectAttr(jFirst + '.worldMatrix', dis + '.inMatrix1')
+            mc.connectAttr(jSecond + '.worldMatrix', dis + '.inMatrix2')
+            mc.connectAttr(jFirst + '.rotatePivotTranslate', dis + '.point1')
+            mc.connectAttr(jSecond + '.rotatePivotTranslate', dis + '.point2')
+
+
+sel = mc.ls(sl=True, tr=True)
+
+dis = mc.createNode("distanceBetween", n="distance")
+
+mc.connectAttr(sel[0] + '.worldMatrix', dis + '.inMatrix1')
+mc.connectAttr(sel[1] + '.worldMatrix', dis + '.inMatrix2')
+mc.connectAttr(sel[0] + '.rotatePivotTranslate', dis + '.point1')
+mc.connectAttr(sel[1] + '.rotatePivotTranslate', dis + '.point2')
