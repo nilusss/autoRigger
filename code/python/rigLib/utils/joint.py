@@ -4,7 +4,7 @@ joint utils @ utils
 
 import maya.cmds as mc
 
-from utils import name
+from ..utils import name
 
 
 def listHierarchy(topJoint, endJoint, withEndJoints=True):
@@ -94,7 +94,27 @@ def jointBlend(resultChain, ikChain, fkChain, blender=""):
         mc.connectAttr(blendDecomp + '.outputScale', j + '.s')
 
 
-def jointStretchyIK(ikChain, measureChain, ctrl):
+def jointStretchyIK(ikChain, measureChain, ikCtrl):
+
+    nn = name.removeSuffix(ikChain[0])
+    mc.addAttr(ikCtrl, shortName='stretch', longName='Stretchy',
+               dv=1, min=0, max=1, at="float", k=1)
+
+    jDis = 0
+    globalScaleMD = mc.createNode("multiplyDivide", n=nn + '_globalScale')
+    mc.setAttr(globalScaleMD + '.op', 1)
+    scaleMD = mc.createNode("multiplyDivide", n=nn + '_scale')
+    mc.setAttr(scaleMD + '.op', 2)
+    lCondition = mc.createNode("condition", n=nn + '_lengthcondition')
+    mc.setAttr(lCondition + '.op', 5)
+    #onOffCondition = mc.createNode("condition", n=nn + '_onoffcondition')
+    #mc.setAttr(onOffCondition + '.op', 3)
+    #mc.setAttr(onOffCondition + '.st', 1)
+
+    # ---- Create Nodes
+    ctrlDist = mc.createNode("distanceBetween", n=nn + '_CtrlDist')
+    pma = mc.createNode("plusMinusAverage", n=nn + '_PMA')
+    stretchyMD = mc.createNode("multiplyDivide", n=nn + 'MD')
 
     for i, j in enumerate(measureChain):
         if j == measureChain[-1]:
@@ -108,19 +128,30 @@ def jointStretchyIK(ikChain, measureChain, ctrl):
             nnSecond = name.removePrefix(jSecond)
             nnSecond = name.removeSuffix(nnSecond)
 
-            dis = mc.createNode("distanceBetween", n=nnFirst + nnSecond + "_Dist")
+            dis = mc.createNode("distanceBetween", n=nnFirst + "_" + nnSecond + "_Dist")
 
             mc.connectAttr(jFirst + '.worldMatrix', dis + '.inMatrix1')
             mc.connectAttr(jSecond + '.worldMatrix', dis + '.inMatrix2')
             mc.connectAttr(jFirst + '.rotatePivotTranslate', dis + '.point1')
             mc.connectAttr(jSecond + '.rotatePivotTranslate', dis + '.point2')
 
+            mc.connectAttr(dis + '.distance', pma + '.input1D[' + str(i) + ']')
+            jDis += mc.getAttr(dis + '.distance')
 
-sel = mc.ls(sl=True, tr=True)
+    # ---- Connect/Set attribute
+    mc.connectAttr(ikCtrl + '.worldMatrix[0]', ctrlDist + '.inMatrix1')
+    mc.connectAttr(measureChain[0] + '.worldMatrix[0]', ctrlDist + '.inMatrix2')
+    mc.connectAttr(ikCtrl + '.rotatePivotTranslate', ctrlDist + '.point1')
+    mc.connectAttr(measureChain[0] + '.rotatePivotTranslate', ctrlDist + '.point2')
+    mc.connectAttr(ctrlDist + '.distance', stretchyMD + '.input1X')
+    mc.connectAttr(pma + '.output1D', stretchyMD + '.input2X')
+    mc.setAttr(stretchyMD + '.op', 2)
+    mc.setAttr(lCondition + '.secondTerm', 1)
+    mc.setAttr(lCondition + '.colorIfTrueR', 1)
+    mc.connectAttr(stretchyMD + '.outputX', lCondition + '.colorIfFalseR')
+    mc.connectAttr(stretchyMD + '.outputX', lCondition + '.firstTerm')
 
-dis = mc.createNode("distanceBetween", n="distance")
+    jointGrp = ikChain[0:-1]
 
-mc.connectAttr(sel[0] + '.worldMatrix', dis + '.inMatrix1')
-mc.connectAttr(sel[1] + '.worldMatrix', dis + '.inMatrix2')
-mc.connectAttr(sel[0] + '.rotatePivotTranslate', dis + '.point1')
-mc.connectAttr(sel[1] + '.rotatePivotTranslate', dis + '.point2')
+    for j in jointGrp:
+        mc.connectAttr(lCondition + '.outColorR', j + '.sx')

@@ -65,4 +65,4 @@ def build(armJoints,
     mc.move(-30, z=True)
 
     joint.jointBlend(resultChain=armJoints, ikChain=ikChain, fkChain=fkChain, blender=armBlendCtrl.C)
-
+    joint.jointStretchyIK(ikChain, measureChain, armIKCtrl.C)
