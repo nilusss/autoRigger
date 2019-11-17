@@ -102,9 +102,9 @@ def jointStretchyIK(ikChain, ikCtrl, pole_vector, prefix='l_arm', rigModule=None
     # rigModule = module.Module(prefix=prefix, baseObj=baseRig)
 
     mc.addAttr(ikCtrl, shortName='stretchP', longName='Stretch',
-               dv=1, min=0, max=1, at="float", k=1)
+               dv=0, min=0, max=1, at="float", k=1)
     mc.addAttr(ikCtrl, shortName='pinP', longName='PinElbow',
-               dv=1, min=0, max=1, at="float", k=1)
+               dv=0, min=0, max=1, at="float", k=1)
 
     armIK = mc.ikHandle(n=prefix + 'Main_hdl', sol='ikRPsolver', sj=ikChain[0], ee=ikChain[-1])[0]
 
