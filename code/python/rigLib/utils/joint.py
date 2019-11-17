@@ -4,6 +4,9 @@ joint utils @ utils
 
 import maya.cmds as mc
 
+from ..base import module
+from ..base import control
+
 from ..utils import name
 
 
@@ -64,13 +67,13 @@ def jointBlend(resultChain, ikChain, fkChain, blender=""):
         blendDecomp = mc.createNode("decomposeMatrix")
         reverse = mc.createNode("reverse")
 
-        #mc.connectAttr(ikChain[i] + '.worldMatrix', ikMult + '.matrixIn[0]')
+        # mc.connectAttr(ikChain[i] + '.worldMatrix', ikMult + '.matrixIn[0]')
         mc.connectAttr(ikChain[i] + '.worldMatrix', ikMult + '.matrixIn[1]')
-        #mc.disconnectAttr(ikChain[i] + '.worldMatrix', ikMult + '.matrixIn[0]')
+        # mc.disconnectAttr(ikChain[i] + '.worldMatrix', ikMult + '.matrixIn[0]')
 
-        #mc.connectAttr(fkChain[i] + '.worldMatrix', fkMult + '.matrixIn[0]')
+        # mc.connectAttr(fkChain[i] + '.worldMatrix', fkMult + '.matrixIn[0]')
         mc.connectAttr(fkChain[i] + '.worldMatrix', fkMult + '.matrixIn[1]')
-        #mc.disconnectAttr(fkChain[i] + '.worldMatrix', fkMult + '.matrixIn[0]')
+        # mc.disconnectAttr(fkChain[i] + '.worldMatrix', fkMult + '.matrixIn[0]')
 
         mc.connectAttr(ikMult + '.matrixSum', blendMatrix + '.wtMatrix[0].matrixIn')
         mc.connectAttr(fkMult + '.matrixSum', blendMatrix + '.wtMatrix[1].matrixIn')
@@ -94,13 +97,55 @@ def jointBlend(resultChain, ikChain, fkChain, blender=""):
         mc.connectAttr(blendDecomp + '.outputScale', j + '.s')
 
 
-def jointStretchyIK(ikChain, measureChain, ikCtrl):
+def jointStretchyIK(ikChain, ikCtrl, pole_vector, prefix='l_arm', rigModule=None):
 
-    nn = name.removeSuffix(ikChain[0])
-    mc.addAttr(ikCtrl, shortName='stretch', longName='Stretchy',
+    # rigModule = module.Module(prefix=prefix, baseObj=baseRig)
+
+    mc.addAttr(ikCtrl, shortName='stretchP', longName='Stretch',
+               dv=1, min=0, max=1, at="float", k=1)
+    mc.addAttr(ikCtrl, shortName='pinP', longName='PinElbow',
                dv=1, min=0, max=1, at="float", k=1)
 
-    jDis = 0
+    armIK = mc.ikHandle(n=prefix + 'Main_hdl', sol='ikRPsolver', sj=ikChain[0], ee=ikChain[-1])[0]
+
+    # create locators on joints
+    joint_loc_list = []
+    nn_list = []
+    for i, j in enumerate(ikChain):
+        nn = name.removeSuffix(j)
+        nn = nn.replace('IK', '')
+        nn_list.append(nn)
+        loc = mc.spaceLocator(name=nn + '_loc')
+        joint_loc_list.append(loc)
+        mc.delete(mc.parentConstraint(ikChain[i], loc))
+        if i > 0:
+            # create start and end point for measure tool
+            sp = mc.listRelatives(joint_loc_list[i-1], shapes=True)[0]
+            ep = mc.listRelatives(joint_loc_list[i], shapes=True)[0]
+            dist = mc.distanceDimension(sp=(0, 2, 2), ep=(1, 5, 6))
+            mc.connectAttr(sp + '.worldPosition', dist + '.startPoint', f=True)
+            mc.connectAttr(ep + '.worldPosition', dist + '.endPoint', f=True)
+            mc.delete('locator1', 'locator2')
+            mc.rename(mc.listRelatives(dist, shapes=True), nn_list[i-1] + '_to_' + nn_list[i] + '_dist')
+
+    # create measure from upper and end joint to pole vector
+
+    for i in range(2):
+        sp1 = mc.listRelatives(joint_loc_list[0], shapes=True)[0]
+        sp2 = mc.listRelatives(joint_loc_list[-1], shapes=True)[0]
+        ep = mc.listRelatives(pole_vector, shapes=True)[0]
+        dist = mc.distanceDimension(sp=(0, 2, 2), ep=(1, 5, 6))
+        if i == 0:
+            mc.connectAttr(sp1 + '.worldPosition', dist + '.startPoint', f=True).format(i)
+        else:
+            mc.connectAttr(sp2 + '.worldPosition', dist + '.startPoint', f=True).format(i)
+        mc.connectAttr(ep + '.worldPosition', dist + '.endPoint', f=True)
+        mc.delete('locator1', 'locator2')
+        mc.rename(mc.listRelatives(dist, shapes=True), nn_list[i-1] + '_to_pole_vec' + '_dist')
+
+    return armIK
+
+    """jDis = 0
     globalScaleMD = mc.createNode("multiplyDivide", n=nn + '_globalScale')
     mc.setAttr(globalScaleMD + '.op', 1)
     scaleMD = mc.createNode("multiplyDivide", n=nn + '_scale')
@@ -154,4 +199,4 @@ def jointStretchyIK(ikChain, measureChain, ikCtrl):
     jointGrp = ikChain[0:-1]
 
     for j in jointGrp:
-        mc.connectAttr(lCondition + '.outColorR', j + '.sx')
+        mc.connectAttr(lCondition + '.outColorR', j + '.sx')"""
