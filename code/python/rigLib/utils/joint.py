@@ -4,7 +4,7 @@ joint utils @ utils
 
 import maya.cmds as mc
 
-from utils import name
+from ..utils import name
 
 
 def listHierarchy(topJoint, endJoint, withEndJoints=True):
@@ -114,13 +114,3 @@ def jointStretchyIK(ikChain, measureChain, ctrl):
             mc.connectAttr(jSecond + '.worldMatrix', dis + '.inMatrix2')
             mc.connectAttr(jFirst + '.rotatePivotTranslate', dis + '.point1')
             mc.connectAttr(jSecond + '.rotatePivotTranslate', dis + '.point2')
-
-
-sel = mc.ls(sl=True, tr=True)
-
-dis = mc.createNode("distanceBetween", n="distance")
-
-mc.connectAttr(sel[0] + '.worldMatrix', dis + '.inMatrix1')
-mc.connectAttr(sel[1] + '.worldMatrix', dis + '.inMatrix2')
-mc.connectAttr(sel[0] + '.rotatePivotTranslate', dis + '.point1')
-mc.connectAttr(sel[1] + '.rotatePivotTranslate', dis + '.point2')
