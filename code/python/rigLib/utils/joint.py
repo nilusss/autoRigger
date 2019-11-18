@@ -8,6 +8,8 @@ from ..base import module
 from ..base import control
 
 from ..utils import name
+from ..utils import constrain
+from ..utils import pole_vector
 
 
 def listHierarchy(topJoint, endJoint, withEndJoints=True):
@@ -97,13 +99,58 @@ def jointBlend(resultChain, ikChain, fkChain, blender=""):
         mc.connectAttr(blendDecomp + '.outputScale', j + '.s')
 
 
-def jointStretchyIK(ikChain, ikCtrl, pole_vector, prefix='l_arm', rigModule=None):
+def IKSetup(ikChain, resultChain, rigScale=1.0, prefix='l_arm', rigModule=None):
+
+    if (len(resultChain) % 2) == 0:
+        get_mid_joint = int(len(resultChain) / 2) - 1
+    else:
+        get_mid_joint = int(len(resultChain) / 2)
+
+    armIKCtrl = control.Control(prefix=prefix + 'IK', translateTo=ikChain[-1], rotateTo=ikChain[-1],
+                                scale=rigScale * 2, parent=rigModule.controlsGrp, shape='cube')
+
+    armIK = mc.ikHandle(n=prefix + 'Main_hdl', sol='ikRPsolver', sj=ikChain[0], ee=ikChain[-1])[0]
+    mc.parent(armIK, armIKCtrl.C)
+
+    pole_vector_ctrl = control.Control(prefix=prefix + 'PoleVec', scale=rigScale * 2, parent=rigModule.controlsGrp, shape='fancy_sphere')
+    pole_vector_loc = pole_vector.get_pole_vec_pos(ikChain)
+    pole_vector_loc = mc.rename(pole_vector_loc, prefix + 'poleVec_loc')
+    mc.parent(pole_vector_loc, rigModule.partsGrp)
+    mc.delete(mc.parentConstraint(pole_vector_loc, pole_vector_ctrl.Off))
+
+    constrain.matrixConstrain(pole_vector_ctrl.C, pole_vector_loc, mo=True, connMatrix=['t', 'r', 's'])
+
+    # make pole vector connection line
+
+    pole_vec_line_pos1 = mc.xform(resultChain[get_mid_joint], q=1, t=1, ws=1)
+    pole_vec_line_pos2 = mc.xform(pole_vector_loc, q=1, t=1, ws=1)
+    pole_vec_crv = mc.curve(n=prefix + 'PoleVec_crv', d=1, p=[pole_vec_line_pos1, pole_vec_line_pos2])
+    mc.cluster(pole_vec_crv + '.cv[0]', n=prefix + 'PoleVec1_cls', wn=[resultChain[get_mid_joint], resultChain[get_mid_joint]], bs=True)
+    mc.cluster(pole_vec_crv + '.cv[1]', n=prefix + 'PoleVec2_cls', wn=[pole_vector_ctrl.C, pole_vector_ctrl.C], bs=True)
+    mc.parent(pole_vec_crv, rigModule.controlsGrp)
+    mc.setAttr(pole_vec_crv + '.template', 1)
+
+    mc.poleVectorConstraint(pole_vector_loc, armIK)
+
+
+    return armIK
+
+
+def stretchyIKSetup(ikChain, resultChain, rigScale=1.0, prefix='l_arm', rigModule=None):
 
     # rigModule = module.Module(prefix=prefix, baseObj=baseRig)
 
-    mc.addAttr(ikCtrl, shortName='stretchP', longName='Stretch',
+    if (len(resultChain) % 2) == 0:
+        get_mid_joint = int(len(resultChain) / 2) - 1
+    else:
+        get_mid_joint = int(len(resultChain) / 2)
+
+    armIKCtrl = control.Control(prefix=prefix + 'IK', translateTo=ikChain[-1], rotateTo=ikChain[-1],
+                                scale=rigScale * 2, parent=rigModule.controlsGrp, shape='cube')
+
+    mc.addAttr(armIKCtrl.C, shortName='stretchP', longName='Stretch',
                dv=0, min=0, max=1, at="float", k=1)
-    mc.addAttr(ikCtrl, shortName='pinP', longName='PinElbow',
+    mc.addAttr(armIKCtrl.C, shortName='pinP', longName='PinElbow',
                dv=0, min=0, max=1, at="float", k=1)
 
     armIK = mc.ikHandle(n=prefix + 'Main_hdl', sol='ikRPsolver', sj=ikChain[0], ee=ikChain[-1])[0]
