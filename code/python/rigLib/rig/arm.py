@@ -11,6 +11,7 @@ from ..utils import joint
 from ..utils import name
 from ..utils import constrain
 from ..utils import pole_vector
+from ..utils import ik_setup
 
 
 def build(armJoints,
@@ -33,6 +34,7 @@ def build(armJoints,
     mc.delete(mc.parentConstraint(getOffsetJoint, jointsOffsetGrp, mo=0))
 
     # create triple chain setup
+
     ikChain = joint.jointDuplicate(jointChain=armJoints, jointType="IK", offsetGrp=jointsOffsetGrp)
     fkChain = joint.jointDuplicate(jointChain=armJoints, jointType="FK", offsetGrp=jointsOffsetGrp)
     #measureChain = joint.jointDuplicate(jointChain=armJoints, jointType="Meas", offsetGrp=jointsOffsetGrp)
@@ -43,10 +45,13 @@ def build(armJoints,
 
     # make IK chain. Check if it should be stretchy or not
 
-    if stretchModule is True:
+    armIK = ik_setup.Setup(ikChain, resultChain, isStretchy=True, rigScale=1.0, prefix=prefix, rigModule=rigModule)
+    armIK.create_pole_vec()
+
+    """if stretchModule is True:
         armIK = joint.stretchyIKSetup(ikChain, resultChain, rigScale=rigScale, prefix=prefix, rigModule=rigModule)
     else:
-        armIK = joint.IKSetup(ikChain, resultChain, rigScale=rigScale, prefix=prefix, rigModule=rigModule)
+        armIK = joint.IKSetup(ikChain, resultChain, rigScale=rigScale, prefix=prefix, rigModule=rigModule)"""
 
     """
     setup of the FK module

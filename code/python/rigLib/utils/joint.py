@@ -55,6 +55,15 @@ def jointDuplicate(jointChain=[], jointType="FK", offsetGrp=""):
     return jChain
 
 
+def get_mid_joint(joint_chain=[]):
+
+    if (len(joint_chain) % 2) == 0:
+        get_mid_joint = int(len(joint_chain) / 2) - 1
+    else:
+        get_mid_joint = int(len(joint_chain) / 2)
+
+    return get_mid_joint
+
 def jointBlend(resultChain, ikChain, fkChain, blender=""):
 
     for i, j in enumerate(resultChain):
@@ -112,13 +121,13 @@ def IKSetup(ikChain, resultChain, rigScale=1.0, prefix='l_arm', rigModule=None):
     armIK = mc.ikHandle(n=prefix + 'Main_hdl', sol='ikRPsolver', sj=ikChain[0], ee=ikChain[-1])[0]
     mc.parent(armIK, armIKCtrl.C)
 
-    pole_vector_ctrl = control.Control(prefix=prefix + 'PoleVec', scale=rigScale * 2, parent=rigModule.controlsGrp, shape='fancy_sphere')
+    """pole_vector_ctrl = control.Control(prefix=prefix + 'PoleVec', scale=rigScale * 2, parent=rigModule.controlsGrp, shape='fancy_sphere')
     pole_vector_loc = pole_vector.get_pole_vec_pos(ikChain)
     pole_vector_loc = mc.rename(pole_vector_loc, prefix + 'poleVec_loc')
     mc.parent(pole_vector_loc, rigModule.partsGrp)
     mc.delete(mc.parentConstraint(pole_vector_loc, pole_vector_ctrl.Off))
 
-    constrain.matrixConstrain(pole_vector_ctrl.C, pole_vector_loc, mo=True, connMatrix=['t', 'r', 's'])
+    constrain.matrixConstrain(pole_vector_ctrl.C, pole_vector_loc, mo=True, connMatrix=['t', 'r', 's'])"""
 
     # make pole vector connection line
 
