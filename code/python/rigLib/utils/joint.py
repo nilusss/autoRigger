@@ -108,7 +108,7 @@ def jointBlend(resultChain, ikChain, fkChain, blender=""):
         mc.connectAttr(blendDecomp + '.outputScale', j + '.s')
 
 
-def IKSetup(ikChain, resultChain, rigScale=1.0, prefix='l_arm', rigModule=None):
+"""def IKSetup(ikChain, resultChain, rigScale=1.0, prefix='l_arm', rigModule=None):
 
     if (len(resultChain) % 2) == 0:
         get_mid_joint = int(len(resultChain) / 2) - 1
@@ -121,13 +121,13 @@ def IKSetup(ikChain, resultChain, rigScale=1.0, prefix='l_arm', rigModule=None):
     armIK = mc.ikHandle(n=prefix + 'Main_hdl', sol='ikRPsolver', sj=ikChain[0], ee=ikChain[-1])[0]
     mc.parent(armIK, armIKCtrl.C)
 
-    """pole_vector_ctrl = control.Control(prefix=prefix + 'PoleVec', scale=rigScale * 2, parent=rigModule.controlsGrp, shape='fancy_sphere')
+    pole_vector_ctrl = control.Control(prefix=prefix + 'PoleVec', scale=rigScale * 2, parent=rigModule.controlsGrp, shape='fancy_sphere')
     pole_vector_loc = pole_vector.get_pole_vec_pos(ikChain)
     pole_vector_loc = mc.rename(pole_vector_loc, prefix + 'poleVec_loc')
     mc.parent(pole_vector_loc, rigModule.partsGrp)
     mc.delete(mc.parentConstraint(pole_vector_loc, pole_vector_ctrl.Off))
 
-    constrain.matrixConstrain(pole_vector_ctrl.C, pole_vector_loc, mo=True, connMatrix=['t', 'r', 's'])"""
+    constrain.matrixConstrain(pole_vector_ctrl.C, pole_vector_loc, mo=True, connMatrix=['t', 'r', 's'])
 
     # make pole vector connection line
 
@@ -141,8 +141,7 @@ def IKSetup(ikChain, resultChain, rigScale=1.0, prefix='l_arm', rigModule=None):
 
     mc.poleVectorConstraint(pole_vector_loc, armIK)
 
-
-    return armIK
+    return armIK"""
 
 
 def stretchyIKSetup(ikChain, resultChain, rigScale=1.0, prefix='l_arm', rigModule=None):

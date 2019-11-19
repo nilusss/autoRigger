@@ -22,8 +22,6 @@ def build(armJoints,
           stretchModule=True
           ):
 
-    fkChain = []
-    ikChain = []
     resultChain = []
     rigModule = module.Module(prefix=prefix, baseObj=baseRig)
     getOffsetJoint = mc.listRelatives(armJoints[0], parent=True)
@@ -45,8 +43,10 @@ def build(armJoints,
 
     # make IK chain. Check if it should be stretchy or not
 
-    armIK = ik_setup.Setup(ikChain, resultChain, isStretchy=True, rigScale=1.0, prefix=prefix, rigModule=rigModule)
-    armIK.create_pole_vec()
+    arm_ik = ik_setup.Setup(ikChain, resultChain, scapulaJnt=scapulaJnt, isStretchy=True, rigScale=rigScale, prefix=prefix, rigModule=rigModule)
+
+    arm_ik.build()
+    
 
     """if stretchModule is True:
         armIK = joint.stretchyIKSetup(ikChain, resultChain, rigScale=rigScale, prefix=prefix, rigModule=rigModule)
