@@ -12,6 +12,7 @@ from ..utils import name
 from ..utils import constrain
 from ..utils import pole_vector
 from ..utils import conn_line
+from ..utils import tools
 
 
 class Setup():
@@ -31,6 +32,8 @@ class Setup():
         self.rigScale = rigScale
         self.prefix = prefix
         self.rigModule = rigModule
+        self.taxis = "x"
+        self.saxis = "x"
 
     # create controller for IK
 
@@ -70,39 +73,38 @@ class Setup():
 
 
 
-        # create locators
+        # create locators and measure distance
         joint_loc_list = []
         nn_list = []
+        chain_dist_list = []
         for i, j in enumerate(self.ikChain):
-            nn = name.removeSuffix(j)
-            nn = nn.replace('IK', '')
+            nn = name.removeSuffix(j).replace('IK', '')
             nn_list.append(nn)
             loc = mc.spaceLocator(name=nn + '_loc')
             joint_loc_list.append(loc)
             mc.delete(mc.parentConstraint(self.ikChain[i], loc))
             if i > 0:
                 # create start and end point for measure tool
-                sp = mc.listRelatives(joint_loc_list[i-1], shapes=True)[0]
-                ep = mc.listRelatives(joint_loc_list[i], shapes=True)[0]
-                dist = mc.distanceDimension(sp=(0, 2, 2), ep=(1, 5, 6))
-                mc.connectAttr(sp + '.worldPosition', dist + '.startPoint', f=True)
-                mc.connectAttr(ep + '.worldPosition', dist + '.endPoint', f=True)
-                mc.delete('locator1', 'locator2')
-                mc.rename(mc.listRelatives(dist, shapes=True), nn_list[i-1] + '_to_' + nn_list[i] + '_dist')
+                chain_dist_append = tools.measure(start_point=joint_loc_list[i-1], end_point=joint_loc_list[i])
+                chain_dist_list.append(chain_dist_append)
+
 
         look_at_grp = mc.createNode('transform', name=self.prefix + 'LookAt_grp')
         mc.setAttr(look_at_grp + '.inheritsTransform', 1)
 
-        ctrl_loc = mc.spaceLocator(name=self.prefix + 'Ctrl_loc')
-        stretch_blend_loc = mc.spaceLocator(name=self.prefix + 'StretchBlend_loc')
-        upper_aim_loc = mc.spaceLocator(name=self.prefix + 'UpperAim_loc')
-        no_stretch_max_loc = mc.spaceLocator(name=self.prefix + 'NoStretchMax_loc')
+        ctrl_loc = mc.spaceLocator(name=self.prefix + 'Ctrl_loc')[0]
+        stretch_blend_loc = mc.spaceLocator(name=self.prefix + 'StretchBlend_loc')[0]
+        upper_aim_loc = mc.spaceLocator(name=self.prefix + 'UpperAim_loc')[0]
+        no_stretch_max_loc = mc.spaceLocator(name=self.prefix + 'NoStretchMax_loc')[0]
 
         mc.parent(upper_aim_loc, look_at_grp)
         mc.parent(no_stretch_max_loc, upper_aim_loc)
         mc.parent(look_at_grp, self.rigModule.partsGrp)
+        mc.delete(mc.parentConstraint(self.armIKCtrl.C, ctrl_loc))
+        mc.delete(mc.parentConstraint(joint_loc_list[0], stretch_blend_loc))
+        mc.makeIdentity(stretch_blend_loc, a=True, t=True, r=True)
+        mc.delete(mc.parentConstraint(joint_loc_list[-1], stretch_blend_loc))
         mc.parent(ctrl_loc, self.armIKCtrl.C)
-        mc.parent(self.armIK, stretch_blend_loc)
         mc.delete(mc.parentConstraint(joint_loc_list[0], look_at_grp))
         mc.parentConstraint(self.scapulaJnt, look_at_grp, mo=1)
 
@@ -111,22 +113,57 @@ class Setup():
         mc.parentConstraint(self.armIKCtrl.C, stretch_blend_loc, w=0, mo=1)
         mc.parentConstraint(no_stretch_max_loc, stretch_blend_loc, w=0, mo=1)
 
+        control_dist = tools.measure(start_point=joint_loc_list[0], end_point=ctrl_loc)
+        control_dist_shape = mc.listRelatives(control_dist, shapes=True)[0]
+        no_stretch_dist = tools.measure(start_point=joint_loc_list[-1], end_point=stretch_blend_loc)
 
         # create measure from upper and end joint to pole vector
 
-        for i in range(2):
-            sp1 = mc.listRelatives(joint_loc_list[0], shapes=True)[0]
-            sp2 = mc.listRelatives(joint_loc_list[-1], shapes=True)[0]
-            ep = mc.listRelatives(self.pole_vector_loc, shapes=True)[0]
-            dist = mc.distanceDimension(sp=(0, 2, 2), ep=(1, 5, 6))
-            if i == 0:
-                mc.connectAttr(sp1 + '.worldPosition', dist + '.startPoint', f=True).format(i)
-            else:
-                mc.connectAttr(sp2 + '.worldPosition', dist + '.startPoint', f=True).format(i)
-            mc.connectAttr(ep + '.worldPosition', dist + '.endPoint', f=True)
-            mc.delete('locator1', 'locator2')
-            mc.rename(mc.listRelatives(dist, shapes=True), nn_list[i-1] + '_to_pole_vec' + '_dist')
+        #upper_to_pole_dist = tools.measure(start_point=joint_loc_list[0], end_point=self.pole_vector_loc)
+        #end_to_pole_dist = tools.measure(start_point=joint_loc_list[-1], end_point=self.pole_vector_loc)
 
+        chain_length = mc.createNode("plusMinusAverage", name=self.prefix + "ChainLength")
+        for i, d in enumerate(chain_dist_list):
+            get_dist_shape = mc.listRelatives(d, shapes=True)[0]
+            mc.connectAttr(get_dist_shape + ".distance", chain_length + ".input1D[" + str(i) + "]")
+
+        # drive the no stretch max locator by input from a condition node
+        no_stretch_cond = mc.createNode("condition")
+        mc.setAttr(no_stretch_cond + '.operation', 2)
+        mc.connectAttr(control_dist_shape + '.distance', no_stretch_cond + '.colorIfFalseR')
+        mc.connectAttr(control_dist_shape + '.distance', no_stretch_cond + '.firstTerm')
+        mc.connectAttr(chain_length + '.output1D', no_stretch_cond + '.colorIfTrueR')
+        mc.connectAttr(chain_length + '.output1D', no_stretch_cond + '.secondTerm')
+        mc.connectAttr(no_stretch_cond + '.outColorR', no_stretch_max_loc + '.t' + self.taxis)
+
+        # create scaling of joints in stretch attribute is activated
+        div_ctl_chainlen = mc.createNode("multiplyDivide")
+        scale_cond = mc.createNode("condition")
+        blend_scale = mc.createNode("blendColors")
+
+        mc.setAttr(div_ctl_chainlen + '.operation', 2)
+        mc.connectAttr(control_dist_shape + '.distance', div_ctl_chainlen + '.input1X')
+        mc.connectAttr(chain_length + '.output1D', div_ctl_chainlen + '.input2X')
+        mc.setAttr(scale_cond + '.operation', 5)
+        mc.setAttr(scale_cond + '.secondTerm', 1)
+        mc.setAttr(scale_cond + '.colorIfTrueR', 1)
+        mc.connectAttr(div_ctl_chainlen + '.outputX', scale_cond + '.colorIfFalseR')
+        mc.connectAttr(div_ctl_chainlen + '.outputX', scale_cond + '.firstTerm')
+        mc.connectAttr(self.armIKCtrl.C + '.stretchP', blend_scale + '.blender')
+        mc.connectAttr(scale_cond + '.outColorR', blend_scale + '.color1R')
+        mc.connectAttr(scale_cond + '.colorIfTrueR', blend_scale + '.color2R')
+
+        for i, j in enumerate(self.ikChain):
+            if j is not self.ikChain[-1]:
+                blend_two_attr = mc.createNode("blendTwoAttr")
+                mc.connectAttr(blend_scale + '.outputR', blend_two_attr + '.input[0]')
+                #mc.connectAttr(blend_scale + '.outputR', blend_two_attr + '.input[0]')
+                #mc.connectAttr(blend_scale)
+
+                if j is self.ikChain[i]:
+                    mc.connectAttr(blend_two_attr + '.output', j + '.s' + self.saxis)
+
+        mc.parent(self.armIK, stretch_blend_loc)
         return self.armIK
 
     def build(self):
