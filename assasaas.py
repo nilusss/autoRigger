@@ -11,6 +11,7 @@ from rigLib.utils import name
 from rigLib.utils import ik_setup
 from rigLib.utils import conn_line
 from rigLib.utils import pole_vector
+from rigLib.utils import tools
 
 reload(rigLib)
 reload(module)
@@ -22,6 +23,7 @@ reload(name)
 reload(ik_setup)
 reload(conn_line)
 reload(pole_vector)
+reload(tools)
 
 mc.file(new=True, force=True)
 

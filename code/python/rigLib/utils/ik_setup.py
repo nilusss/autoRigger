@@ -90,7 +90,7 @@ class Setup():
 
 
         look_at_grp = mc.createNode('transform', name=self.prefix + 'LookAt_grp')
-        mc.setAttr(look_at_grp + '.inheritsTransform', 1)
+        mc.setAttr(look_at_grp + '.inheritsTransform', 0)
 
         ctrl_loc = mc.spaceLocator(name=self.prefix + 'Ctrl_loc')[0]
         stretch_blend_loc = mc.spaceLocator(name=self.prefix + 'StretchBlend_loc')[0]
