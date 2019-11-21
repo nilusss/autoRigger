@@ -110,17 +110,20 @@ class Setup():
 
         mc.aimConstraint(self.armIKCtrl.C, upper_aim_loc)
 
-        mc.parentConstraint(self.armIKCtrl.C, stretch_blend_loc, w=0, mo=1)
-        mc.parentConstraint(no_stretch_max_loc, stretch_blend_loc, w=0, mo=1)
+        stretch_blend_const = mc.pointConstraint(self.armIKCtrl.C, stretch_blend_loc, w=0, mo=1)
+        mc.pointConstraint(no_stretch_max_loc, stretch_blend_loc, w=0, mo=1)
 
         control_dist = tools.measure(start_point=joint_loc_list[0], end_point=ctrl_loc)
         control_dist_shape = mc.listRelatives(control_dist, shapes=True)[0]
         no_stretch_dist = tools.measure(start_point=joint_loc_list[-1], end_point=stretch_blend_loc)
 
         # create measure from upper and end joint to pole vector
+        pin_dist_list = []
+        upper_to_pole_dist = tools.measure(start_point=joint_loc_list[0], end_point=self.pole_vector_loc)
+        end_to_pole_dist = tools.measure(start_point=stretch_blend_loc, end_point=self.pole_vector_loc)
 
-        #upper_to_pole_dist = tools.measure(start_point=joint_loc_list[0], end_point=self.pole_vector_loc)
-        #end_to_pole_dist = tools.measure(start_point=joint_loc_list[-1], end_point=self.pole_vector_loc)
+        pin_dist_list.append(upper_to_pole_dist)
+        pin_dist_list.append(end_to_pole_dist)
 
         chain_length = mc.createNode("plusMinusAverage", name=self.prefix + "ChainLength")
         for i, d in enumerate(chain_dist_list):
@@ -153,15 +156,75 @@ class Setup():
         mc.connectAttr(scale_cond + '.outColorR', blend_scale + '.color1R')
         mc.connectAttr(scale_cond + '.colorIfTrueR', blend_scale + '.color2R')
 
+        # create scaling from upper and end joints to pole vector to make pin "elbow"
+        """for i, j in enumerate(chain_dist_list):
+            mult = mc.createNode("multiplyDivide")
+            cond = mc.createNode("condition")
+
+            mc.setAttr(mult + '.operation', 2)
+            mc.setAttr(cond + '.operation', 5)
+            mc.setAttr(cond + '.secondTerm', 1)
+            mc.setAttr(cond + '.colorIfTrueR', 1)
+
+            mc.connectAttr(chain_dist_list[i] + '.distance', mult + '.input1X')
+            mc.connectAttr(pin_dist_list[i] + '.distance', mult + '.input2X')
+            mc.connectAttr(mult + '.outputX', cond + '.colorIfFalseR')
+            mc.connectAttr(mult + '.outputX', cond + '.firstTerm')"""
+
+
         for i, j in enumerate(self.ikChain):
             if j is not self.ikChain[-1]:
                 blend_two_attr = mc.createNode("blendTwoAttr")
                 mc.connectAttr(blend_scale + '.outputR', blend_two_attr + '.input[0]')
+                
+                mult = mc.createNode("multiplyDivide")
+                cond = mc.createNode("condition")
+
+                mc.setAttr(mult + '.operation', 2)
+                mc.setAttr(cond + '.operation', 5)
+                mc.setAttr(cond + '.secondTerm', 1)
+                mc.setAttr(cond + '.colorIfTrueR', 1)
+
+                mc.connectAttr(chain_dist_list[i] + '.distance', mult + '.input2X')
+                mc.connectAttr(pin_dist_list[i] + '.distance', mult + '.input1X')
+                mc.connectAttr(mult + '.outputX', cond + '.colorIfFalseR')
+                mc.connectAttr(mult + '.outputX', cond + '.firstTerm')
+                mc.connectAttr(cond + '.outColorR', blend_two_attr + '.input[1]')
+                mc.connectAttr(self.armIKCtrl.C + '.pinP', blend_two_attr + '.attributesBlender')
+
                 #mc.connectAttr(blend_scale + '.outputR', blend_two_attr + '.input[0]')
                 #mc.connectAttr(blend_scale)
 
                 if j is self.ikChain[i]:
                     mc.connectAttr(blend_two_attr + '.output', j + '.s' + self.saxis)
+
+        ctrl_blend_pma = mc.createNode("plusMinusAverage")
+        ctrl_cond = mc.createNode("condition")
+        ctrl_clamp = mc.createNode("clamp")
+        ctrl_blendcolors = mc.createNode("blendColors")
+        ctrl_reverse = mc.createNode("reverse")
+
+        mc.setAttr(ctrl_cond + '.op', 3)
+        mc.setAttr(ctrl_cond + '.secondTerm', 1)
+        mc.setAttr(ctrl_cond + '.colorIfTrueR', 1)
+        mc.setAttr(ctrl_cond + '.colorIfFalseR', 0)
+        mc.setAttr(ctrl_clamp + '.maxR', 1)
+
+        mc.connectAttr(self.armIKCtrl.C + '.pinP', ctrl_blend_pma + '.input1D[0]')
+        mc.connectAttr(self.armIKCtrl.C + '.stretchP', ctrl_blend_pma + '.input1D[1]')
+        mc.connectAttr(ctrl_blend_pma + '.output1D', ctrl_cond + '.firstTerm')
+
+        mc.connectAttr(ctrl_cond + '.firstTerm', ctrl_clamp + '.inputR')
+        mc.connectAttr(ctrl_cond + '.colorIfFalseR', ctrl_blendcolors + '.color2R')
+        mc.connectAttr(ctrl_cond + '.colorIfTrueR', ctrl_blendcolors + '.color1R')
+        mc.connectAttr(ctrl_clamp + '.outputR', ctrl_blendcolors + '.blender')
+        mc.connectAttr(ctrl_blendcolors + '.outputR', ctrl_reverse + '.inputX')
+
+        # get connections that control the point constraint
+        sb_const_list = mc.pointConstraint(stretch_blend_const, q=True, wal=True, tl=True)
+
+        mc.connectAttr(ctrl_blendcolors + '.outputR', stretch_blend_const[0] + '.' + sb_const_list[0] + 'W' + str(0))
+        mc.connectAttr(ctrl_reverse + '.outputX', stretch_blend_const[0] + '.' + sb_const_list[1] + 'W' + str(1))
 
         mc.parent(self.armIK, stretch_blend_loc)
         return self.armIK
