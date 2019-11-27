@@ -8,11 +8,20 @@ from ..base import module
 from ..base import control
 
 from ..utils import name
-from ..utils import constrain
+from ..utils import nc_constrain
 from ..utils import pole_vector
 
 
 def measure(start_point, end_point):
+
+    """
+    Create measure distance between to objects
+
+    @param start_point: str or list(str), where the measure tool should start from
+    @param end_point: str or list(str), where the measure tool should end
+    @return: str, newly created locator
+    """
+
     if type(start_point) is list:
         start_point = start_point[0]
 

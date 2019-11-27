@@ -6,19 +6,32 @@ import maya.cmds as mc
 import maya.OpenMaya as om
 
 from ..utils import name
+from ..utils import joint
 
 
 def create_loc(pos):
+
+    """
+    Create a locator a the given position
+
+    @param pos: list(float), list containing a XYZ position
+    @return: none
+    """
+
     loc = mc.spaceLocator()
     mc.move(pos.x, pos.y, pos.z, loc)
 
 
 def get_pole_vec_pos(joint_list):
 
-    if (len(joint_list) % 2) == 0:
-        get_mid_joint = int(len(joint_list) / 2) - 1
-    else:
-        get_mid_joint = int(len(joint_list) / 2)
+    """
+    Create a locator from the joint list
+
+    @param joint_list: list(str), joint list to get the pole vector position from
+    @return: str, newly created locator
+    """
+
+    get_mid_joint = joint.get_mid_joint(joint_list)
 
     upper_pos = mc.xform(joint_list[0], q=True, ws=True, t=True)
     mid_pos = mc.xform(joint_list[get_mid_joint], q=True, ws=True, t=True)

@@ -5,11 +5,11 @@ import rigLib.base
 from rigLib.base import module
 from rigLib.base import control
 from rigLib.rig import arm
-from rigLib.utils import constrain
+from rigLib.utils import nc_constrain
 from rigLib.utils import joint
 from rigLib.utils import name
 from rigLib.utils import ik_setup
-from rigLib.utils import conn_line
+from rigLib.utils import nc_conn_line
 from rigLib.utils import pole_vector
 from rigLib.utils import tools
 
@@ -21,7 +21,7 @@ reload(constrain)
 reload(joint)
 reload(name)
 reload(ik_setup)
-reload(conn_line)
+reload(nc_conn_line)
 reload(pole_vector)
 reload(tools)
 

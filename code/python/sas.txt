@@ -5,7 +5,7 @@ import rigLib.base
 from rigLib.base import module
 from rigLib.base import control
 from rigLib.rig import arm
-from rigLib.utils import constrain
+from rigLib.utils import nc_constrain
 
 reload(rigLib)
 reload(module)
@@ -44,9 +44,9 @@ armRig = arm.build(armJoints=rArmJoints, scapulaJnt='r_clavicleResult_jnt', pref
 
 
 
-constrain.matrixConstrain("l_armUpperFK_ctrl", "l_armUpperFK_jnt")
-constrain.matrixConstrain("l_armLowerFK_ctrl", "l_armLowerFK_jnt")
-constrain.matrixConstrain("l_armEndFK_ctrl", "l_armEndFK_jnt")
+nc_constrain.matrixConstraint("l_armUpperFK_ctrl", "l_armUpperFK_jnt")
+nc_constrain.matrixConstraint("l_armLowerFK_ctrl", "l_armLowerFK_jnt")
+nc_constrain.matrixConstraint("l_armEndFK_ctrl", "l_armEndFK_jnt")
 
 mc.getAttr("l_armUpperFK_jnt_multMatrix.matrixIn[0]")
 mc.getAttr("l_armUpperFK_jntlocalOffset_multMatrix.matrixSum")

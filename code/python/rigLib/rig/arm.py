@@ -9,18 +9,30 @@ from ..base import control
 
 from ..utils import joint
 from ..utils import name
-from ..utils import constrain
+from ..utils import nc_constrain
 from ..utils import pole_vector
 from ..utils import ik_setup
 
 
 def build(armJoints,
           scapulaJnt='',
+          stretchModule=True,
           prefix='l_arm',
           rigScale=1.0,
           baseRig=None,
-          stretchModule=True
           ):
+
+    """
+    Setup for creating the arm, with a triple chain setup: IK - FK - Result
+
+    @param armJoints: list(str), normally a three joints chain: Upper - Lower - End
+    @param scapulaJnt: str, scapula joints, parent of top arm joint
+    @param stretchModule: boolean, wether to install the stretch module or not
+    @param prefix: str, prefix to name new objects
+    @param rigScale: float, scale factor for size of controls
+    @param baseRig: instance of base.module.Base class
+    @return: none
+    """
 
     resultChain = []
     rigModule = module.Module(prefix=prefix, baseObj=baseRig)
@@ -35,27 +47,16 @@ def build(armJoints,
 
     ikChain = joint.jointDuplicate(jointChain=armJoints, jointType="IK", offsetGrp=jointsOffsetGrp)
     fkChain = joint.jointDuplicate(jointChain=armJoints, jointType="FK", offsetGrp=jointsOffsetGrp)
-    #measureChain = joint.jointDuplicate(jointChain=armJoints, jointType="Meas", offsetGrp=jointsOffsetGrp)
+    mc.select(d=True)
 
-    """
-    setup of the IK module
-    """
+    # setup of the IK module
 
-    # make IK chain. Check if it should be stretchy or not
-
-    arm_ik = ik_setup.Setup(ikChain, resultChain, scapulaJnt=scapulaJnt, isStretchy=True, rigScale=rigScale, prefix=prefix, rigModule=rigModule)
+    arm_ik = ik_setup.Setup(ikChain, resultChain, offsetJnt=scapulaJnt, isStretchy=stretchModule, prefix=prefix, rigScale=rigScale, rigModule=rigModule)
 
     arm_ik.build()
-    
 
-    """if stretchModule is True:
-        armIK = joint.stretchyIKSetup(ikChain, resultChain, rigScale=rigScale, prefix=prefix, rigModule=rigModule)
-    else:
-        armIK = joint.IKSetup(ikChain, resultChain, rigScale=rigScale, prefix=prefix, rigModule=rigModule)"""
+    # setup of the FK module
 
-    """
-    setup of the FK module
-    """
     fkCtrlChain = []
     for i, j in enumerate(fkChain):
         fkCtrlNN = j.replace('FK_jnt', "FK")
@@ -66,7 +67,7 @@ def build(armJoints,
         if i > 0:
             mc.parent(fkCtrl.Off, fkCtrlChain[prevFKCtrl])
 
-        constrain.matrixConstrain(fkCtrl.C, j)
+        nc_constrain.matrixConstraint(fkCtrl.C, j)
 
     armBlendCtrl = control.Control(prefix=prefix, translateTo=armJoints[-1], rotateTo=armJoints[-1],
                                    scale=rigScale * 2, parent=rigModule.controlsGrp, shape='settings')

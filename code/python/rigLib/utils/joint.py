@@ -1,5 +1,7 @@
 """
 joint utils @ utils
+
+Utilities to work with names and strings
 """
 
 import maya.cmds as mc
@@ -8,14 +10,18 @@ from ..base import module
 from ..base import control
 
 from ..utils import name
-from ..utils import constrain
 from ..utils import pole_vector
 
 
 def listHierarchy(topJoint, endJoint, withEndJoints=True):
 
     """
-    list joint hierarchy starting with top joint
+    List joint hierarchy starting with top joint
+
+    @param topJoint: str, first joint to get the hierarchy from
+    @param endJoint: str, lest joint to stop the hierarchy at
+    @param withEndJoints: boolean, wether the list should include the endJoint
+    @return: list(str), list constaining the complete joint list
     """
 
     completeJoints = []
@@ -39,23 +45,53 @@ def listHierarchy(topJoint, endJoint, withEndJoints=True):
     return completeJoints
 
 
-def jointDuplicate(jointChain=[], jointType="FK", offsetGrp=""):
+def jointDuplicate(jointChain=[], jointType="FK", offsetGrp="", skip=0):
+
+    """
+    Duplicate the given joint hierarchy
+
+    @param jointChain: list(str), the joint chain that should be duplicated
+    @param jointType: str, what type the new joint chain is e.g.: FK - IK. Will be used as a part of the suffix
+    @param offsetGrp: str, offset group for the joints so they are placed correctly
+    @param skip: int, will skip every nth time of inputted number
+    @return: list(str), list constaining the duplicated joint chain
+    """
 
     jChain = []
 
-    for i, j in enumerate(jointChain):
-        nn = j.replace('Result_jnt', jointType + '_jnt')
-        jAppend = mc.duplicate(j, parentOnly=True, n=nn)
-        mc.parent(jAppend[0], offsetGrp)
-        jChain.extend(jAppend)
-        prevJnt = i-1
-        if i > 0:
-            mc.parent(jAppend, jChain[prevJnt])
+    if skip > 0:
+        for i in xrange(0, len(jointChain), skip):
+            j = jointChain[i]
+            nn = j.replace('Result_jnt', jointType + '_jnt')
+            jAppend = mc.duplicate(j, parentOnly=True, n=nn)
+            mc.parent(jAppend[0], offsetGrp)
+            jChain.extend(jAppend)
+        for i in range(len(jChain)):
+            prevJnt = i-1
+            if i > 0:
+                mc.parent(jChain[i], jChain[prevJnt])
+
+    else:
+        for i, j in enumerate(jointChain):
+            nn = j.replace('Result_jnt', jointType + '_jnt')
+            jAppend = mc.duplicate(j, parentOnly=True, n=nn)
+            mc.parent(jAppend[0], offsetGrp)
+            jChain.extend(jAppend)
+            prevJnt = i-1
+            if i > 0:
+                mc.parent(jAppend, jChain[prevJnt])
 
     return jChain
 
 
 def get_mid_joint(joint_chain=[]):
+
+    """
+    Get the middle joint in a joint chain
+
+    @param joint_chain: list(str), the joint chain to get the middle joint from
+    @return: int, the number in the joint chain list
+    """
 
     if (len(joint_chain) % 2) == 0:
         get_mid_joint = int(len(joint_chain) / 2) - 1
@@ -64,7 +100,18 @@ def get_mid_joint(joint_chain=[]):
 
     return get_mid_joint
 
+
 def jointBlend(resultChain, ikChain, fkChain, blender=""):
+
+    """
+    Blends the result chain between two joint chains
+
+    @param resultChain: list(str), the joints chain the should blend between the two given chains
+    @param ikChain: list(str), the IK chain that is used for blending
+    @param fkChain: list(str), the FK chain that is used for blending
+    @param blender: str, the controller that is used for blending
+    @return: int, the number in the joint chain list
+    """
 
     for i, j in enumerate(resultChain):
         qP = mc.createNode("quatProd")
@@ -105,153 +152,4 @@ def jointBlend(resultChain, ikChain, fkChain, blender=""):
 
         mc.connectAttr(qTE + '.outputRotate', j + '.r')
         mc.connectAttr(blendDecomp + '.outputTranslate', j + '.t')
-        mc.connectAttr(blendDecomp + '.outputScale', j + '.s')
-
-
-"""def IKSetup(ikChain, resultChain, rigScale=1.0, prefix='l_arm', rigModule=None):
-
-    if (len(resultChain) % 2) == 0:
-        get_mid_joint = int(len(resultChain) / 2) - 1
-    else:
-        get_mid_joint = int(len(resultChain) / 2)
-
-    armIKCtrl = control.Control(prefix=prefix + 'IK', translateTo=ikChain[-1], rotateTo=ikChain[-1],
-                                scale=rigScale * 2, parent=rigModule.controlsGrp, shape='cube')
-
-    armIK = mc.ikHandle(n=prefix + 'Main_hdl', sol='ikRPsolver', sj=ikChain[0], ee=ikChain[-1])[0]
-    mc.parent(armIK, armIKCtrl.C)
-
-    pole_vector_ctrl = control.Control(prefix=prefix + 'PoleVec', scale=rigScale * 2, parent=rigModule.controlsGrp, shape='fancy_sphere')
-    pole_vector_loc = pole_vector.get_pole_vec_pos(ikChain)
-    pole_vector_loc = mc.rename(pole_vector_loc, prefix + 'poleVec_loc')
-    mc.parent(pole_vector_loc, rigModule.partsGrp)
-    mc.delete(mc.parentConstraint(pole_vector_loc, pole_vector_ctrl.Off))
-
-    constrain.matrixConstrain(pole_vector_ctrl.C, pole_vector_loc, mo=True, connMatrix=['t', 'r', 's'])
-
-    # make pole vector connection line
-
-    pole_vec_line_pos1 = mc.xform(resultChain[get_mid_joint], q=1, t=1, ws=1)
-    pole_vec_line_pos2 = mc.xform(pole_vector_loc, q=1, t=1, ws=1)
-    pole_vec_crv = mc.curve(n=prefix + 'PoleVec_crv', d=1, p=[pole_vec_line_pos1, pole_vec_line_pos2])
-    mc.cluster(pole_vec_crv + '.cv[0]', n=prefix + 'PoleVec1_cls', wn=[resultChain[get_mid_joint], resultChain[get_mid_joint]], bs=True)
-    mc.cluster(pole_vec_crv + '.cv[1]', n=prefix + 'PoleVec2_cls', wn=[pole_vector_ctrl.C, pole_vector_ctrl.C], bs=True)
-    mc.parent(pole_vec_crv, rigModule.controlsGrp)
-    mc.setAttr(pole_vec_crv + '.template', 1)
-
-    mc.poleVectorConstraint(pole_vector_loc, armIK)
-
-    return armIK"""
-
-
-def stretchyIKSetup(ikChain, resultChain, rigScale=1.0, prefix='l_arm', rigModule=None):
-
-    # rigModule = module.Module(prefix=prefix, baseObj=baseRig)
-
-    if (len(resultChain) % 2) == 0:
-        get_mid_joint = int(len(resultChain) / 2) - 1
-    else:
-        get_mid_joint = int(len(resultChain) / 2)
-
-    armIKCtrl = control.Control(prefix=prefix + 'IK', translateTo=ikChain[-1], rotateTo=ikChain[-1],
-                                scale=rigScale * 2, parent=rigModule.controlsGrp, shape='cube')
-
-    mc.addAttr(armIKCtrl.C, shortName='stretchP', longName='Stretch',
-               dv=0, min=0, max=1, at="float", k=1)
-    mc.addAttr(armIKCtrl.C, shortName='pinP', longName='PinElbow',
-               dv=0, min=0, max=1, at="float", k=1)
-
-    armIK = mc.ikHandle(n=prefix + 'Main_hdl', sol='ikRPsolver', sj=ikChain[0], ee=ikChain[-1])[0]
-
-    # create locators on joints
-    joint_loc_list = []
-    nn_list = []
-    for i, j in enumerate(ikChain):
-        nn = name.removeSuffix(j)
-        nn = nn.replace('IK', '')
-        nn_list.append(nn)
-        loc = mc.spaceLocator(name=nn + '_loc')
-        joint_loc_list.append(loc)
-        mc.delete(mc.parentConstraint(ikChain[i], loc))
-        if i > 0:
-            # create start and end point for measure tool
-            sp = mc.listRelatives(joint_loc_list[i-1], shapes=True)[0]
-            ep = mc.listRelatives(joint_loc_list[i], shapes=True)[0]
-            dist = mc.distanceDimension(sp=(0, 2, 2), ep=(1, 5, 6))
-            mc.connectAttr(sp + '.worldPosition', dist + '.startPoint', f=True)
-            mc.connectAttr(ep + '.worldPosition', dist + '.endPoint', f=True)
-            mc.delete('locator1', 'locator2')
-            mc.rename(mc.listRelatives(dist, shapes=True), nn_list[i-1] + '_to_' + nn_list[i] + '_dist')
-
-    # create measure from upper and end joint to pole vector
-
-    for i in range(2):
-        sp1 = mc.listRelatives(joint_loc_list[0], shapes=True)[0]
-        sp2 = mc.listRelatives(joint_loc_list[-1], shapes=True)[0]
-        ep = mc.listRelatives(pole_vector, shapes=True)[0]
-        dist = mc.distanceDimension(sp=(0, 2, 2), ep=(1, 5, 6))
-        if i == 0:
-            mc.connectAttr(sp1 + '.worldPosition', dist + '.startPoint', f=True).format(i)
-        else:
-            mc.connectAttr(sp2 + '.worldPosition', dist + '.startPoint', f=True).format(i)
-        mc.connectAttr(ep + '.worldPosition', dist + '.endPoint', f=True)
-        mc.delete('locator1', 'locator2')
-        mc.rename(mc.listRelatives(dist, shapes=True), nn_list[i-1] + '_to_pole_vec' + '_dist')
-
-    return armIK
-
-    """jDis = 0
-    globalScaleMD = mc.createNode("multiplyDivide", n=nn + '_globalScale')
-    mc.setAttr(globalScaleMD + '.op', 1)
-    scaleMD = mc.createNode("multiplyDivide", n=nn + '_scale')
-    mc.setAttr(scaleMD + '.op', 2)
-    lCondition = mc.createNode("condition", n=nn + '_lengthcondition')
-    mc.setAttr(lCondition + '.op', 5)
-    #onOffCondition = mc.createNode("condition", n=nn + '_onoffcondition')
-    #mc.setAttr(onOffCondition + '.op', 3)
-    #mc.setAttr(onOffCondition + '.st', 1)
-
-    # ---- Create Nodes
-    ctrlDist = mc.createNode("distanceBetween", n=nn + '_CtrlDist')
-    pma = mc.createNode("plusMinusAverage", n=nn + '_PMA')
-    stretchyMD = mc.createNode("multiplyDivide", n=nn + 'MD')
-
-    for i, j in enumerate(measureChain):
-        if j == measureChain[-1]:
-            break
-        else:
-            jFirst = j
-            jSecond = measureChain[i+1]
-
-            nnFirst = name.removePrefix(jFirst)
-            nnFirst = name.removeSuffix(nnFirst)
-            nnSecond = name.removePrefix(jSecond)
-            nnSecond = name.removeSuffix(nnSecond)
-
-            dis = mc.createNode("distanceBetween", n=nnFirst + "_" + nnSecond + "_Dist")
-
-            mc.connectAttr(jFirst + '.worldMatrix', dis + '.inMatrix1')
-            mc.connectAttr(jSecond + '.worldMatrix', dis + '.inMatrix2')
-            mc.connectAttr(jFirst + '.rotatePivotTranslate', dis + '.point1')
-            mc.connectAttr(jSecond + '.rotatePivotTranslate', dis + '.point2')
-
-            mc.connectAttr(dis + '.distance', pma + '.input1D[' + str(i) + ']')
-            jDis += mc.getAttr(dis + '.distance')
-
-    # ---- Connect/Set attribute
-    mc.connectAttr(ikCtrl + '.worldMatrix[0]', ctrlDist + '.inMatrix1')
-    mc.connectAttr(measureChain[0] + '.worldMatrix[0]', ctrlDist + '.inMatrix2')
-    mc.connectAttr(ikCtrl + '.rotatePivotTranslate', ctrlDist + '.point1')
-    mc.connectAttr(measureChain[0] + '.rotatePivotTranslate', ctrlDist + '.point2')
-    mc.connectAttr(ctrlDist + '.distance', stretchyMD + '.input1X')
-    mc.connectAttr(pma + '.output1D', stretchyMD + '.input2X')
-    mc.setAttr(stretchyMD + '.op', 2)
-    mc.setAttr(lCondition + '.secondTerm', 1)
-    mc.setAttr(lCondition + '.colorIfTrueR', 1)
-    mc.connectAttr(stretchyMD + '.outputX', lCondition + '.colorIfFalseR')
-    mc.connectAttr(stretchyMD + '.outputX', lCondition + '.firstTerm')
-
-    jointGrp = ikChain[0:-1]
-
-    for j in jointGrp:
-        mc.connectAttr(lCondition + '.outColorR', j + '.sx')"""
+        #mc.connectAttr(blendDecomp + '.outputScale', j + '.s')

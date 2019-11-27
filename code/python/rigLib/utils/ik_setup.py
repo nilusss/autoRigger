@@ -9,69 +9,86 @@ from ..base import control
 
 from ..utils import joint
 from ..utils import name
-from ..utils import constrain
+from ..utils import nc_constrain
 from ..utils import pole_vector
-from ..utils import conn_line
+from ..utils import nc_conn_line
 from ..utils import tools
 
 
 class Setup():
+
+    """
+    Class for building IK
+    """
+
     def __init__(self,
                  ikChain=[],
                  resultChain=[],
-                 scapulaJnt='',
+                 offsetJnt='',
                  isStretchy=True,
+                 scaleAxis='x',
+                 prefix='l_arm',
                  rigScale=1.0,
-                 prefix='l_aaarm',
                  rigModule=None):
+
+        """
+        @param ikChain: list(str), list of joints used for IK
+        @param reusltChain: list(str), list of joints used for binding
+        @param offsetJnt: str, can be a joint like the scapula for arms or hip
+        @param isStretchy: boolean, decides if the IK setup should be stretchy or not
+        @param scaleAxis: str, what axis the joints should scale from
+        @param prefix: str, prefix to name new objects
+        @param rigScale: float, scale factor for size of controls
+        @param rigModule: instance of base.module.Module class
+        """
 
         self.ikChain = ikChain
         self.resultChain = resultChain
-        self.scapulaJnt = scapulaJnt
+        self.offsetJnt = offsetJnt
         self.isStretchy = isStretchy
         self.rigScale = rigScale
         self.prefix = prefix
         self.rigModule = rigModule
-        self.taxis = "x"
-        self.saxis = "x"
+        self.taxis = scaleAxis
+        self.saxis = scaleAxis
 
     # create controller for IK
 
     def create_ik_ctrl(self):
-        self.armIKCtrl = control.Control(prefix=self.prefix + 'IK', translateTo=self.ikChain[-1], rotateTo=self.ikChain[-1],
+        self.ik_ctrl = control.Control(prefix=self.prefix + 'IK', translateTo=self.ikChain[-1], rotateTo=self.ikChain[-1],
                                          scale=self.rigScale * 2, parent=self.rigModule.controlsGrp, shape='cube')
+
+        return self.ik_ctrl
 
     def create_pole_vec(self):
         self.pole_vector_ctrl = control.Control(prefix=self.prefix + 'PoleVec', scale=self.rigScale * 2,
-                                                parent=self.rigModule.controlsGrp, shape='fancy_sphere')
-        self.pole_vector_loc = pole_vector.get_pole_vec_pos(self.ikChain)
+                                                parent=self.rigModule.controlsGrp, shape='fancy_sphere', lockChannels=['r', 's', 'v'])
+        self.pole_vector_loc = nc_pole_vector.get_pole_vec_pos(self.ikChain)
         self.pole_vector_loc = mc.rename(self.pole_vector_loc, self.prefix + 'poleVec_loc')
         mc.parent(self.pole_vector_loc, self.rigModule.partsGrp)
         mc.delete(mc.parentConstraint(self.pole_vector_loc, self.pole_vector_ctrl.Off))
 
-        constrain.matrixConstrain(self.pole_vector_ctrl.C, self.pole_vector_loc, mo=True, connMatrix=['t', 'r', 's'])
+        nc_constrain.matrixConstraint(self.pole_vector_ctrl.C, self.pole_vector_loc, mo=True)
 
         return self.pole_vector_loc
 
     # create IK handle and parent it under IK controller
 
     def create_ik(self):
-        self.armIK = mc.ikHandle(n=self.prefix + 'Main_hdl', sol='ikRPsolver', sj=self.ikChain[0], ee=self.ikChain[-1])[0]
-        mc.parent(self.armIK, self.armIKCtrl.C)
+        self.ik_hdl = mc.ikHandle(n=self.prefix + 'Main_hdl', sol='ikRPsolver', sj=self.ikChain[0], ee=self.ikChain[-1])[0]
+        mc.parent(self.ik_hdl, self.ik_ctrl.C)
 
-        return self.armIK
+        return self.ik_hdl
 
     # create stretchy ik setup
 
     def create_stretchy_ik(self):
         self.create_ik()
 
-        mc.addAttr(self.armIKCtrl.C, shortName='stretchP', longName='Stretch',
+        mc.addAttr(self.ik_ctrl.C, shortName='stretchP', longName='Stretch',
                    dv=0, min=0, max=1, at="float", k=1)
-        mc.addAttr(self.armIKCtrl.C, shortName='pinP', longName='PinElbow',
+        mc.addAttr(self.ik_ctrl.C, shortName='pinP', longName='PinElbow',
                    dv=0, min=0, max=1, at="float", k=1)
-
-
 
         # create locators and measure distance
         joint_loc_list = []
@@ -88,7 +105,6 @@ class Setup():
                 chain_dist_append = tools.measure(start_point=joint_loc_list[i-1], end_point=joint_loc_list[i])
                 chain_dist_list.append(chain_dist_append)
 
-
         look_at_grp = mc.createNode('transform', name=self.prefix + 'LookAt_grp')
         mc.setAttr(look_at_grp + '.inheritsTransform', 0)
 
@@ -100,17 +116,17 @@ class Setup():
         mc.parent(upper_aim_loc, look_at_grp)
         mc.parent(no_stretch_max_loc, upper_aim_loc)
         mc.parent(look_at_grp, self.rigModule.partsGrp)
-        mc.delete(mc.parentConstraint(self.armIKCtrl.C, ctrl_loc))
+        mc.delete(mc.parentConstraint(self.ik_ctrl.C, ctrl_loc))
         mc.delete(mc.parentConstraint(joint_loc_list[0], stretch_blend_loc))
         mc.makeIdentity(stretch_blend_loc, a=True, t=True, r=True)
         mc.delete(mc.parentConstraint(joint_loc_list[-1], stretch_blend_loc))
-        mc.parent(ctrl_loc, self.armIKCtrl.C)
+        mc.parent(ctrl_loc, self.ik_ctrl.C)
         mc.delete(mc.parentConstraint(joint_loc_list[0], look_at_grp))
-        mc.parentConstraint(self.scapulaJnt, look_at_grp, mo=1)
+        mc.parentConstraint(self.offsetJnt, look_at_grp, mo=1)
 
-        mc.aimConstraint(self.armIKCtrl.C, upper_aim_loc)
+        mc.aimConstraint(self.ik_ctrl.C, upper_aim_loc)
 
-        stretch_blend_const = mc.pointConstraint(self.armIKCtrl.C, stretch_blend_loc, w=0, mo=1)
+        stretch_blend_const = mc.pointConstraint(self.ik_ctrl.C, stretch_blend_loc, w=0, mo=1)
         mc.pointConstraint(no_stretch_max_loc, stretch_blend_loc, w=0, mo=1)
 
         control_dist = tools.measure(start_point=joint_loc_list[0], end_point=ctrl_loc)
@@ -152,7 +168,7 @@ class Setup():
         mc.setAttr(scale_cond + '.colorIfTrueR', 1)
         mc.connectAttr(div_ctl_chainlen + '.outputX', scale_cond + '.colorIfFalseR')
         mc.connectAttr(div_ctl_chainlen + '.outputX', scale_cond + '.firstTerm')
-        mc.connectAttr(self.armIKCtrl.C + '.stretchP', blend_scale + '.blender')
+        mc.connectAttr(self.ik_ctrl.C + '.stretchP', blend_scale + '.blender')
         mc.connectAttr(scale_cond + '.outColorR', blend_scale + '.color1R')
         mc.connectAttr(scale_cond + '.colorIfTrueR', blend_scale + '.color2R')
 
@@ -190,7 +206,7 @@ class Setup():
                 mc.connectAttr(mult + '.outputX', cond + '.colorIfFalseR')
                 mc.connectAttr(mult + '.outputX', cond + '.firstTerm')
                 mc.connectAttr(cond + '.outColorR', blend_two_attr + '.input[1]')
-                mc.connectAttr(self.armIKCtrl.C + '.pinP', blend_two_attr + '.attributesBlender')
+                mc.connectAttr(self.ik_ctrl.C + '.pinP', blend_two_attr + '.attributesBlender')
 
                 #mc.connectAttr(blend_scale + '.outputR', blend_two_attr + '.input[0]')
                 #mc.connectAttr(blend_scale)
@@ -210,8 +226,8 @@ class Setup():
         mc.setAttr(ctrl_cond + '.colorIfFalseR', 0)
         mc.setAttr(ctrl_clamp + '.maxR', 1)
 
-        mc.connectAttr(self.armIKCtrl.C + '.pinP', ctrl_blend_pma + '.input1D[0]')
-        mc.connectAttr(self.armIKCtrl.C + '.stretchP', ctrl_blend_pma + '.input1D[1]')
+        mc.connectAttr(self.ik_ctrl.C + '.pinP', ctrl_blend_pma + '.input1D[0]')
+        mc.connectAttr(self.ik_ctrl.C + '.stretchP', ctrl_blend_pma + '.input1D[1]')
         mc.connectAttr(ctrl_blend_pma + '.output1D', ctrl_cond + '.firstTerm')
 
         mc.connectAttr(ctrl_cond + '.firstTerm', ctrl_clamp + '.inputR')
@@ -220,17 +236,33 @@ class Setup():
         mc.connectAttr(ctrl_clamp + '.outputR', ctrl_blendcolors + '.blender')
         mc.connectAttr(ctrl_blendcolors + '.outputR', ctrl_reverse + '.inputX')
 
-        # get connections that control the point constraint
+        # get connections that control the point nc_constraint
         sb_const_list = mc.pointConstraint(stretch_blend_const, q=True, wal=True, tl=True)
 
         mc.connectAttr(ctrl_blendcolors + '.outputR', stretch_blend_const[0] + '.' + sb_const_list[0] + 'W' + str(0))
         mc.connectAttr(ctrl_reverse + '.outputX', stretch_blend_const[0] + '.' + sb_const_list[1] + 'W' + str(1))
 
-        mc.parent(self.armIK, stretch_blend_loc)
-        return self.armIK
+        mc.parent(self.ik_hdl, stretch_blend_loc)
+
+        get_mid_joint = joint.get_mid_joint(self.resultChain)
+        mid_fk_ctrl = control.Control(prefix=self.prefix + 'MidFK', translateTo=self.pole_vector_loc, rotateTo=self.ikChain[get_mid_joint],
+                                      scale=self.rigScale * 4, parent=self.rigModule.controlsGrp, shape='sphere', lockChannels=['t', 's'])
+
+        mc.connectAttr(self.ik_ctrl.C + '.pinP', mid_fk_ctrl.C + '.v', force=True, lock=True)
+
+        nc_constrain.matrixConstraint(self.pole_vector_loc, mid_fk_ctrl.Off, mo=True, connMatrix=['t', 's'])
+        pin_const = mc.parentConstraint(mid_fk_ctrl.C, self.ik_ctrl.Off, mo=True, w=0)
+
+        pin_const_list = mc.parentConstraint(pin_const, q=True, wal=True, tl=True)
+
+        mc.connectAttr(self.ik_ctrl.C + '.pinP', pin_const[0] + '.' + pin_const_list[0] + 'W' + str(0))
+
+        mc.orientConstraint(ctrl_loc, self.ikChain[-1], mo=True)
+
+        return self.ik_hdl
 
     def build(self):
-        self.create_ik_ctrl()
+        ik_ctrl = self.create_ik_ctrl()
         pole_vec = self.create_pole_vec()
         if self.isStretchy is True:
             ik_hdl = self.create_stretchy_ik()
@@ -239,10 +271,12 @@ class Setup():
 
         mc.poleVectorConstraint(pole_vec, ik_hdl)
 
-        if (len(self.resultChain) % 2) == 0:
-            get_mid_joint = int(len(self.resultChain) / 2) - 1
-        else:
-            get_mid_joint = int(len(self.resultChain) / 2)
+        get_mid_joint = joint.get_mid_joint(self.resultChain)
 
-        conn_line.create(obj_from=self.resultChain[get_mid_joint], obj_to=pole_vec,
+        nc_nc_conn_line.create(obj_from=self.resultChain[get_mid_joint], obj_to=pole_vec,
                          prefix=self.prefix, rigModule=self.rigModule)
+
+
+        return {'ik_hdl': ik_hdl,
+                'ik_ctrl': ik_ctrl,
+                'pole_vec': pole_vec}

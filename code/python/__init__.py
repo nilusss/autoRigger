@@ -1,2 +1,0 @@
-import rigLib
-import autoRigger

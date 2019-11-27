@@ -17,6 +17,17 @@ class Control():
                  lockChannels=['s', 'v']
                  ):
 
+        """
+        @param prefix: str, prefix to name new object groups
+        @param scale: float, scale value for size of control.
+        @param translateTo: str, reference object for control position
+        @param rotateTo: str, reference object for control orientation
+        @param parent: str, object to be parent of new control
+        @param shape: str, control shape type
+        @param lockChannels: list(str), list of channels on control to be locked and non-keyable
+        @return: none
+        """
+
         ctrlObject = None
         circleNormal = [1, 0, 0]
 

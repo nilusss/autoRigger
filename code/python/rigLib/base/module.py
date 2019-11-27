@@ -20,6 +20,11 @@ class Base():
                  scale=1.0,
                  globalCtrlScale = 20
                  ):
+        """
+		@param characterName: str, character name
+		@param scale: float, general scale of rig
+		@return: None
+		"""
 
         # create initial rig structure groups
         self.topGrp = mc.group(name=characterName + '_rig_grp', em=1)
@@ -73,6 +78,12 @@ class Module():
                  prefix='new',
                  baseObj=None
                  ):
+        
+        """
+		@param prefix: str, prefix to name new object groups
+		@param baseObj: instance of base.module.Base class
+		@return: none
+		"""
 
         # create initial rig structure groups
         self.topGrp = mc.group(name=prefix + 'Module_grp', em=1)
