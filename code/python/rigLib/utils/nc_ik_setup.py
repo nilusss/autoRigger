@@ -4,15 +4,13 @@ module for making different IK setups for the rig
 
 import maya.cmds as mc
 
-from ..base import module
-from ..base import control
+#from ..base import nc_module
+from ..base import nc_control
 
-from ..utils import joint
-from ..utils import name
-from ..utils import nc_constrain
-from ..utils import pole_vector
-from ..utils import nc_conn_line
-from ..utils import tools
+from . import nc_joint
+from . import nc_name
+from . import nc_constrain
+from . import nc_tools
 
 
 class Setup():
@@ -55,15 +53,15 @@ class Setup():
     # create controller for IK
 
     def create_ik_ctrl(self):
-        self.ik_ctrl = control.Control(prefix=self.prefix + 'IK', translateTo=self.ikChain[-1], rotateTo=self.ikChain[-1],
-                                         scale=self.rigScale * 2, parent=self.rigModule.controlsGrp, shape='cube')
+        self.ik_ctrl = nc_control.Control(prefix=self.prefix + 'IK', translateTo=self.ikChain[-1], rotateTo=self.ikChain[-1],
+                                          scale=self.rigScale * 2, parent=self.rigModule.controlsGrp, shape='cube')
 
         return self.ik_ctrl
 
     def create_pole_vec(self):
-        self.pole_vector_ctrl = control.Control(prefix=self.prefix + 'PoleVec', scale=self.rigScale * 2,
-                                                parent=self.rigModule.controlsGrp, shape='fancy_sphere', lockChannels=['r', 's', 'v'])
-        self.pole_vector_loc = nc_pole_vector.get_pole_vec_pos(self.ikChain)
+        self.pole_vector_ctrl = nc_control.Control(prefix=self.prefix + 'PoleVec', scale=self.rigScale * 2,
+                                                   parent=self.rigModule.controlsGrp, shape='fancy_sphere', lockChannels=['r', 's', 'v'])
+        self.pole_vector_loc = nc_tools.get_pole_vec_pos(self.ikChain)
         self.pole_vector_loc = mc.rename(self.pole_vector_loc, self.prefix + 'poleVec_loc')
         mc.parent(self.pole_vector_loc, self.rigModule.partsGrp)
         mc.delete(mc.parentConstraint(self.pole_vector_loc, self.pole_vector_ctrl.Off))
@@ -95,48 +93,49 @@ class Setup():
         nn_list = []
         chain_dist_list = []
         for i, j in enumerate(self.ikChain):
-            nn = name.removeSuffix(j).replace('IK', '')
+            nn = nc_name.removeSuffix(j).replace('IK', '')
             nn_list.append(nn)
             loc = mc.spaceLocator(name=nn + '_loc')
             joint_loc_list.append(loc)
             mc.delete(mc.parentConstraint(self.ikChain[i], loc))
             if i > 0:
                 # create start and end point for measure tool
-                chain_dist_append = tools.measure(start_point=joint_loc_list[i-1], end_point=joint_loc_list[i])
+                mc.parent(joint_loc_list[i], joint_loc_list[i-1])
+                chain_dist_append = nc_tools.measure(start_point=joint_loc_list[i-1], end_point=joint_loc_list[i])
                 chain_dist_list.append(chain_dist_append)
 
-        look_at_grp = mc.createNode('transform', name=self.prefix + 'LookAt_grp')
-        mc.setAttr(look_at_grp + '.inheritsTransform', 0)
+        self.look_at_grp = mc.createNode('transform', name=self.prefix + 'LookAt_grp')
+        mc.setAttr(self.look_at_grp + '.inheritsTransform', 0)
 
         ctrl_loc = mc.spaceLocator(name=self.prefix + 'Ctrl_loc')[0]
         stretch_blend_loc = mc.spaceLocator(name=self.prefix + 'StretchBlend_loc')[0]
         upper_aim_loc = mc.spaceLocator(name=self.prefix + 'UpperAim_loc')[0]
         no_stretch_max_loc = mc.spaceLocator(name=self.prefix + 'NoStretchMax_loc')[0]
 
-        mc.parent(upper_aim_loc, look_at_grp)
+        mc.parent(upper_aim_loc, self.look_at_grp)
         mc.parent(no_stretch_max_loc, upper_aim_loc)
-        mc.parent(look_at_grp, self.rigModule.partsGrp)
+        mc.parent(self.look_at_grp, self.rigModule.partsGrp)
         mc.delete(mc.parentConstraint(self.ik_ctrl.C, ctrl_loc))
         mc.delete(mc.parentConstraint(joint_loc_list[0], stretch_blend_loc))
         mc.makeIdentity(stretch_blend_loc, a=True, t=True, r=True)
         mc.delete(mc.parentConstraint(joint_loc_list[-1], stretch_blend_loc))
         mc.parent(ctrl_loc, self.ik_ctrl.C)
-        mc.delete(mc.parentConstraint(joint_loc_list[0], look_at_grp))
-        mc.parentConstraint(self.offsetJnt, look_at_grp, mo=1)
+        mc.delete(mc.parentConstraint(joint_loc_list[0], self.look_at_grp))
+        #mc.parentConstraint(self.offsetJnt, self.look_at_grp, mo=1)
 
         mc.aimConstraint(self.ik_ctrl.C, upper_aim_loc)
 
         stretch_blend_const = mc.pointConstraint(self.ik_ctrl.C, stretch_blend_loc, w=0, mo=1)
         mc.pointConstraint(no_stretch_max_loc, stretch_blend_loc, w=0, mo=1)
 
-        control_dist = tools.measure(start_point=joint_loc_list[0], end_point=ctrl_loc)
+        control_dist = nc_tools.measure(start_point=joint_loc_list[0], end_point=ctrl_loc)
         control_dist_shape = mc.listRelatives(control_dist, shapes=True)[0]
-        no_stretch_dist = tools.measure(start_point=joint_loc_list[-1], end_point=stretch_blend_loc)
+        no_stretch_dist = nc_tools.measure(start_point=joint_loc_list[-1], end_point=stretch_blend_loc)
 
         # create measure from upper and end joint to pole vector
         pin_dist_list = []
-        upper_to_pole_dist = tools.measure(start_point=joint_loc_list[0], end_point=self.pole_vector_loc)
-        end_to_pole_dist = tools.measure(start_point=stretch_blend_loc, end_point=self.pole_vector_loc)
+        upper_to_pole_dist = nc_tools.measure(start_point=joint_loc_list[0], end_point=self.pole_vector_loc)
+        end_to_pole_dist = nc_tools.measure(start_point=stretch_blend_loc, end_point=self.pole_vector_loc)
 
         pin_dist_list.append(upper_to_pole_dist)
         pin_dist_list.append(end_to_pole_dist)
@@ -187,12 +186,11 @@ class Setup():
             mc.connectAttr(mult + '.outputX', cond + '.colorIfFalseR')
             mc.connectAttr(mult + '.outputX', cond + '.firstTerm')"""
 
-
         for i, j in enumerate(self.ikChain):
             if j is not self.ikChain[-1]:
                 blend_two_attr = mc.createNode("blendTwoAttr")
                 mc.connectAttr(blend_scale + '.outputR', blend_two_attr + '.input[0]')
-                
+
                 mult = mc.createNode("multiplyDivide")
                 cond = mc.createNode("condition")
 
@@ -207,9 +205,6 @@ class Setup():
                 mc.connectAttr(mult + '.outputX', cond + '.firstTerm')
                 mc.connectAttr(cond + '.outColorR', blend_two_attr + '.input[1]')
                 mc.connectAttr(self.ik_ctrl.C + '.pinP', blend_two_attr + '.attributesBlender')
-
-                #mc.connectAttr(blend_scale + '.outputR', blend_two_attr + '.input[0]')
-                #mc.connectAttr(blend_scale)
 
                 if j is self.ikChain[i]:
                     mc.connectAttr(blend_two_attr + '.output', j + '.s' + self.saxis)
@@ -244,9 +239,9 @@ class Setup():
 
         mc.parent(self.ik_hdl, stretch_blend_loc)
 
-        get_mid_joint = joint.get_mid_joint(self.resultChain)
-        mid_fk_ctrl = control.Control(prefix=self.prefix + 'MidFK', translateTo=self.pole_vector_loc, rotateTo=self.ikChain[get_mid_joint],
-                                      scale=self.rigScale * 4, parent=self.rigModule.controlsGrp, shape='sphere', lockChannels=['t', 's'])
+        """get_mid_joint = nc_joint.get_mid_joint(self.resultChain)
+        mid_fk_ctrl = nc_control.Control(prefix=self.prefix + 'MidFK', translateTo=self.pole_vector_loc, rotateTo=self.ikChain[get_mid_joint],
+                                         scale=self.rigScale * 4, parent=self.rigModule.controlsGrp, shape='sphere', lockChannels=['t', 's'])
 
         mc.connectAttr(self.ik_ctrl.C + '.pinP', mid_fk_ctrl.C + '.v', force=True, lock=True)
 
@@ -255,11 +250,12 @@ class Setup():
 
         pin_const_list = mc.parentConstraint(pin_const, q=True, wal=True, tl=True)
 
-        mc.connectAttr(self.ik_ctrl.C + '.pinP', pin_const[0] + '.' + pin_const_list[0] + 'W' + str(0))
+        mc.connectAttr(self.ik_ctrl.C + '.pinP', pin_const[0] + '.' + pin_const_list[0] + 'W' + str(0))"""
 
         mc.orientConstraint(ctrl_loc, self.ikChain[-1], mo=True)
 
-        return self.ik_hdl
+        return {'ik_hdl': self.ik_hdl,
+                'joint_loc_list': joint_loc_list}
 
     def build(self):
         ik_ctrl = self.create_ik_ctrl()
@@ -269,14 +265,15 @@ class Setup():
         elif self.isStretchy is False:
             ik_hdl = self.create_ik()
 
-        mc.poleVectorConstraint(pole_vec, ik_hdl)
+        mc.poleVectorConstraint(pole_vec, ik_hdl['ik_hdl'])
 
-        get_mid_joint = joint.get_mid_joint(self.resultChain)
+        get_mid_joint = nc_joint.get_mid_joint(self.resultChain)
 
-        nc_nc_conn_line.create(obj_from=self.resultChain[get_mid_joint], obj_to=pole_vec,
-                         prefix=self.prefix, rigModule=self.rigModule)
+        nc_tools.create(obj_from=self.resultChain[get_mid_joint], obj_to=pole_vec,
+                            prefix=self.prefix, rigModule=self.rigModule)
 
-
-        return {'ik_hdl': ik_hdl,
+        return {'ik_hdl': ik_hdl['ik_hdl'],
                 'ik_ctrl': ik_ctrl,
-                'pole_vec': pole_vec}
+                'pole_vec': pole_vec,
+                'joint_loc_list': ik_hdl['joint_loc_list'],
+                'look_at_grp': self.look_at_grp}

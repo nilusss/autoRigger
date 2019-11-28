@@ -9,13 +9,13 @@ import maya.OpenMaya as om
 def matrixConstraint(driver, driven, mo=True, oc=False, pc=False, connMatrix=['t', 'r', 's']):
 
     """
-    Does the same as a normal parent nc_constraint, but uses matrices for better accuracy
+    Does the same as a normal parent constraint, but uses matrices for better accuracy
 
-    @param driver: str, object to drive the nc_constraint
+    @param driver: str, object to drive the constraint
     @param driven: str, object to be driven
-    @param mo: boolean, wether the nc_constraint should maintain offset or not
-    @param oc: boolean, short for orient nc_constraint. If oc and pc if false it will work as a parent nc_constraint
-    @param pc: boolean, short for point nc_constraint. If oc and pc if false it will work as a parent nc_constraint
+    @param mo: boolean, wether the constraint should maintain offset or not
+    @param oc: boolean, short for orient constraint. If oc and pc if false it will work as a parent constraint
+    @param pc: boolean, short for point constraint. If oc and pc if false it will work as a parent constraint
     @param connMatrix: list(str), the attributes that should be connected from the driver to the driven
     @return: none
     """

@@ -1,29 +1,31 @@
 import maya.cmds as mc
 import rigLib
 import rigLib.base
+import rigLib.utils
 
-from rigLib.base import module
-from rigLib.base import control
+from rigLib.base import nc_module
+from rigLib.base import nc_control
 from rigLib.rig import arm
+from rigLib.rig import spine
 from rigLib.utils import nc_constrain
-from rigLib.utils import joint
-from rigLib.utils import name
-from rigLib.utils import ik_setup
-from rigLib.utils import nc_conn_line
-from rigLib.utils import pole_vector
-from rigLib.utils import tools
+from rigLib.utils import nc_joint
+from rigLib.utils import nc_name
+from rigLib.utils import nc_ik_setup
+from rigLib.utils import nc_fk_setup
+from rigLib.utils import nc_tools
 
 reload(rigLib)
-reload(module)
-reload(control)
+reload(rigLib.utils)
+reload(nc_module)
+reload(nc_control)
 reload(arm)
-reload(constrain)
-reload(joint)
-reload(name)
-reload(ik_setup)
-reload(nc_conn_line)
-reload(pole_vector)
-reload(tools)
+reload(spine)
+reload(nc_constrain)
+reload(nc_joint)
+reload(nc_name)
+reload(nc_ik_setup)
+reload(nc_fk_setup)
+reload(nc_tools)
 
 mc.file(new=True, force=True)
 
@@ -40,7 +42,7 @@ mc.file(pathModel, i = 1)
 """
 
 # create base rig
-baseRig = module.Base(characterName=characterName, scale=sceneScale, globalCtrlScale=15)
+baseRig = nc_module.Base(characterName=characterName, scale=sceneScale, globalCtrlScale=15)
 mc.parent(rootJnt, baseRig.jointsGrp)
 
 # create left arm module
@@ -53,3 +55,8 @@ armRig = arm.build(armJoints=lArmJoints, scapulaJnt='l_clavicleResult_jnt', pref
 rArmJoints = ['r_armUpperResult_jnt', 'r_armLowerResult_jnt', 'r_armEndResult_jnt']
 armRig = arm.build(armJoints=rArmJoints, scapulaJnt='r_clavicleResult_jnt', prefix='r_arm', rigScale=3, baseRig=baseRig)
 
+# create spine module
+
+spineJoints = ['spine1Result_jnt', 'spine2Result_jnt', 'spine3Result_jnt', 'spine4Result_jnt', 'spine5Result_jnt', 'spineEndResult_jnt']
+
+spineRig = spine.build(spineJoints=spineJoints, pelvisJnt='pelvisResult_jnt', prefix='spine', rigScale=1.0, baseRig=baseRig)

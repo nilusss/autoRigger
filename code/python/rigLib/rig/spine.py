@@ -4,11 +4,11 @@ spine @ rig
 
 import maya.cmds as mc
 
-from ..base import module
-from ..base import control
+from ..base import nc_module
+from ..base import nc_control
 
-from ..utils import joint
-from ..utils import name
+from ..utils import nc_joint
+from ..utils import nc_name
 from ..utils import nc_constrain
 
 
@@ -32,7 +32,7 @@ def build(spineJoints,
     resultChain = []
     resultChain.append(pelvisJnt)
     resultChain.extend(spineJoints)
-    rigModule = module.Module(prefix=prefix, baseObj=baseRig)
+    rigModule = nc_module.Module(prefix=prefix, baseObj=baseRig)
     getOffsetJoint = mc.listRelatives(resultChain[0], parent=True)
 
     jointsOffsetGrp = mc.createNode('transform', n=prefix + 'JointsOffset_grp')
@@ -42,8 +42,8 @@ def build(spineJoints,
     """for i in xrange(0,len(resultChain),2):
         mc.createNode('transform', n=resultChain[i])"""
 
-    ikChain = joint.jointDuplicate(jointChain=resultChain, jointType="IK", offsetGrp=jointsOffsetGrp)
-    fkChain = joint.jointDuplicate(jointChain=resultChain, jointType="FK", offsetGrp=jointsOffsetGrp, skip=2)
+    ikChain = nc_joint.jointDuplicate(jointChain=resultChain, jointType="IK", offsetGrp=jointsOffsetGrp)
+    fkChain = nc_joint.jointDuplicate(jointChain=resultChain, jointType="FK", offsetGrp=jointsOffsetGrp, skip=2)
 
     kwargs = {
         'name': prefix + '_hdl',
@@ -72,10 +72,10 @@ def build(spineJoints,
         }
     scls = mc.skinCluster(influences, spine_crv, **kwargs)[0]
 
-    pelvis_ctrl = control.Control(prefix=resultChain[0].replace('_jnt', '_ctrl'), translateTo=pelvis_bind_jnt, rotateTo=pelvis_bind_jnt,
-                                 scale=rigScale * 10, parent=rigModule.controlsGrp, shape='cube')
-    spine_end_ctrl = control.Control(prefix=resultChain[-1].replace('_jnt', '_ctrl'), translateTo=spine_end_bind_jnt, rotateTo=spine_end_bind_jnt,
-                                 scale=rigScale * 10, parent=rigModule.controlsGrp, shape='cube')
+    pelvis_ctrl = nc_control.Control(prefix=resultChain[0].replace('_jnt', '_ctrl'), translateTo=pelvis_bind_jnt, rotateTo=pelvis_bind_jnt,
+                                     scale=rigScale * 10, parent=rigModule.controlsGrp, shape='cube')
+    spine_end_ctrl = nc_control.Control(prefix=resultChain[-1].replace('_jnt', '_ctrl'), translateTo=spine_end_bind_jnt, rotateTo=spine_end_bind_jnt,
+                                        scale=rigScale * 10, parent=rigModule.controlsGrp, shape='cube')
 
     nc_constrain.matrixConstraint(pelvis_ctrl.C, pelvis_bind_jnt, mo=True, connMatrix=['t', 'r', 's'])
     nc_constrain.matrixConstraint(spine_end_ctrl.C, spine_end_bind_jnt, mo=True, connMatrix=['t', 'r', 's'])

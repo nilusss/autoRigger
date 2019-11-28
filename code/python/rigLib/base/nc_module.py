@@ -4,7 +4,7 @@ module for making top rig structure and rig module
 
 import maya.cmds as mc
 
-from . import control
+from . import nc_control
 
 sceneObjectType = 'rig'
 
@@ -18,13 +18,14 @@ class Base():
     def __init__(self,
                  characterName='new',
                  scale=1.0,
-                 globalCtrlScale = 20
+                 globalCtrlScale=20
                  ):
+
         """
-		@param characterName: str, character name
-		@param scale: float, general scale of rig
-		@return: None
-		"""
+        @param characterName: str, character name
+        @param scale: float, general scale of rig
+        @return: None
+        """
 
         # create initial rig structure groups
         self.topGrp = mc.group(name=characterName + '_rig_grp', em=1)
@@ -43,19 +44,19 @@ class Base():
                    type='string', lock=1)
 
         # make global control and offset control
-        globalCtrl = control.Control(prefix='global',
-                                     scale=scale * globalCtrlScale,
-                                     parent=self.rigGrp,
-                                     shape='global',
-                                     lockChannels=['v']
-                                     )
+        globalCtrl = nc_control.Control(prefix='global',
+                                        scale=scale * globalCtrlScale,
+                                        parent=self.rigGrp,
+                                        shape='global',
+                                        lockChannels=['v']
+                                        )
 
-        offsetCtrl = control.Control(prefix='offset',
-                                     scale=scale * globalCtrlScale - 2,
-                                     parent=globalCtrl.C,
-                                     shape='offset',
-                                     lockChannels=['s', 'v']
-                                     )
+        offsetCtrl = nc_control.Control(prefix='offset',
+                                        scale=scale * globalCtrlScale - 2,
+                                        parent=globalCtrl.C,
+                                        shape='offset',
+                                        lockChannels=['s', 'v']
+                                        )
 
         for axis in ['y', 'z']:
             mc.connectAttr(globalCtrl.C + '.sx', globalCtrl.C + '.s' + axis)
@@ -78,13 +79,12 @@ class Module():
                  prefix='new',
                  baseObj=None
                  ):
-        
-        """
-		@param prefix: str, prefix to name new object groups
-		@param baseObj: instance of base.module.Base class
-		@return: none
-		"""
 
+        """
+        @param prefix: str, prefix to name new object groups
+        @param baseObj: instance of base.module.Base class
+        @return: none
+        """
         # create initial rig structure groups
         self.topGrp = mc.group(name=prefix + 'Module_grp', em=1)
 

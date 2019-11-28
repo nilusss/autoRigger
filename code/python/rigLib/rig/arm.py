@@ -4,14 +4,14 @@ arm @ rig
 
 import maya.cmds as mc
 
-from ..base import module
-from ..base import control
+from ..base import nc_module
+from ..base import nc_control
 
-from ..utils import joint
-from ..utils import name
+from ..utils import nc_joint
+from ..utils import nc_name
 from ..utils import nc_constrain
-from ..utils import pole_vector
-from ..utils import ik_setup
+from ..utils import nc_ik_setup
+from ..utils import nc_fk_setup
 
 
 def build(armJoints,
@@ -35,7 +35,7 @@ def build(armJoints,
     """
 
     resultChain = []
-    rigModule = module.Module(prefix=prefix, baseObj=baseRig)
+    rigModule = nc_module.Module(prefix=prefix, baseObj=baseRig)
     getOffsetJoint = mc.listRelatives(armJoints[0], parent=True)
     resultChain.extend(armJoints)
 
@@ -45,33 +45,42 @@ def build(armJoints,
 
     # create triple chain setup
 
-    ikChain = joint.jointDuplicate(jointChain=armJoints, jointType="IK", offsetGrp=jointsOffsetGrp)
-    fkChain = joint.jointDuplicate(jointChain=armJoints, jointType="FK", offsetGrp=jointsOffsetGrp)
+    ikChain = nc_joint.jointDuplicate(jointChain=armJoints, jointType="IK", offsetGrp=jointsOffsetGrp)
+    fkChain = nc_joint.jointDuplicate(jointChain=armJoints, jointType="FK", offsetGrp=jointsOffsetGrp)
     mc.select(d=True)
 
     # setup of the IK module
 
-    arm_ik = ik_setup.Setup(ikChain, resultChain, offsetJnt=scapulaJnt, isStretchy=stretchModule, prefix=prefix, rigScale=rigScale, rigModule=rigModule)
+    arm_ik = nc_ik_setup.Setup(ikChain, resultChain, offsetJnt=scapulaJnt, isStretchy=stretchModule, prefix=prefix, rigScale=rigScale, rigModule=rigModule)
 
-    arm_ik.build()
+    arm_ik_rt = arm_ik.build()
 
     # setup of the FK module
 
-    fkCtrlChain = []
-    for i, j in enumerate(fkChain):
-        fkCtrlNN = j.replace('FK_jnt', "FK")
-        fkCtrl = control.Control(prefix=fkCtrlNN, translateTo=j, rotateTo=j,
-                                 scale=rigScale * 2, parent=rigModule.controlsGrp, shape='circle')
-        fkCtrlChain.append(fkCtrl.C)
-        prevFKCtrl = i-1
-        if i > 0:
-            mc.parent(fkCtrl.Off, fkCtrlChain[prevFKCtrl])
+    arm_fk = nc_fk_setup.Setup(fkChain, prefix=prefix, rigScale=rigScale, rigModule=rigModule)
 
-        nc_constrain.matrixConstraint(fkCtrl.C, j)
+    arm_fk_rt = arm_fk.build()
 
-    armBlendCtrl = control.Control(prefix=prefix, translateTo=armJoints[-1], rotateTo=armJoints[-1],
-                                   scale=rigScale * 2, parent=rigModule.controlsGrp, shape='settings')
+    # setup of arm blending
+
+    armBlendCtrl = nc_control.Control(prefix=prefix, translateTo=armJoints[-1], rotateTo=armJoints[-1],
+                                      scale=rigScale * 2, parent=rigModule.controlsGrp, shape='settings')
     mc.addAttr(armBlendCtrl.C, shortName='blend', longName='FKIKBlend', defaultValue=0, minValue=0.0, maxValue=1.0, k=1)
     mc.move(-30, z=True)
 
-    joint.jointBlend(resultChain=armJoints, ikChain=ikChain, fkChain=fkChain, blender=armBlendCtrl.C)
+    nc_joint.jointBlend(resultChain=armJoints, ikChain=ikChain, fkChain=fkChain, blender=armBlendCtrl.C)
+
+    # scapula setup
+
+    scapula_list = []
+    scapula_list.append(scapulaJnt)
+    scapula_list.append(armJoints[0])
+    scapula_chain = nc_joint.jointDuplicate(jointChain=scapula_list, jointType="FK", offsetGrp=jointsOffsetGrp)
+
+    #arr = [x.replace('item', 'person') for x in arr]
+    scapula_chain[-1].replace('_jnt', 'Off_jnt')
+
+    mc.parentConstraint(scapula_chain[-1], arm_ik_rt["look_at_grp"], mo=True)
+    mc.parentConstraint(scapula_chain[-1], arm_ik_rt["joint_loc_list"][0], mo=True)
+    mc.parentConstraint(scapula_chain[-1], ikChain[0], mo=True)
+    mc.pointConstraint(scapula_chain[-1], arm_fk_rt['fk_ctrl'][0], mo=True)

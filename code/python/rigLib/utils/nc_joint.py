@@ -6,11 +6,11 @@ Utilities to work with names and strings
 
 import maya.cmds as mc
 
-from ..base import module
-from ..base import control
+"""from ..base import nc_module
+from ..base import nc_control"""
 
-from ..utils import name
-from ..utils import pole_vector
+"""from . import nc_name
+from . import nc_pole_vector"""
 
 
 def listHierarchy(topJoint, endJoint, withEndJoints=True):
@@ -152,4 +152,4 @@ def jointBlend(resultChain, ikChain, fkChain, blender=""):
 
         mc.connectAttr(qTE + '.outputRotate', j + '.r')
         mc.connectAttr(blendDecomp + '.outputTranslate', j + '.t')
-        #mc.connectAttr(blendDecomp + '.outputScale', j + '.s')
+        # mc.connectAttr(blendDecomp + '.outputScale', j + '.s')
