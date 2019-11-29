@@ -238,6 +238,8 @@ class Setup():
         mc.connectAttr(ctrl_reverse + '.outputX', stretch_blend_const[0] + '.' + sb_const_list[1] + 'W' + str(1))
 
         mc.parent(self.ik_hdl, stretch_blend_loc)
+        mc.parent(stretch_blend_loc, self.rigModule.partsGrp)
+        mc.parent(joint_loc_list[0], self.rigModule.partsGrp)
 
         """get_mid_joint = nc_joint.get_mid_joint(self.resultChain)
         mid_fk_ctrl = nc_control.Control(prefix=self.prefix + 'MidFK', translateTo=self.pole_vector_loc, rotateTo=self.ikChain[get_mid_joint],

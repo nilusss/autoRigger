@@ -51,7 +51,8 @@ def build(armJoints,
 
     # setup of the IK module
 
-    arm_ik = nc_ik_setup.Setup(ikChain, resultChain, offsetJnt=scapulaJnt, isStretchy=stretchModule, prefix=prefix, rigScale=rigScale, rigModule=rigModule)
+    arm_ik = nc_ik_setup.Setup(ikChain, resultChain, offsetJnt=scapulaJnt, isStretchy=stretchModule,
+                               prefix=prefix, rigScale=rigScale, rigModule=rigModule)
 
     arm_ik_rt = arm_ik.build()
 
@@ -72,15 +73,16 @@ def build(armJoints,
 
     # scapula setup
 
-    scapula_list = []
-    scapula_list.append(scapulaJnt)
-    scapula_list.append(armJoints[0])
-    scapula_chain = nc_joint.jointDuplicate(jointChain=scapula_list, jointType="FK", offsetGrp=jointsOffsetGrp)
+    if scapulaJnt is not '':
+        scapula_list = []
+        scapula_list.append(scapulaJnt)
+        scapula_list.append(armJoints[0])
+        scapula_chain = nc_joint.jointDuplicate(jointChain=scapula_list, jointType="FK", offsetGrp=jointsOffsetGrp)
 
-    #arr = [x.replace('item', 'person') for x in arr]
-    scapula_chain[-1].replace('_jnt', 'Off_jnt')
+        #arr = [x.replace('item', 'person') for x in arr]
+        scapula_chain[-1].replace('_jnt', 'Off_jnt')
 
-    mc.parentConstraint(scapula_chain[-1], arm_ik_rt["look_at_grp"], mo=True)
-    mc.parentConstraint(scapula_chain[-1], arm_ik_rt["joint_loc_list"][0], mo=True)
-    mc.parentConstraint(scapula_chain[-1], ikChain[0], mo=True)
-    mc.pointConstraint(scapula_chain[-1], arm_fk_rt['fk_ctrl'][0], mo=True)
+        mc.parentConstraint(scapula_chain[-1], arm_ik_rt["look_at_grp"], mo=True)
+        mc.parentConstraint(scapula_chain[-1], arm_ik_rt["joint_loc_list"][0], mo=True)
+        mc.parentConstraint(scapula_chain[-1], ikChain[0], mo=True)
+        mc.pointConstraint(scapula_chain[-1], arm_fk_rt['fk_ctrl'][0], mo=True)

@@ -21,18 +21,23 @@ class Setup():
 
     def __init__(self,
                  fkChain=[],
+                 rotateTo=True,
+                 shape='circle',
                  prefix='l_arm',
                  rigScale=1.0,
                  rigModule=None):
 
         """
         @param fkChain: list(str), list of joints used for FK
+        @param rotateTo: boolean, wether the controller should rotate to desired joint
         @param prefix: str, prefix to name new objects
         @param rigScale: float, scale factor for size of controls
         @param rigModule: instance of base.module.Module class
         """
 
         self.fkChain = fkChain
+        self.rotateTo = rotateTo
+        self.shape = shape
         self.rigScale = rigScale
         self.prefix = prefix
         self.rigModule = rigModule
@@ -43,14 +48,19 @@ class Setup():
         fkCtrlChain = []
         for i, j in enumerate(self.fkChain):
             fkCtrlNN = j.replace('FK_jnt', "FK")
-            fkCtrl = nc_control.Control(prefix=fkCtrlNN, translateTo=j, rotateTo=j,
-                                        scale=self.rigScale * 2, parent=self.rigModule.controlsGrp, shape='circle')
+            if self.rotateTo is True:
+                fkCtrl = nc_control.Control(prefix=fkCtrlNN, translateTo=j, rotateTo=j,
+                                            scale=self.rigScale * 2, parent=self.rigModule.controlsGrp, shape=self.shape)
+            else:
+                fkCtrl = nc_control.Control(prefix=fkCtrlNN, translateTo=j, scale=self.rigScale * 2,
+                                            parent=self.rigModule.controlsGrp, shape=self.shape)
             fkCtrlChain.append(fkCtrl.C)
             prevFKCtrl = i-1
             if i > 0:
                 mc.parent(fkCtrl.Off, fkCtrlChain[prevFKCtrl])
 
-            nc_constrain.matrixConstraint(fkCtrl.C, j)
+            #nc_constrain.matrixConstraint(fkCtrl.C, j)
+            mc.parentConstraint(fkCtrl.C, j, mo=True, skipTranslate=['x', 'y', 'z'])
 
         return fkCtrlChain
 

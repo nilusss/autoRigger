@@ -10,6 +10,8 @@ from ..base import nc_control
 from ..utils import nc_joint
 from ..utils import nc_name
 from ..utils import nc_constrain
+from ..utils import nc_ik_setup
+from ..utils import nc_fk_setup
 
 
 def build(spineJoints,
@@ -45,6 +47,16 @@ def build(spineJoints,
     ikChain = nc_joint.jointDuplicate(jointChain=resultChain, jointType="IK", offsetGrp=jointsOffsetGrp)
     fkChain = nc_joint.jointDuplicate(jointChain=resultChain, jointType="FK", offsetGrp=jointsOffsetGrp, skip=2)
 
+    fk_ctrl_list = []
+    for i, j in enumerate(fkChain):
+        if j is not fkChain[0] and j is not fkChain[-1]:
+            fk_ctrl_list.append(fkChain[i])
+            print fk_ctrl_list
+
+    spine_fk = nc_fk_setup.Setup(fk_ctrl_list, rotateTo=False, shape='circleY', prefix=prefix, rigScale=rigScale, rigModule=rigModule)
+
+    spine_fk_rt = spine_fk.build()
+
     kwargs = {
         'name': prefix + '_hdl',
         'startJoint': ikChain[0],
@@ -72,10 +84,12 @@ def build(spineJoints,
         }
     scls = mc.skinCluster(influences, spine_crv, **kwargs)[0]
 
-    pelvis_ctrl = nc_control.Control(prefix=resultChain[0].replace('_jnt', '_ctrl'), translateTo=pelvis_bind_jnt, rotateTo=pelvis_bind_jnt,
-                                     scale=rigScale * 10, parent=rigModule.controlsGrp, shape='cube')
-    spine_end_ctrl = nc_control.Control(prefix=resultChain[-1].replace('_jnt', '_ctrl'), translateTo=spine_end_bind_jnt, rotateTo=spine_end_bind_jnt,
-                                        scale=rigScale * 10, parent=rigModule.controlsGrp, shape='cube')
+    pelvis_ctrl = nc_control.Control(prefix=resultChain[0].replace('_jnt', ''), translateTo=pelvis_bind_jnt, rotateTo=pelvis_bind_jnt,
+                                     scale=rigScale * 2, parent=rigModule.controlsGrp, shape='cube')
+    spine_end_ctrl = nc_control.Control(prefix=resultChain[-1].replace('_jnt', ''), translateTo=spine_end_bind_jnt, rotateTo=spine_end_bind_jnt,
+                                        scale=rigScale * 2, parent=rigModule.controlsGrp, shape='cube')
+
+    nc_constrain.matrixConstraint(fkChain[-1], spine_end_ctrl.Off)
 
     nc_constrain.matrixConstraint(pelvis_ctrl.C, pelvis_bind_jnt, mo=True, connMatrix=['t', 'r', 's'])
     nc_constrain.matrixConstraint(spine_end_ctrl.C, spine_end_bind_jnt, mo=True, connMatrix=['t', 'r', 's'])
