@@ -6,12 +6,6 @@ Utilities to work with names and strings
 
 import maya.cmds as mc
 
-"""from ..base import nc_module
-from ..base import nc_control"""
-
-"""from . import nc_name
-from . import nc_pole_vector"""
-
 
 def listHierarchy(topJoint, endJoint, withEndJoints=True):
 
@@ -125,13 +119,8 @@ def jointBlend(resultChain, ikChain, fkChain, blender=""):
         blendDecomp = mc.createNode("decomposeMatrix")
         reverse = mc.createNode("reverse")
 
-        # mc.connectAttr(ikChain[i] + '.worldMatrix', ikMult + '.matrixIn[0]')
         mc.connectAttr(ikChain[i] + '.worldMatrix', ikMult + '.matrixIn[1]')
-        # mc.disconnectAttr(ikChain[i] + '.worldMatrix', ikMult + '.matrixIn[0]')
-
-        # mc.connectAttr(fkChain[i] + '.worldMatrix', fkMult + '.matrixIn[0]')
         mc.connectAttr(fkChain[i] + '.worldMatrix', fkMult + '.matrixIn[1]')
-        # mc.disconnectAttr(fkChain[i] + '.worldMatrix', fkMult + '.matrixIn[0]')
 
         mc.connectAttr(ikMult + '.matrixSum', blendMatrix + '.wtMatrix[0].matrixIn')
         mc.connectAttr(fkMult + '.matrixSum', blendMatrix + '.wtMatrix[1].matrixIn')
@@ -152,4 +141,3 @@ def jointBlend(resultChain, ikChain, fkChain, blender=""):
 
         mc.connectAttr(qTE + '.outputRotate', j + '.r')
         mc.connectAttr(blendDecomp + '.outputTranslate', j + '.t')
-        # mc.connectAttr(blendDecomp + '.outputScale', j + '.s')

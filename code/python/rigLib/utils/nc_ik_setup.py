@@ -171,20 +171,7 @@ class Setup():
         mc.connectAttr(scale_cond + '.outColorR', blend_scale + '.color1R')
         mc.connectAttr(scale_cond + '.colorIfTrueR', blend_scale + '.color2R')
 
-        # create scaling from upper and end joints to pole vector to make pin "elbow"
-        """for i, j in enumerate(chain_dist_list):
-            mult = mc.createNode("multiplyDivide")
-            cond = mc.createNode("condition")
-
-            mc.setAttr(mult + '.operation', 2)
-            mc.setAttr(cond + '.operation', 5)
-            mc.setAttr(cond + '.secondTerm', 1)
-            mc.setAttr(cond + '.colorIfTrueR', 1)
-
-            mc.connectAttr(chain_dist_list[i] + '.distance', mult + '.input1X')
-            mc.connectAttr(pin_dist_list[i] + '.distance', mult + '.input2X')
-            mc.connectAttr(mult + '.outputX', cond + '.colorIfFalseR')
-            mc.connectAttr(mult + '.outputX', cond + '.firstTerm')"""
+        # create scaling from upper and end joints to pole vector to make pin middle joint
 
         for i, j in enumerate(self.ikChain):
             if j is not self.ikChain[-1]:
@@ -240,6 +227,8 @@ class Setup():
         mc.parent(self.ik_hdl, stretch_blend_loc)
         mc.parent(stretch_blend_loc, self.rigModule.partsGrp)
         mc.parent(joint_loc_list[0], self.rigModule.partsGrp)
+
+        # test for pinnable FK
 
         """get_mid_joint = nc_joint.get_mid_joint(self.resultChain)
         mid_fk_ctrl = nc_control.Control(prefix=self.prefix + 'MidFK', translateTo=self.pole_vector_loc, rotateTo=self.ikChain[get_mid_joint],

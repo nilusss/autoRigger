@@ -79,7 +79,7 @@ def build(armJoints,
         scapula_list.append(armJoints[0])
         scapula_chain = nc_joint.jointDuplicate(jointChain=scapula_list, jointType="FK", offsetGrp=jointsOffsetGrp)
 
-        #arr = [x.replace('item', 'person') for x in arr]
+        # arr = [x.replace('item', 'person') for x in arr]
         scapula_chain[-1].replace('_jnt', 'Off_jnt')
 
         mc.parentConstraint(scapula_chain[-1], arm_ik_rt["look_at_grp"], mo=True)
