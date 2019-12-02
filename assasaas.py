@@ -60,7 +60,13 @@ l_leg_rig = arm.build(armJoints=lLegJoints, prefix='l_leg', rigScale=3, baseRig=
 lArmJoints = ['l_armUpperResult_jnt', 'l_armLowerResult_jnt', 'l_armEndResult_jnt']
 l_arm_rig = arm.build(armJoints=lArmJoints, scapulaJnt='l_clavicleResult_jnt', prefix='l_arm', rigScale=3, baseRig=baseRig)
 
+mc.parentConstraint('spineEndResult_ctrl', l_arm_rig['baseAttachGrp'], mo=True)
+
 # create right arm module
 
 rArmJoints = ['r_armUpperResult_jnt', 'r_armLowerResult_jnt', 'r_armEndResult_jnt']
 r_arm_rig = arm.build(armJoints=rArmJoints, scapulaJnt='r_clavicleResult_jnt', prefix='r_arm', rigScale=3, baseRig=baseRig)
+
+mc.parentConstraint('spineEndResult_ctrl', r_arm_rig['baseAttachGrp'], mo=True)
+
+mc.select(d=True)

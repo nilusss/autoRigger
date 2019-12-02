@@ -91,5 +91,10 @@ def build(spineJoints,
 
     nc_constrain.matrixConstraint(fkChain[-1], spine_end_ctrl.Off)
 
-    nc_constrain.matrixConstraint(pelvis_ctrl.C, pelvis_bind_jnt, mo=True, connMatrix=['t', 'r', 's'])
-    nc_constrain.matrixConstraint(spine_end_ctrl.C, spine_end_bind_jnt, mo=True, connMatrix=['t', 'r', 's'])
+    nc_constrain.matrixConstraint(pelvis_ctrl.C, pelvis_bind_jnt, mo=True)
+    nc_constrain.matrixConstraint(spine_end_ctrl.C, spine_end_bind_jnt, mo=True)
+
+    # constrain joints to the result joints
+
+    for i in range(len(resultChain)):
+        nc_constrain.matrixConstraint(ikChain[i], resultChain[i], mo=True)

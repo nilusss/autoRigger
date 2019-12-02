@@ -60,7 +60,7 @@ class Setup():
                 mc.parent(fkCtrl.Off, fkCtrlChain[prevFKCtrl])
 
             #nc_constrain.matrixConstraint(fkCtrl.C, j)
-            mc.parentConstraint(fkCtrl.C, j, mo=True, skipTranslate=['x', 'y', 'z'])
+            mc.parentConstraint(fkCtrl.C, j, mo=True)
 
         return fkCtrlChain
 
