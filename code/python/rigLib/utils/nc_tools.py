@@ -3,6 +3,7 @@ tools utils @ utils
 """
 
 import maya.cmds as mc
+import maya.mel as mel
 import maya.OpenMaya as om
 
 from ..base import nc_module
@@ -120,7 +121,7 @@ def get_pole_vec_pos(joint_list):
     return create_loc(pole_vec_pos)
 
 
-def place_in_middle(obj_new='',parent=True):
+def place_in_middle(obj_new='', parent=True):
 
     objs = mc.ls(sl=True)
     obj_start = objs[0]
@@ -140,3 +141,65 @@ def place_in_middle(obj_new='',parent=True):
     if parent is True:
         mc.parent(obj_new, obj_start)
         mc.parent(obj_end, obj_new)
+
+
+def insert_joints(start='', end='', amount=0.0, parent=True):
+
+    """
+    Create the given amount of joints between a parent and a child joint.
+
+    @param start: str, the start object
+    @param end: str, the end object
+    @param amount: float, amount of new joints to create. If an integer is being input it will covert to float
+    @param parent: boolean, wether the new joints should be parented between the start and end object
+    @return: str, newly created locator
+    """
+
+    amount = float(amount) + 1.0
+    amount_int = int(amount)
+    new_joint_list = []
+
+    list = []
+    list.append(start)
+    list.append(end)
+
+    positions = [mc.xform(obj, q=True, ws=True, translation=True) for obj in list]
+
+    div = 1 / (amount)
+    pos = div
+    for i in range(amount_int+1):
+        if i == 0 or i == amount_int:
+            pass
+        else:
+            # create motion path curve and deselect it
+            my_curve = mc.curve(d=1, p=positions, k=[0, 1])
+            mc.select(clear=True)
+
+            # duplicate start joint to get same attributes on all the joints
+            new_joint = mc.duplicate(start, parentOnly=True, n=start.replace('Result_jnt', str(i) + 'INBTResult_jnt'))[0]
+            mc.parent(new_joint, world=True)
+            new_joint_list.append(new_joint)
+
+            # append the joint to the motion path and move it down the curve
+            mc.pathAnimation(new_joint, su=pos, curve=my_curve, follow=False)
+            m_path = mc.listConnections(new_joint, type='motionPath')[0] + '.u'
+
+            # breaking the connection with mel
+            mel.eval("source channelBoxCommand; CBdeleteConnection \"%s\"" % m_path)
+
+            # delete motion path and curve
+            mc.delete(m_path)
+            mc.delete(my_curve)
+
+            # freeze transforms and reparent the joints
+            li = i-1
+            mc.makeIdentity(new_joint, apply=True)
+            if li > 0:
+                mc.parent(new_joint_list[li], new_joint_list[li-1])
+            pos += div
+
+    # parent the new chain in between the start and end joints
+    mc.parent(new_joint_list[0], start)
+    mc.parent(end, new_joint_list[-1])
+
+    return new_joint_list
