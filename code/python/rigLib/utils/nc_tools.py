@@ -118,3 +118,25 @@ def get_pole_vec_pos(joint_list):
     pole_vec_pos = (mid_joint_vec - proj_vec).normal() * total_length + mid_joint_vec
 
     return create_loc(pole_vec_pos)
+
+
+def place_in_middle(obj_new='',parent=True):
+
+    objs = mc.ls(sl=True)
+    obj_start = objs[0]
+    obj_end = objs[-1]
+
+    mc.select(d=True)
+
+    if obj_new:
+        mc.delete(mc.parentConstraint(obj_start, obj_end, obj_new))
+    else:
+        get_radius = mc.getAttr(obj_end + '.radius')
+        obj_new = mc.joint()
+        mc.delete(mc.parentConstraint(obj_start, obj_end, obj_new))
+        mc.delete(mc.aimConstraint(obj_end, obj_new))
+        mc.makeIdentity(obj_new, apply=True, r=True)
+        mc.setAttr(obj_new + '.radius', get_radius)
+    if parent is True:
+        mc.parent(obj_new, obj_start)
+        mc.parent(obj_end, obj_new)

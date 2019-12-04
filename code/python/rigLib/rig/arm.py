@@ -84,7 +84,6 @@ def build(armJoints,
         scapula_list.append(armJoints[0])
         scapula_chain = nc_joint.jointDuplicate(jointChain=scapula_list, jointType="FK", offsetGrp=jointsOffsetGrp)
 
-        # arr = [x.replace('item', 'person') for x in arr]
         scapula_chain[-1].replace('_jnt', 'Off_jnt')
 
         mc.parentConstraint(scapula_chain[-1], arm_ik_rt["look_at_grp"], mo=True)
@@ -95,18 +94,12 @@ def build(armJoints,
         scapula_ctrl = nc_control.Control(prefix=prefix + 'Scapula', translateTo=scapula_chain[0], rotateTo=scapula_chain[0],
                                           scale=rigScale * 2, parent=rigModule.controlsGrp, shape='circle')
 
+        nc_constrain.matrixConstraint(scapula_chain[0], scapulaJnt)
         nc_constrain.matrixConstraint(scapula_ctrl.C, scapula_chain[0], mo=True)
 
         # attach controls
 
         mc.parentConstraint(baseAttachGrp, scapula_ctrl.Off, mo=1)
-    else:
-        pass
-        # attach controls
-
-        #mc.parentConstraint(baseAttachGrp, scapula_ctrl.Off, mo=1)
-
-    #mc.parentConstraint(bodyAttachGrp, poleVectorCtrl.Off, mo=1)
 
     return{'module': rigModule, 'baseAttachGrp': baseAttachGrp,
            'bodyAttachGrp': bodyAttachGrp}

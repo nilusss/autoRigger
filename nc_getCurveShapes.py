@@ -16,6 +16,11 @@ if sel_shapes is not None:
         points.append(mc.getAttr(crv_info + '.controlPoints[*]'))
         knots.append(mc.getAttr(crv_info + '.knots[*]'))
         
-        mc.curve(d=degs[i], p=points[i], k=knots[i])
+        curve = mc.curve(d=degs[i], p=points[i], k=knots[i])
+        
+        cmds.xform(centerPivots=True)
+        mc.move(curve, 0, 0, 0, a=True, moveXYZ=True)
+        
+
 else:
     print "Select a curve"

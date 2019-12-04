@@ -103,6 +103,7 @@ class Setup():
                 mc.parent(joint_loc_list[i], joint_loc_list[i-1])
                 chain_dist_append = nc_tools.measure(start_point=joint_loc_list[i-1], end_point=joint_loc_list[i])
                 chain_dist_list.append(chain_dist_append)
+                mc.parent(chain_dist_append, self.rigModule.partsStaticGrp)
 
         self.look_at_grp = mc.createNode('transform', name=self.prefix + 'LookAt_grp')
         mc.setAttr(self.look_at_grp + '.inheritsTransform', 0)
@@ -132,10 +133,18 @@ class Setup():
         control_dist_shape = mc.listRelatives(control_dist, shapes=True)[0]
         no_stretch_dist = nc_tools.measure(start_point=joint_loc_list[-1], end_point=stretch_blend_loc)
 
+        # parent distance nodes to the rigmodules static grp
+        mc.parent(control_dist, self.rigModule.partsStaticGrp)
+        mc.parent(no_stretch_dist, self.rigModule.partsStaticGrp)
+
         # create measure from upper and end joint to pole vector
         pin_dist_list = []
         upper_to_pole_dist = nc_tools.measure(start_point=joint_loc_list[0], end_point=self.pole_vector_loc)
         end_to_pole_dist = nc_tools.measure(start_point=stretch_blend_loc, end_point=self.pole_vector_loc)
+
+        # parent distance nodes to the rigmodules static grp
+        mc.parent(upper_to_pole_dist, self.rigModule.partsStaticGrp)
+        mc.parent(end_to_pole_dist, self.rigModule.partsStaticGrp)
 
         pin_dist_list.append(upper_to_pole_dist)
         pin_dist_list.append(end_to_pole_dist)

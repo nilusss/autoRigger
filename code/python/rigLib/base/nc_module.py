@@ -44,26 +44,26 @@ class Base():
                    type='string', lock=1)
 
         # make global control and offset control
-        globalCtrl = nc_control.Control(prefix='global',
-                                        scale=scale * globalCtrlScale,
-                                        parent=self.rigGrp,
-                                        shape='global',
-                                        lockChannels=['v']
-                                        )
+        self.globalCtrl = nc_control.Control(prefix='global',
+                                             scale=scale * globalCtrlScale,
+                                             parent=self.rigGrp,
+                                             shape='global',
+                                             lockChannels=['v']
+                                             )
 
-        offsetCtrl = nc_control.Control(prefix='offset',
-                                        scale=scale * globalCtrlScale - 2,
-                                        parent=globalCtrl.C,
-                                        shape='offset',
-                                        lockChannels=['s', 'v']
-                                        )
+        self.offsetCtrl = nc_control.Control(prefix='offset',
+                                             scale=scale * globalCtrlScale - 2,
+                                             parent=self.globalCtrl.C,
+                                             shape='offset',
+                                             lockChannels=['s', 'v']
+                                             )
 
         for axis in ['y', 'z']:
-            mc.connectAttr(globalCtrl.C + '.sx', globalCtrl.C + '.s' + axis)
-            mc.setAttr(globalCtrl.C + '.s' + axis,  keyable=0)
+            mc.connectAttr(self.globalCtrl.C + '.sx', self.globalCtrl.C + '.s' + axis)
+            mc.setAttr(self.globalCtrl.C + '.s' + axis,  keyable=0)
 
-        self.jointsGrp = mc.group(n='joints_grp', em=1, p=offsetCtrl.C)
-        self.modulesGrp = mc.group(n='modules_grp', em=1, p=offsetCtrl.C)
+        self.jointsGrp = mc.group(n='joints_grp', em=1, p=self.offsetCtrl.C)
+        self.modulesGrp = mc.group(n='modules_grp', em=1, p=self.offsetCtrl.C)
 
         self.extraNodesGrp = mc.group(n='extraNodes_grp', em=1, p=self.rigGrp)
         mc.setAttr(self.extraNodesGrp + '.it', 0, lock=1)

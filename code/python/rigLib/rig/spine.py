@@ -41,9 +41,6 @@ def build(spineJoints,
     mc.parent(jointsOffsetGrp, rigModule.jointsGrp)
     mc.delete(mc.parentConstraint(getOffsetJoint, jointsOffsetGrp, mo=0))
 
-    """for i in xrange(0,len(resultChain),2):
-        mc.createNode('transform', n=resultChain[i])"""
-
     ikChain = nc_joint.jointDuplicate(jointChain=resultChain, jointType="IK", offsetGrp=jointsOffsetGrp)
     fkChain = nc_joint.jointDuplicate(jointChain=resultChain, jointType="FK", offsetGrp=jointsOffsetGrp, skip=2)
 
@@ -68,6 +65,13 @@ def build(spineJoints,
     }
     ik_spline, eff, spine_crv = mc.ikHandle(**kwargs)
     spine_crv = mc.rename(spine_crv, prefix + '_crv')
+    spine_crv_shape = mc.listRelatives(spine_crv, shapes=True)[0]
+
+    # parent IK Spline handle and spline curve under partNoTrans grp
+
+    mc.parent(ik_spline, rigModule.partsStaticGrp)
+    mc.parent(spine_crv, rigModule.partsStaticGrp)
+
     mc.select(d=True)
     pelvis_bind_jnt = mc.duplicate(ikChain[0], parentOnly=True, name=ikChain[0].replace('IK_jnt', 'IKBind_jnt'))[0]
     spine_end_bind_jnt = mc.duplicate(ikChain[-1], parentOnly=True, name=ikChain[-1].replace('IK_jnt', 'IKBind_jnt'))[0]
@@ -84,9 +88,9 @@ def build(spineJoints,
         }
     scls = mc.skinCluster(influences, spine_crv, **kwargs)[0]
 
-    pelvis_ctrl = nc_control.Control(prefix=resultChain[0].replace('_jnt', ''), translateTo=pelvis_bind_jnt, rotateTo=pelvis_bind_jnt,
+    pelvis_ctrl = nc_control.Control(prefix=resultChain[0].replace('_jnt', ''), translateTo=pelvis_bind_jnt,
                                      scale=rigScale * 2, parent=rigModule.controlsGrp, shape='cube')
-    spine_end_ctrl = nc_control.Control(prefix=resultChain[-1].replace('_jnt', ''), translateTo=spine_end_bind_jnt, rotateTo=spine_end_bind_jnt,
+    spine_end_ctrl = nc_control.Control(prefix=resultChain[-1].replace('_jnt', ''), translateTo=spine_end_bind_jnt,
                                         scale=rigScale * 2, parent=rigModule.controlsGrp, shape='cube')
 
     nc_constrain.matrixConstraint(fkChain[-1], spine_end_ctrl.Off)
@@ -94,7 +98,35 @@ def build(spineJoints,
     nc_constrain.matrixConstraint(pelvis_ctrl.C, pelvis_bind_jnt, mo=True)
     nc_constrain.matrixConstraint(spine_end_ctrl.C, spine_end_bind_jnt, mo=True)
 
+    # setup twisting for the spine
+    print pelvis_bind_jnt
+    mc.setAttr(ik_spline + '.dTwistControlEnable', 1)
+    mc.setAttr(ik_spline + '.dWorldUpType', 4)
+    mc.connectAttr(pelvis_bind_jnt + '.xformMatrix', ik_spline + '.dWorldUpMatrix')
+    mc.connectAttr(spine_end_bind_jnt + '.xformMatrix', ik_spline + '.dWorldUpMatrixEnd')
+    mc.setAttr(ik_spline + '.dWorldUpAxis', 0)
+    mc.setAttr(ik_spline + '.dForwardAxis', 0)
+
+    # create stretchy spine
+    curve_info = mc.createNode("curveInfo", n='spineInfo')
+    spine_md = mc.createNode("multiplyDivide")
+    spine_corect_md = mc.createNode("multiplyDivide")
+    mc.connectAttr(spine_crv_shape + '.worldSpace', curve_info + '.inputCurve')
+
+    arcLength = mc.getAttr(curve_info + '.arcLength')
+    mc.connectAttr(curve_info + '.arcLength', spine_md + '.input1X')
+    mc.setAttr(spine_md + '.op', 2)
+    mc.setAttr(spine_corect_md + '.op', 2)
+    mc.connectAttr(baseRig.globalCtrl.C + '.sx', spine_md + '.input2X')
+    mc.connectAttr(spine_md + '.outputX', spine_corect_md + '.input1X')
+    mc.setAttr(spine_corect_md + '.input2X', arcLength)
+
+    # make joints scale in correlation with the arcLength
+    for i, j in enumerate(ikChain):
+        if j is not ikChain[-1]:
+            mc.connectAttr(spine_corect_md + '.outputX', j + '.sx')
+
     # constrain joints to the result joints
 
     for i in range(len(resultChain)):
-        nc_constrain.matrixConstraint(ikChain[i], resultChain[i], mo=True)
+        nc_constrain.matrixConstraint(ikChain[i], resultChain[i], mo=True, connMatrix=['t', 'r'])

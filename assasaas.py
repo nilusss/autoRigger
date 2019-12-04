@@ -53,7 +53,16 @@ spineRig = spine.build(spineJoints=spineJoints, pelvisJnt='pelvisResult_jnt', pr
 # create left leg module
 
 lLegJoints = ['l_legUpperResult_jnt', 'l_legLowerResult_jnt', 'l_legEndResult_jnt']
-l_leg_rig = arm.build(armJoints=lLegJoints, prefix='l_leg', rigScale=3, baseRig=baseRig)
+l_leg_rig = arm.build(armJoints=lLegJoints, scapulaJnt='l_hipResult_jnt', prefix='l_leg', rigScale=3, baseRig=baseRig)
+
+mc.parentConstraint('pelvisResult_ctrl', l_leg_rig['baseAttachGrp'], mo=True)
+
+# create left leg module
+
+rLegJoints = ['r_legUpperResult_jnt', 'r_legLowerResult_jnt', 'r_legEndResult_jnt']
+r_leg_rig = arm.build(armJoints=rLegJoints, scapulaJnt='r_hipResult_jnt', prefix='r_leg', rigScale=3, baseRig=baseRig)
+
+mc.parentConstraint('pelvisResult_ctrl', r_leg_rig['baseAttachGrp'], mo=True)
 
 # create left arm module
 

@@ -53,7 +53,7 @@ def matrixConstraint(driver, driven, mo=True, oc=False, pc=False, connMatrix=['t
 
     if mc.nodeType(driven) == 'joint' and oc == False and pc == False:
         mc.connectAttr(decomposeMatrix + '.o' + connMatrix[0], driven + '.' + connMatrix[0])
-        mc.connectAttr(decomposeMatrix + '.o' + connMatrix[2], driven + '.' + connMatrix[2])
+        #mc.connectAttr(decomposeMatrix + '.o' + connMatrix[2], driven + '.' + connMatrix[2])
         mc.connectAttr(qTE + '.outputRotate', driven + '.r')
     elif oc == True:
         mc.connectAttr(qTE + '.outputRotate', driven + '.r')
