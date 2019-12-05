@@ -117,7 +117,6 @@ def build(tail_joints,
               'snapCurve': True,
               'twistType': 'linear',
               'curve': tail_crv
-  
     }
 
     ik_spline, eff = mc.ikHandle(**kwargs)

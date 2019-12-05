@@ -23,6 +23,7 @@ class Setup():
                  ikChain=[],
                  resultChain=[],
                  offsetJnt='',
+                 rotateTo=True,
                  isStretchy=True,
                  scaleAxis='x',
                  prefix='l_arm',
@@ -33,6 +34,7 @@ class Setup():
         @param ikChain: list(str), list of joints used for IK
         @param reusltChain: list(str), list of joints used for binding
         @param offsetJnt: str, can be a joint like the scapula for arms or hip
+        @param rotateTo: boolean, if the controller should be rotated to the joint
         @param isStretchy: boolean, decides if the IK setup should be stretchy or not
         @param scaleAxis: str, what axis the joints should scale from
         @param prefix: str, prefix to name new objects
@@ -43,6 +45,7 @@ class Setup():
         self.ikChain = ikChain
         self.resultChain = resultChain
         self.offsetJnt = offsetJnt
+        self.rotateTo = rotateTo
         self.isStretchy = isStretchy
         self.rigScale = rigScale
         self.prefix = prefix
@@ -53,8 +56,12 @@ class Setup():
     # create controller for IK
 
     def create_ik_ctrl(self):
-        self.ik_ctrl = nc_control.Control(prefix=self.prefix + 'IK', translateTo=self.ikChain[-1], rotateTo=self.ikChain[-1],
-                                          scale=self.rigScale * 2, parent=self.rigModule.controlsGrp, shape='cube')
+        if self.rotateTo is True:
+            self.ik_ctrl = nc_control.Control(prefix=self.prefix + 'IK', translateTo=self.ikChain[-1], rotateTo=self.ikChain[-1],
+                                              scale=self.rigScale * 2, parent=self.rigModule.controlsGrp, shape='cube')
+        else:
+            self.ik_ctrl = nc_control.Control(prefix=self.prefix + 'IK', translateTo=self.ikChain[-1],
+                                              scale=self.rigScale * 2, parent=self.rigModule.controlsGrp, shape='cube')
 
         return self.ik_ctrl
 
