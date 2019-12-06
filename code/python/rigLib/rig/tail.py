@@ -17,6 +17,7 @@ from ..utils import nc_tools
 
 def build(tail_joints,
           density=10.0,
+          axis='X',
           prefix='tail',
           rigScale=1.0,
           baseRig=None
@@ -26,6 +27,8 @@ def build(tail_joints,
     Setup for creating a tail module. Can be used for tails, tentacles etc.
 
     @param tail_joints: list(str), infinite long chain of joints
+    @param density: float, amount of joints to input between a pair of joints
+    @param axis: str, axis the shape should face
     @param prefix: str, prefix to name new objects
     @param rigScale: float, scale factor for size of controls
     @param baseRig: instance of base.module.Base class
@@ -47,10 +50,12 @@ def build(tail_joints,
 
             joints_inbetween = nc_tools.insert_joints(j, c_joint, amount=density, parent=True)
 
+    # create fk setup for tail module
+
     fk_chain = nc_joint.jointDuplicate(jointChain=tail_joints, jointType="FK", offsetGrp=jointsOffsetGrp)
     mc.select(d=True)
 
-    tail_fk = nc_fk_setup.Setup(fk_chain, incl_last=False, parent=False, prefix=prefix, rigScale=rigScale, rigModule=rigModule)
+    tail_fk = nc_fk_setup.Setup(fk_chain, incl_last=True, rotateTo=False, parent=False, shape='circle' + axis, prefix=prefix, rigScale=rigScale, rigModule=rigModule)
     tail_fk_rt = tail_fk.build()
 
     # create Locators and IK controllers
@@ -58,6 +63,7 @@ def build(tail_joints,
     ik_ctrl_list = []
     for i, joint in enumerate(tail_joints):
         loc = mc.spaceLocator(n=joint.replace('Result_jnt', '_loc'))[0]
+        mc.parent(loc, rigModule.partsGrp)
         loc_list.append(loc)
         mc.delete(mc.parentConstraint(joint, loc))
         ik_ctrl = nc_control.Control(prefix=joint.replace('Result_jnt', 'IK'), translateTo=loc, rotateTo=loc,
@@ -69,8 +75,6 @@ def build(tail_joints,
         else:
             mc.parent(ik_ctrl.Off, tail_fk_rt['fk_ctrl'][-1])
             mc.parentConstraint(ik_ctrl.C, loc_list[-1])
-
-
 
     # create IK spline
 
@@ -100,7 +104,6 @@ def build(tail_joints,
         mc.connectAttr(loc_shape + '.worldPosition', tail_crv_shape + '.controlPoints[{}]'.format(i))
 
     mc.delete(fk_chain[0])
-    #mc.delete(ik_spline)
 
     new_joint_list = nc_joint.listHierarchy(tail_joints[0], tail_joints[-1], withEndJoints=True)
     fk_chain = nc_joint.jointDuplicate(new_joint_list, jointType='FKIK', offsetGrp=jointsOffsetGrp)
@@ -120,6 +123,13 @@ def build(tail_joints,
     }
 
     ik_spline, eff = mc.ikHandle(**kwargs)
+
+    mc.parent(ik_spline, rigModule.partsStaticGrp)
+    mc.parent(tail_crv, rigModule.partsStaticGrp)
+    mc.select(fk_chain[-1])
+    last_joint_grp = mc.group(n=fk_chain[-1].replace('_jnt', 'Offset_grp'), p=fk_chain[-2])
+
+    mc.parentConstraint(ik_ctrl_list[-1],  last_joint_grp)
 
     for i in range(len(new_joint_list)):
         nc_constrain.matrixConstraint(fk_chain[i], new_joint_list[i], mo=True)

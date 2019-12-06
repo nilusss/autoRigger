@@ -97,7 +97,7 @@ class Control():
 
             mc.delete(worldForward, worldBackward, worldLeft, worldRight)
         elif shape == 'settings':
-            ctrlObject = mc.curve(name=prefix+'IKFKBlend_ctrl', d=1, 
+            ctrlObject = mc.curve(name=prefix+'_ctrl', d=1, 
                                   p=[(0, 0, 1), (-1, 0, 1), (-1, 0, 0),
                                      (-2, 0, 0), (-2, 0, -1), (-1, 0, -1),
                                      (-1, 0, -2), (0, 0, -2), (0, 0, -1),

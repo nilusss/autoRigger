@@ -1,5 +1,5 @@
 """
-module for making different IK setups for the rig
+module for making different FK setups for the rig
 """
 
 import maya.cmds as mc
@@ -16,7 +16,7 @@ from . import nc_tools
 class Setup():
 
     """
-    Class for building IK
+    Class for building FK
     """
 
     def __init__(self,
