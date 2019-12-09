@@ -45,13 +45,12 @@ def build(spineJoints,
     fkChain = nc_joint.jointDuplicate(jointChain=resultChain, jointType="FK", offsetGrp=jointsOffsetGrp, skip=2)
 
     fk_ctrl_list = []
-    for i, j in enumerate(fkChain):
-        if j is not fkChain[0] and j is not fkChain[-1]:
-            fk_ctrl_list.append(fkChain[i])
+    for index, joint in enumerate(fkChain):
+        if joint is not fkChain[0] and joint is not fkChain[-1]:
+            fk_ctrl_list.append(fkChain[index])
             print fk_ctrl_list
 
     spine_fk = nc_fk_setup.Setup(fk_ctrl_list, rotateTo=False, shape='circleY', prefix=prefix, rigScale=rigScale, rigModule=rigModule)
-
     spine_fk_rt = spine_fk.build()
 
     kwargs = {
@@ -67,7 +66,7 @@ def build(spineJoints,
     spine_crv = mc.rename(spine_crv, prefix + '_crv')
     spine_crv_shape = mc.listRelatives(spine_crv, shapes=True)[0]
 
-    # parent IK Spline handle and spline curve under partNoTrans grp
+    # parent IK Spline handle and spline curve under parts static group
 
     mc.parent(ik_spline, rigModule.partsStaticGrp)
     mc.parent(spine_crv, rigModule.partsStaticGrp)
@@ -102,8 +101,8 @@ def build(spineJoints,
     print pelvis_bind_jnt
     mc.setAttr(ik_spline + '.dTwistControlEnable', 1)
     mc.setAttr(ik_spline + '.dWorldUpType', 4)
-    mc.connectAttr(pelvis_bind_jnt + '.xformMatrix', ik_spline + '.dWorldUpMatrix')
-    mc.connectAttr(spine_end_bind_jnt + '.xformMatrix', ik_spline + '.dWorldUpMatrixEnd')
+    mc.connectAttr(pelvis_bind_jnt + '.worldMatrix[0]', ik_spline + '.dWorldUpMatrix')
+    mc.connectAttr(spine_end_bind_jnt + '.worldMatrix[0]', ik_spline + '.dWorldUpMatrixEnd')
     mc.setAttr(ik_spline + '.dWorldUpAxis', 0)
     mc.setAttr(ik_spline + '.dForwardAxis', 0)
 

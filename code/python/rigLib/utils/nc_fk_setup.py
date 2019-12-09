@@ -51,7 +51,8 @@ class Setup():
     # create controller for FK
 
     def create_fk_ctrl(self):
-        fkCtrlChain = []
+        fk_ctrl_chain = []
+        fk_ctrl_grps = []
         for i, j in enumerate(self.fkChain):
             if j == self.fkChain[-1] and self.incl_last is False:
                 print "pass"
@@ -63,17 +64,20 @@ class Setup():
                 else:
                     fkCtrl = nc_control.Control(prefix=fkCtrlNN, translateTo=j, scale=self.rigScale * 2,
                                                 parent=self.rigModule.controlsGrp, shape=self.shape)
-                fkCtrlChain.append(fkCtrl.C)
+                fk_ctrl_chain.append(fkCtrl.C)
+                fk_ctrl_grps.append(fkCtrl.Off)
                 prevFKCtrl = i-1
                 if i > 0:
-                    mc.parent(fkCtrl.Off, fkCtrlChain[prevFKCtrl])
+                    mc.parent(fkCtrl.Off, fk_ctrl_chain[prevFKCtrl])
 
                 if self.parent is True:
                     mc.parentConstraint(fkCtrl.C, j, mo=True)
 
-        return fkCtrlChain
+        return {'ctrls': fk_ctrl_chain,
+                'grps': fk_ctrl_grps}
 
     def build(self):
         fk_ctrl = self.create_fk_ctrl()
 
-        return {'fk_ctrl': fk_ctrl}
+        return {'ctrls': fk_ctrl['ctrls'],
+                'grps': fk_ctrl['grps']}

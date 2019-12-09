@@ -31,6 +31,7 @@ class Base():
         self.topGrp = mc.group(name=characterName + '_rig_grp', em=1)
         self.rigGrp = mc.group(name='rig_grp', em=1, p=self.topGrp)
         self.modelGrp = mc.group(name='model_grp', em=1, p=self.topGrp)
+        self.verGrp = mc.group(name='version_grp', em=1, p=self.topGrp)
 
         characterNameAt = 'characterName'
         sceneObjectTypeAt = 'sceneObjectType'

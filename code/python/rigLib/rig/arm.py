@@ -89,7 +89,7 @@ def build(armJoints,
         mc.parentConstraint(scapula_chain[-1], arm_ik_rt["look_at_grp"], mo=True)
         mc.parentConstraint(scapula_chain[-1], arm_ik_rt["joint_loc_list"][0], mo=True)
         mc.parentConstraint(scapula_chain[-1], ikChain[0], mo=True)
-        mc.pointConstraint(scapula_chain[-1], arm_fk_rt['fk_ctrl'][0], mo=True)
+        mc.pointConstraint(scapula_chain[-1], arm_fk_rt['ctrls'][0], mo=True)
 
         scapula_ctrl = nc_control.Control(prefix=prefix + 'Scapula', translateTo=scapula_chain[0], rotateTo=scapula_chain[0],
                                           scale=rigScale * 2, parent=rigModule.controlsGrp, shape='circle')
@@ -100,6 +100,31 @@ def build(armJoints,
         # attach controls
 
         mc.parentConstraint(baseAttachGrp, scapula_ctrl.Off, mo=1)
+    
+    # switch between FK and IK visibility
+
+    vis_rev = mc.createNode('reverse', n='blend_vis_reverse')
+    mc.connectAttr(armBlendCtrl.C + '.blend', vis_rev + '.inputX')
+
+    # IK visibility
+
+    for key, value in arm_ik_rt.items():
+        print value
+        if type(value) is not list:
+            if mc.getAttr(value + '.visibility', l=True) or mc.getAttr(value + '.visibility', l=False):
+                mc.setAttr(value + '.visibility', l=False)
+                mc.connectAttr(armBlendCtrl.C + '.blend', arm_ik_rt[key] + '.visibility', force=True, l=True)
+
+    mc.connectAttr(armBlendCtrl.C + '.blend', ikChain[0] + '.visibility', force=True, l=True)
+
+    # FK visibility
+
+    for grp in arm_fk_rt['grps']:
+        if mc.getAttr(grp + '.visibility', lock=True) or mc.getAttr(grp + '.visibility', lock=False):
+            mc.setAttr(grp + '.visibility', lock=False)
+            mc.connectAttr(vis_rev + '.outputX', grp + '.visibility', force=True, lock=True)
+
+    mc.connectAttr(vis_rev + '.outputX', fkChain[0] + '.visibility', force=True, l=True)
 
     return{'module': rigModule, 'baseAttachGrp': baseAttachGrp,
            'bodyAttachGrp': bodyAttachGrp}

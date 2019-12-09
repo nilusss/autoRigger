@@ -48,7 +48,7 @@ def measure(start_point, end_point):
     return new_dist_name
 
 
-def create(obj_from="", obj_to="", prefix="", rigModule=None):
+def create_line(obj_from="", obj_to="", prefix="", rigModule=None):
 
     """
     Create a template line between two objects
@@ -71,7 +71,8 @@ def create(obj_from="", obj_to="", prefix="", rigModule=None):
     mc.parent(crv, offset_grp)
     mc.parent(offset_grp, rigModule.controlsGrp)
 
-    return crv
+    return {'crv': crv,
+            'grp': offset_grp}
 
 
 def create_loc(pos):

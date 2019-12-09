@@ -63,7 +63,8 @@ class Setup():
             self.ik_ctrl = nc_control.Control(prefix=self.prefix + 'IK', translateTo=self.ikChain[-1],
                                               scale=self.rigScale * 2, parent=self.rigModule.controlsGrp, shape='cube')
 
-        return self.ik_ctrl
+        return {'ctrl': self.ik_ctrl.C,
+                'grp': self.ik_ctrl.Off}
 
     def create_pole_vec(self):
         self.pole_vector_ctrl = nc_control.Control(prefix=self.prefix + 'PoleVec', scale=self.rigScale * 2,
@@ -75,7 +76,8 @@ class Setup():
 
         nc_constrain.matrixConstraint(self.pole_vector_ctrl.C, self.pole_vector_loc, mo=True)
 
-        return self.pole_vector_loc
+        return {'loc': self.pole_vector_loc,
+                'ctrl': self.pole_vector_ctrl.C}
 
     # create IK handle and parent it under IK controller
 
@@ -272,15 +274,19 @@ class Setup():
         elif self.isStretchy is False:
             ik_hdl = self.create_ik()
 
-        mc.poleVectorConstraint(pole_vec, ik_hdl['ik_hdl'])
+        mc.poleVectorConstraint(pole_vec['loc'], ik_hdl['ik_hdl'])
 
         get_mid_joint = nc_joint.get_mid_joint(self.resultChain)
 
-        nc_tools.create(obj_from=self.resultChain[get_mid_joint], obj_to=pole_vec,
+        pv_line = nc_tools.create_line(obj_from=self.resultChain[get_mid_joint], obj_to=pole_vec['loc'],
                             prefix=self.prefix, rigModule=self.rigModule)
 
         return {'ik_hdl': ik_hdl['ik_hdl'],
-                'ik_ctrl': ik_ctrl,
-                'pole_vec': pole_vec,
+                'ik_ctrl': ik_ctrl['ctrl'],
+                'ik_ctrl_grp': ik_ctrl['grp'],
+                'pole_vec_loc': pole_vec['loc'],
+                'pole_vec_ctrl': pole_vec['ctrl'],
+                'pv_line': pv_line['crv'],
+                'pv_line_grp': pv_line['grp'],
                 'joint_loc_list': ik_hdl['joint_loc_list'],
                 'look_at_grp': self.look_at_grp}

@@ -58,7 +58,7 @@ def jointDuplicate(jointChain=[], jointType="FK", offsetGrp="", skip=0):
             j = jointChain[i]
             nn = j.replace('Result_jnt', jointType + '_jnt')
             jAppend = mc.duplicate(j, parentOnly=True, n=nn)
-            mc.parent(jAppend[0], offsetGrp)
+            mc.parent(jAppend, offsetGrp)
             jChain.extend(jAppend)
         for i in range(len(jChain)):
             prevJnt = i-1
@@ -69,7 +69,7 @@ def jointDuplicate(jointChain=[], jointType="FK", offsetGrp="", skip=0):
         for i, j in enumerate(jointChain):
             nn = j.replace('Result_jnt', jointType + '_jnt')
             jAppend = mc.duplicate(j, parentOnly=True, n=nn)
-            mc.parent(jAppend[0], offsetGrp)
+            mc.parent(jAppend, offsetGrp)
             jChain.extend(jAppend)
             prevJnt = i-1
             if i > 0:

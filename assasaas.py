@@ -8,6 +8,7 @@ from rigLib.base import nc_control
 from rigLib.rig import arm
 from rigLib.rig import spine
 from rigLib.rig import tail
+from rigLib.rig import neck
 from rigLib.utils import nc_constrain
 from rigLib.utils import nc_joint
 from rigLib.utils import nc_name
@@ -22,6 +23,7 @@ reload(nc_control)
 reload(arm)
 reload(spine)
 reload(tail)
+reload(neck)
 reload(nc_constrain)
 reload(nc_joint)
 reload(nc_name)
@@ -69,7 +71,7 @@ mc.parentConstraint('pelvisResult_ctrl', r_leg_rig['baseAttachGrp'], mo=True)
 # test of tail module
 
 tail_joints = ['tail10Result_jnt', 'tail20Result_jnt', 'tail30Result_jnt', 'tail40Result_jnt', 'tail50Result_jnt']
-tail_rig = tail.build(tail_joints, density=2.0, prefix='tail', rigScale=1.0, baseRig=baseRig )
+tail_rig = tail.build(tail_joints, density=2.0, axis='Y', prefix='tail', rigScale=3, baseRig=baseRig )
 
 # create left arm module
 
@@ -84,5 +86,10 @@ rArmJoints = ['r_armUpperResult_jnt', 'r_armLowerResult_jnt', 'r_armEndResult_jn
 r_arm_rig = arm.build(armJoints=rArmJoints, scapulaJnt='r_clavicleResult_jnt', prefix='r_arm', rigScale=3, baseRig=baseRig)
 
 mc.parentConstraint('spineEndResult_ctrl', r_arm_rig['baseAttachGrp'], mo=True)
+
+# test of neck module using tail
+
+neck_joints = ['neckStartResult_jnt', 'neckResult_jnt', 'neckEndResult_jnt']
+neck_rig = neck.build(neck_joints=neck_joints, prefix='neck', rigScale=2, baseRig=baseRig)
 
 mc.select(d=True)

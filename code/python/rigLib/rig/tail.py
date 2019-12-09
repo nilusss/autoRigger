@@ -17,7 +17,7 @@ from ..utils import nc_tools
 
 def build(tail_joints,
           density=10.0,
-          axis='X',
+          axis='',
           prefix='tail',
           rigScale=1.0,
           baseRig=None
@@ -69,11 +69,11 @@ def build(tail_joints,
         ik_ctrl = nc_control.Control(prefix=joint.replace('Result_jnt', 'IK'), translateTo=loc, rotateTo=loc,
                                      scale=rigScale * 2, parent=rigModule.controlsGrp, shape='cube')
         ik_ctrl_list.append(ik_ctrl.C)
-        if i <= len(tail_fk_rt['fk_ctrl'])-1:
-            mc.parent(ik_ctrl.Off, tail_fk_rt['fk_ctrl'][i])
+        if i <= len(tail_fk_rt['ctrls'])-1:
+            mc.parent(ik_ctrl.Off, tail_fk_rt['ctrls'][i])
             mc.parentConstraint(ik_ctrl.C, loc)
         else:
-            mc.parent(ik_ctrl.Off, tail_fk_rt['fk_ctrl'][-1])
+            mc.parent(ik_ctrl.Off, tail_fk_rt['ctrls'][-1])
             mc.parentConstraint(ik_ctrl.C, loc_list[-1])
 
     # create IK spline
