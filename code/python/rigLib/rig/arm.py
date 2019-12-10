@@ -69,8 +69,9 @@ def build(armJoints,
 
     # setup of arm blending
 
-    armBlendCtrl = nc_control.Control(prefix=prefix + 'IKFKBlend', translateTo=armJoints[-1], rotateTo=armJoints[-1],
+    armBlendCtrl = nc_control.Control(prefix=prefix + 'IKFKBlend', translateTo=armJoints[-1],
                                       scale=rigScale * 2, parent=rigModule.controlsGrp, shape='settings')
+    mc.setAttr(armBlendCtrl.Off + '.rx', 90)
     mc.addAttr(armBlendCtrl.C, shortName='blend', longName='FKIKBlend', defaultValue=0, minValue=0.0, maxValue=1.0, k=1)
     mc.move(-30, z=True)
 
@@ -126,5 +127,6 @@ def build(armJoints,
 
     mc.connectAttr(vis_rev + '.outputX', fkChain[0] + '.visibility', force=True, l=True)
 
-    return{'module': rigModule, 'baseAttachGrp': baseAttachGrp,
+    return{'module': rigModule,
+           'baseAttachGrp': baseAttachGrp,
            'bodyAttachGrp': bodyAttachGrp}

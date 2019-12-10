@@ -37,12 +37,19 @@ def build(spineJoints,
     rigModule = nc_module.Module(prefix=prefix, baseObj=baseRig)
     getOffsetJoint = mc.listRelatives(resultChain[0], parent=True)
 
-    jointsOffsetGrp = mc.createNode('transform', n=prefix + 'JointsOffset_grp')
-    mc.parent(jointsOffsetGrp, rigModule.jointsGrp)
-    mc.delete(mc.parentConstraint(getOffsetJoint, jointsOffsetGrp, mo=0))
+    joints_offset_grp = mc.createNode('transform', n=prefix + 'JointsOffset_grp')
+    mc.parent(joints_offset_grp, rigModule.jointsGrp)
+    mc.delete(mc.parentConstraint(getOffsetJoint, joints_offset_grp, mo=0))
 
-    ikChain = nc_joint.jointDuplicate(jointChain=resultChain, jointType="IK", offsetGrp=jointsOffsetGrp)
-    fkChain = nc_joint.jointDuplicate(jointChain=resultChain, jointType="FK", offsetGrp=jointsOffsetGrp, skip=2)
+    # make attach groups
+
+    bodyAttachGrp = mc.group(n=prefix + 'BodyAttach_grp', em=1, p=rigModule.partsGrp)
+    baseAttachGrp = mc.group(n=prefix + 'BaseAttach_grp', em=1, p=rigModule.partsGrp)
+
+    # make triple chain setup
+
+    ikChain = nc_joint.jointDuplicate(jointChain=resultChain, jointType="IK", offsetGrp=joints_offset_grp)
+    fkChain = nc_joint.jointDuplicate(jointChain=resultChain, jointType="FK", offsetGrp=joints_offset_grp, skip=2)
 
     fk_ctrl_list = []
     for index, joint in enumerate(fkChain):
@@ -74,7 +81,7 @@ def build(spineJoints,
     mc.select(d=True)
     pelvis_bind_jnt = mc.duplicate(ikChain[0], parentOnly=True, name=ikChain[0].replace('IK_jnt', 'IKBind_jnt'))[0]
     spine_end_bind_jnt = mc.duplicate(ikChain[-1], parentOnly=True, name=ikChain[-1].replace('IK_jnt', 'IKBind_jnt'))[0]
-    mc.parent(spine_end_bind_jnt, jointsOffsetGrp)
+    mc.parent(spine_end_bind_jnt, joints_offset_grp)
 
     influences = [pelvis_bind_jnt, spine_end_bind_jnt]
     kwargs = {
@@ -129,3 +136,7 @@ def build(spineJoints,
 
     for i in range(len(resultChain)):
         nc_constrain.matrixConstraint(ikChain[i], resultChain[i], mo=True, connMatrix=['t', 'r'])
+
+    return{'module': rigModule,
+           'baseAttachGrp': baseAttachGrp,
+           'bodyAttachGrp': bodyAttachGrp}

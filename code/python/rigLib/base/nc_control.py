@@ -34,10 +34,28 @@ class Control():
         # control shape library
         if shape in ['circle', 'circleX']:
             circleNormal = [1, 0, 0]
+            degree = 3
+            sections = 8
         elif shape == 'circleY':
             circleNormal = [0, 1, 0]
+            degree = 3
+            sections = 8
         elif shape == 'circleZ':
             circleNormal = [0, 0, 1]
+            degree = 3
+            sections = 8
+        elif shape in ['diamond', 'diamondX']:
+            circleNormal = [1, 0, 0]
+            degree = 1
+            sections = 4
+        elif shape == 'diamondY':
+            circleNormal = [0, 1, 0]
+            degree = 1
+            sections = 4
+        elif shape == 'diamondZ':
+            circleNormal = [0, 0, 1]
+            degree = 1
+            sections = 4
         elif shape == 'sphere':
             ctrlObject = mc.circle(name=prefix + '_ctrl', constructionHistory=False,
                                    normal=[1, 0, 0], radius=scale)[0]
@@ -148,7 +166,7 @@ class Control():
         if not ctrlObject:
 
             ctrlObject = mc.circle(name=prefix + '_ctrl', constructionHistory=False,
-                                   normal=circleNormal, radius=scale)[0]
+                                   normal=circleNormal, degree=degree, sections=sections, radius=scale)[0]
 
         ctrlOffset = mc.group(n=prefix+'Offset_grp', em=1)
         mc.parent(ctrlObject, ctrlOffset)

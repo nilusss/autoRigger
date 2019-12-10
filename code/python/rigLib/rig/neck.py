@@ -22,7 +22,7 @@ def build(neck_joints,
           ):
 
     """
-    Setup for creating a spine with IK Spline with a FK on top of that
+    Setup for creating a neck with IK Spline with a FK on top of that
 
     @param neck_joints: list(str), list of neck joints
     @param prefix: str, prefix to name new objects
@@ -30,17 +30,16 @@ def build(neck_joints,
     @param baseRig: instance of base.module.Base class
     """
 
-    resultChain = []
-    resultChain.extend(neck_joints)
+    result_chain = []
+    result_chain.extend(neck_joints)
     rigModule = nc_module.Module(prefix=prefix, baseObj=baseRig)
-    getOffsetJoint = mc.listRelatives(resultChain[0], parent=True)
+    get_offset_joint = mc.listRelatives(result_chain[0], parent=True)
 
-    jointsOffsetGrp = mc.createNode('transform', n=prefix + 'JointsOffset_grp')
-    mc.parent(jointsOffsetGrp, rigModule.jointsGrp)
-    mc.delete(mc.parentConstraint(getOffsetJoint, jointsOffsetGrp, mo=0))
+    joints_offset_grp = mc.createNode('transform', n=prefix + 'JointsOffset_grp')
+    mc.parent(joints_offset_grp, rigModule.jointsGrp)
+    mc.delete(mc.parentConstraint(get_offset_joint, joints_offset_grp, mo=0))
 
-    chain = nc_joint.jointDuplicate(jointChain=resultChain, jointType="IK", offsetGrp=jointsOffsetGrp)
-
+    chain = nc_joint.jointDuplicate(jointChain=result_chain, jointType="IK", offsetGrp=joints_offset_grp)
 
     kwargs = {
         'name': prefix + '_hdl',
@@ -51,27 +50,74 @@ def build(neck_joints,
         'parentCurve': False,
         'simplifyCurve': False
     }
-    ik_spline, eff, spine_crv = mc.ikHandle(**kwargs)
-    spine_crv = mc.rename(spine_crv, prefix + '_crv')
-    spine_crv_shape = mc.listRelatives(spine_crv, shapes=True)[0]
+    ik_spline, eff, neck_crv = mc.ikHandle(**kwargs)
+    neck_crv = mc.rename(neck_crv, prefix + '_crv')
+    neck_crv_shape = mc.listRelatives(neck_crv, shapes=True)[0]
 
     # parent IK Spline handle and spline curve under parts static group
 
     mc.parent(ik_spline, rigModule.partsStaticGrp)
-    mc.parent(spine_crv, rigModule.partsStaticGrp)
+    mc.parent(neck_crv, rigModule.partsStaticGrp)
+
+    # create start and end bind joint for the neck crv
 
     mc.select(d=True)
-    pelvis_bind_jnt = mc.duplicate(chain[0], parentOnly=True, name=chain[0].replace('IK_jnt', 'IKBind_jnt'))[0]
-    spine_end_bind_jnt = mc.duplicate(chain[-1], parentOnly=True, name=chain[-1].replace('IK_jnt', 'IKBind_jnt'))[0]
-    mc.parent(spine_end_bind_jnt, jointsOffsetGrp)
+    neck_start_bind_jnt = mc.duplicate(chain[0], parentOnly=True, name=chain[0].replace('IK_jnt', 'IKBind_jnt'))[0]
+    neck_end_bind_jnt = mc.duplicate(chain[-1], parentOnly=True, name=chain[-1].replace('IK_jnt', 'IKBind_jnt'))[0]
+    mc.parent(neck_end_bind_jnt, joints_offset_grp)
 
-    influences = [pelvis_bind_jnt, spine_end_bind_jnt]
+    # create head controller and constrain it to the neck end bind joint
+
+    head_ctrl = nc_control.Control(prefix='head', translateTo=neck_end_bind_jnt,
+                                   scale=rigScale, parent=rigModule.controlsGrp, shape='cube')
+
+    nc_constrain.matrixConstraint(head_ctrl.C, neck_end_bind_jnt, mo=True)
+
+    # bind the start and end joint with the neck crv using a skincluster
+
+    influences = [neck_start_bind_jnt, neck_end_bind_jnt]
     kwargs = {
-            'name': 'spine_skinCluster',
+            'name': 'neck_skinCluster',
             'toSelectedBones': True,
             'bindMethod': 0,
             'skinMethod': 0,
             'normalizeWeights': 1,
             'maximumInfluences': 2
         }
-    scls = mc.skinCluster(influences, spine_crv, **kwargs)[0]
+    scls = mc.skinCluster(influences, neck_crv, **kwargs)[0]
+
+    # create FK chain and controller
+
+    neck_start_fk_jnt = mc.duplicate(chain[0], parentOnly=True, name=chain[0].replace('IK_jnt', 'FK_jnt'))[0]
+    neck_end_fk_jnt = mc.duplicate(chain[-1], parentOnly=True, name=chain[-1].replace('IK_jnt', 'FK_jnt'))[0]
+    mc.parent(neck_end_fk_jnt, neck_start_fk_jnt)
+
+    neck_ctrl = nc_control.Control(prefix=prefix + 'FK', translateTo=neck_start_fk_jnt, rotateTo=neck_start_fk_jnt,
+                                   scale=rigScale, parent=rigModule.controlsGrp, shape='circle')
+
+    nc_constrain.matrixConstraint(neck_ctrl.C, neck_start_fk_jnt, mo=True)
+    nc_constrain.matrixConstraint(neck_ctrl.C, head_ctrl.Off, mo=True)
+
+    # create stretchy neck
+    curve_info = mc.createNode("curveInfo", n='neckInfo')
+    neck_md = mc.createNode("multiplyDivide")
+    neck_correct_md = mc.createNode("multiplyDivide")
+    mc.connectAttr(neck_crv_shape + '.worldSpace', curve_info + '.inputCurve')
+
+    arcLength = mc.getAttr(curve_info + '.arcLength')
+    mc.connectAttr(curve_info + '.arcLength', neck_md + '.input1X')
+    mc.setAttr(neck_md + '.op', 2)
+    mc.setAttr(neck_correct_md + '.op', 2)
+    mc.connectAttr(baseRig.globalCtrl.C + '.sx', neck_md + '.input2X')
+    mc.connectAttr(neck_md + '.outputX', neck_correct_md + '.input1X')
+    mc.setAttr(neck_correct_md + '.input2X', arcLength)
+
+    # make joints scale in correlation with the arcLength
+    for i, j in enumerate(chain):
+        if j is not chain[-1]:
+            mc.connectAttr(neck_correct_md + '.outputX', j + '.sx')
+
+    # constrain joints to the result joints
+
+    for i in range(len(result_chain)):
+        nc_constrain.matrixConstraint(chain[i], result_chain[i], mo=True, connMatrix=['t', 'r'])
