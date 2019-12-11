@@ -9,6 +9,8 @@ from rigLib.rig import arm
 from rigLib.rig import spine
 from rigLib.rig import tail
 from rigLib.rig import neck
+from rigLib.rig import center_of_mass
+from rigLib.rig import hand
 from rigLib.utils import nc_constrain
 from rigLib.utils import nc_joint
 from rigLib.utils import nc_name
@@ -24,6 +26,8 @@ reload(arm)
 reload(spine)
 reload(tail)
 reload(neck)
+reload(center_of_mass)
+reload(hand)
 reload(nc_constrain)
 reload(nc_joint)
 reload(nc_name)
@@ -69,18 +73,37 @@ l_fin_joints = ['l_finStartResult_jnt', 'l_finMidResult_jnt', 'l_finEndResult_jn
 lArmJoints = ['l_armUpperResult_jnt', 'l_armLowerResult_jnt', 'l_armEndResult_jnt']
 l_arm_rig = arm.build(armJoints=lArmJoints, scapulaJnt='l_clavicleResult_jnt', prefix='l_arm', rigScale=3, baseRig=baseRig)
 
-mc.parentConstraint('spineEndResult_ctrl', l_arm_rig['baseAttachGrp'], mo=True)
+mc.parentConstraint('spineEndResult_ctrl', l_arm_rig['body_attach_grp'], mo=True)
+
+# create left hand module
+
+l_finger_joints = ['l_pinkyFStartResult_jnt', 'l_pinkyFMiddle1Result_jnt', 'l_pinkyFMiddle2Result_jnt', 'l_pinkyFEndResult_jnt', 'l_ringFStartResult_jnt', 'l_ringFMiddle1Result_jnt', 'l_ringFMiddle2Result_jnt', 'l_ringFEndResult_jnt', 'l_middleFStartResult_jnt', 'l_middleFMiddle1Result_jnt', 'l_middleFMiddle2Result_jnt', 'l_middleFEndResult_jnt', 'l_indexFStartResult_jnt', 'l_indexFMiddle1Result_jnt', 'l_indexFMiddle2Result_jnt', 'l_indexFEndResult_jnt', 'l_thumbFStartResult_jnt', 'l_thumbFMiddle1Result_jnt', 'l_thumbFMiddle2Result_jnt', 'l_thumbFEndResult_jnt']
+l_wrist_joint = 'l_armEndFK_jnt'
+l_hand_rig = hand.build(finger_joints=l_finger_joints, wrist_joint=l_wrist_joint, prefix='l_hand', rigScale=1, baseRig=baseRig)
+
+mc.parentConstraint('l_armEndResult_jnt', l_hand_rig['body_attach_grp'], mo=True)
 
 # create right arm module
 
 rArmJoints = ['r_armUpperResult_jnt', 'r_armLowerResult_jnt', 'r_armEndResult_jnt']
 r_arm_rig = arm.build(armJoints=rArmJoints, scapulaJnt='r_clavicleResult_jnt', prefix='r_arm', rigScale=3, baseRig=baseRig)
 
-mc.parentConstraint('spineEndResult_ctrl', r_arm_rig['baseAttachGrp'], mo=True)
+mc.parentConstraint('spineEndResult_ctrl', r_arm_rig['body_attach_grp'], mo=True)
+
+# create right hand module
+
+r_finger_joints = ['r_pinkyFStartResult_jnt', 'r_pinkyFMiddle1Result_jnt', 'r_pinkyFMiddle2Result_jnt', 'r_pinkyFEndResult_jnt', 'r_ringFStartResult_jnt', 'r_ringFMiddle1Result_jnt', 'r_ringFMiddle2Result_jnt', 'r_ringFEndResult_jnt', 'r_middleFStartResult_jnt', 'r_middleFMiddle1Result_jnt', 'r_middleFMiddle2Result_jnt', 'r_middleFEndResult_jnt', 'r_indexFStartResult_jnt', 'r_indexFMiddle1Result_jnt', 'r_indexFMiddle2Result_jnt', 'r_indexFEndResult_jnt', 'r_thumbFStartResult_jnt', 'r_thumbFMiddle1Result_jnt', 'r_thumbFMiddle2Result_jnt', 'r_thumbFEndResult_jnt']
+r_wrist_joint = 'r_armEndFK_jnt'
+r_hand_rig = hand.build(finger_joints=r_finger_joints, wrist_joint=r_wrist_joint, prefix='r_hand', rigScale=1, baseRig=baseRig)
+
+mc.parentConstraint('r_armEndResult_jnt', r_hand_rig['body_attach_grp'], mo=True)
+
 
 # create neck module
 
 neck_joints = ['neckStartResult_jnt', 'neckResult_jnt', 'neckEndResult_jnt']
 neck_rig = neck.build(neck_joints=neck_joints, prefix='neck', rigScale=4, baseRig=baseRig)
+
+mc.parentConstraint('spineEndResult_ctrl', r_arm_rig['body_attach_grp'], mo=True)
 
 mc.select(d=True)

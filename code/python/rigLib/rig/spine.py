@@ -43,8 +43,8 @@ def build(spineJoints,
 
     # make attach groups
 
-    bodyAttachGrp = mc.group(n=prefix + 'BodyAttach_grp', em=1, p=rigModule.partsGrp)
-    baseAttachGrp = mc.group(n=prefix + 'BaseAttach_grp', em=1, p=rigModule.partsGrp)
+    body_attach_grp = mc.group(n=prefix + 'BodyAttach_grp', em=1, p=rigModule.partsGrp)
+    base_attach_grp = mc.group(n=prefix + 'BaseAttach_grp', em=1, p=rigModule.partsGrp)
 
     # make triple chain setup
 
@@ -138,5 +138,5 @@ def build(spineJoints,
         nc_constrain.matrixConstraint(ikChain[i], resultChain[i], mo=True, connMatrix=['t', 'r'])
 
     return{'module': rigModule,
-           'baseAttachGrp': baseAttachGrp,
-           'bodyAttachGrp': bodyAttachGrp}
+           'base_attach_grp': base_attach_grp,
+           'body_attach_grp': body_attach_grp}

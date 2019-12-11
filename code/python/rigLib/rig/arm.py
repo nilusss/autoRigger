@@ -45,8 +45,8 @@ def build(armJoints,
 
     # make attach groups
 
-    bodyAttachGrp = mc.group(n=prefix + 'BodyAttach_grp', em=1, p=rigModule.partsGrp)
-    baseAttachGrp = mc.group(n=prefix + 'BaseAttach_grp', em=1, p=rigModule.partsGrp)
+    body_attach_grp = mc.group(n=prefix + 'BodyAttach_grp', em=1, p=rigModule.partsGrp)
+    base_attach_grp = mc.group(n=prefix + 'BaseAttach_grp', em=1, p=rigModule.partsGrp)
 
     # create triple chain setup
 
@@ -100,8 +100,8 @@ def build(armJoints,
 
         # attach controls
 
-        mc.parentConstraint(baseAttachGrp, scapula_ctrl.Off, mo=1)
-    
+        mc.parentConstraint(body_attach_grp, scapula_ctrl.Off, mo=1)
+
     # switch between FK and IK visibility
 
     vis_rev = mc.createNode('reverse', n='blend_vis_reverse')
@@ -128,5 +128,5 @@ def build(armJoints,
     mc.connectAttr(vis_rev + '.outputX', fkChain[0] + '.visibility', force=True, l=True)
 
     return{'module': rigModule,
-           'baseAttachGrp': baseAttachGrp,
-           'bodyAttachGrp': bodyAttachGrp}
+           'base_attach_grp': base_attach_grp,
+           'body_attach_grp': body_attach_grp}

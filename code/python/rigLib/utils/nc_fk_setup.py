@@ -55,7 +55,7 @@ class Setup():
         fk_ctrl_grps = []
         for i, j in enumerate(self.fkChain):
             if j == self.fkChain[-1] and self.incl_last is False:
-                print "pass"
+                pass
             else:
                 fkCtrlNN = j.replace('FK_jnt', "FK")
                 if self.rotateTo is True:

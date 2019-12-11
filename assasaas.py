@@ -66,14 +66,14 @@ com_rig = center_of_mass.build(com_joint, module_to_conn=spineRig['module'].topG
 lLegJoints = ['l_legUpperResult_jnt', 'l_legLowerResult_jnt', 'l_legEndResult_jnt']
 l_leg_rig = arm.build(armJoints=lLegJoints, scapulaJnt='l_hipResult_jnt', prefix='l_leg', rigScale=3, baseRig=baseRig)
 
-mc.parentConstraint('pelvisResult_ctrl', l_leg_rig['baseAttachGrp'], mo=True)
+mc.parentConstraint('pelvisResult_ctrl', l_leg_rig['base_attach_grp'], mo=True)
 
 # create right leg module
 
 rLegJoints = ['r_legUpperResult_jnt', 'r_legLowerResult_jnt', 'r_legEndResult_jnt']
 r_leg_rig = arm.build(armJoints=rLegJoints, scapulaJnt='r_hipResult_jnt', prefix='r_leg', rigScale=3, baseRig=baseRig)
 
-mc.parentConstraint('pelvisResult_ctrl', r_leg_rig['baseAttachGrp'], mo=True)
+mc.parentConstraint('pelvisResult_ctrl', r_leg_rig['base_attach_grp'], mo=True)
 
 # test of tail module
 """
@@ -85,14 +85,14 @@ tail_rig = tail.build(tail_joints, density=2.0, axis='Y', prefix='tail', rigScal
 lArmJoints = ['l_armUpperResult_jnt', 'l_armLowerResult_jnt', 'l_armEndResult_jnt']
 l_arm_rig = arm.build(armJoints=lArmJoints, scapulaJnt='l_clavicleResult_jnt', prefix='l_arm', rigScale=3, baseRig=baseRig)
 
-mc.parentConstraint('spineEndResult_ctrl', l_arm_rig['baseAttachGrp'], mo=True)
+mc.parentConstraint('spineEndResult_ctrl', l_arm_rig['base_attach_grp'], mo=True)
 
 # create right arm module
 
 rArmJoints = ['r_armUpperResult_jnt', 'r_armLowerResult_jnt', 'r_armEndResult_jnt']
 r_arm_rig = arm.build(armJoints=rArmJoints, scapulaJnt='r_clavicleResult_jnt', prefix='r_arm', rigScale=3, baseRig=baseRig)
 
-mc.parentConstraint('spineEndResult_ctrl', r_arm_rig['baseAttachGrp'], mo=True)
+mc.parentConstraint('spineEndResult_ctrl', r_arm_rig['base_attach_grp'], mo=True)
 
 # create neck module
 

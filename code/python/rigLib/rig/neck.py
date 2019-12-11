@@ -39,6 +39,11 @@ def build(neck_joints,
     mc.parent(joints_offset_grp, rigModule.jointsGrp)
     mc.delete(mc.parentConstraint(get_offset_joint, joints_offset_grp, mo=0))
 
+    # make attach groups
+
+    body_attach_grp = mc.group(n=prefix + 'BodyAttach_grp', em=1, p=rigModule.partsGrp)
+    base_attach_grp = mc.group(n=prefix + 'BaseAttach_grp', em=1, p=rigModule.partsGrp)
+
     chain = nc_joint.jointDuplicate(jointChain=result_chain, jointType="IK", offsetGrp=joints_offset_grp)
 
     kwargs = {

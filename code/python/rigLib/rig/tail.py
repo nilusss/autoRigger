@@ -40,6 +40,7 @@ def build(tail_joints,
     resultChain.extend(tail_joints)
 
     jointsOffsetGrp = mc.createNode('transform', n=prefix + 'JointsOffset_grp')
+
     mc.parent(jointsOffsetGrp, rigModule.jointsGrp)
     mc.delete(mc.parentConstraint(getOffsetJoint, jointsOffsetGrp, mo=0))
 
@@ -98,7 +99,7 @@ def build(tail_joints,
         if i == cvs-2:
             mc.delete(tail_crv + '.cv[{}]'.format(i-1))
 
-    cvs = mc.getAttr(tail_crv + '.cp',s=1)
+    cvs = mc.getAttr(tail_crv + '.cp', s=1)
     for i in range(cvs):
         loc_shape = mc.listRelatives(loc_list[i], shapes=True)[0]
         mc.connectAttr(loc_shape + '.worldPosition', tail_crv_shape + '.controlPoints[{}]'.format(i))
