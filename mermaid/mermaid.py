@@ -63,11 +63,6 @@ spineRig = spine.build(spineJoints=spineJoints, pelvisJnt='pelvisResult_jnt', pr
 tail_joints = ['tail10Result_jnt', 'tail20Result_jnt', 'tail30Result_jnt', 'tail40Result_jnt', 'tail50Result_jnt']
 tail_rig = tail.build(tail_joints, density=2.0, axis='Y', prefix='tail', rigScale=10.0, baseRig=baseRig )
 
-# create left fin
-
-l_fin_joints = ['l_finStartResult_jnt', 'l_finMidResult_jnt', 'l_finEndResult_jnt']
-
-
 # create left arm module
 
 lArmJoints = ['l_armUpperResult_jnt', 'l_armLowerResult_jnt', 'l_armEndResult_jnt']
@@ -97,7 +92,6 @@ r_wrist_joint = 'r_armEndFK_jnt'
 r_hand_rig = hand.build(finger_joints=r_finger_joints, wrist_joint=r_wrist_joint, prefix='r_hand', rigScale=1, baseRig=baseRig)
 
 mc.parentConstraint('r_armEndResult_jnt', r_hand_rig['body_attach_grp'], mo=True)
-
 
 # create neck module
 

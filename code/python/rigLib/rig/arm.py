@@ -26,7 +26,7 @@ def build(armJoints,
     Setup for creating the arm, with a triple chain setup: IK - FK - Result
 
     @param armJoints: list(str), normally a three joints chain: Upper - Lower - End
-    @param scapulaJnt: str, scapula joints, parent of top arm joint
+    @param scapulaJnt: str, scapula joints - parent of top arm joint
     @param stretchModule: boolean, wether to install the stretch module or not
     @param prefix: str, prefix to name new objects
     @param rigScale: float, scale factor for size of controls

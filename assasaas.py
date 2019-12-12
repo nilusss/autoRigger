@@ -10,6 +10,7 @@ from rigLib.rig import spine
 from rigLib.rig import tail
 from rigLib.rig import neck
 from rigLib.rig import center_of_mass
+from rigLib.rig import leg
 from rigLib.utils import nc_constrain
 from rigLib.utils import nc_joint
 from rigLib.utils import nc_name
@@ -26,6 +27,7 @@ reload(spine)
 reload(tail)
 reload(neck)
 reload(center_of_mass)
+reload(leg)
 reload(nc_constrain)
 reload(nc_joint)
 reload(nc_name)
@@ -63,15 +65,15 @@ com_rig = center_of_mass.build(com_joint, module_to_conn=spineRig['module'].topG
 
 # create left leg module
 
-lLegJoints = ['l_legUpperResult_jnt', 'l_legLowerResult_jnt', 'l_legEndResult_jnt']
-l_leg_rig = arm.build(armJoints=lLegJoints, scapulaJnt='l_hipResult_jnt', prefix='l_leg', rigScale=3, baseRig=baseRig)
+l_leg_joints = ['l_legUpperResult_jnt', 'l_legLowerResult_jnt', 'l_legEndResult_jnt']
+l_leg_rig = leg.build(leg_joints=l_leg_joints, femoral_head_jnt='l_hipResult_jnt', prefix='l_leg', rigScale=3, baseRig=baseRig)
 
 mc.parentConstraint('pelvisResult_ctrl', l_leg_rig['base_attach_grp'], mo=True)
 
 # create right leg module
 
-rLegJoints = ['r_legUpperResult_jnt', 'r_legLowerResult_jnt', 'r_legEndResult_jnt']
-r_leg_rig = arm.build(armJoints=rLegJoints, scapulaJnt='r_hipResult_jnt', prefix='r_leg', rigScale=3, baseRig=baseRig)
+r_leg_joints = ['r_legUpperResult_jnt', 'r_legLowerResult_jnt', 'r_legEndResult_jnt']
+r_leg_rig = leg.build(leg_joints=r_leg_joints, femoral_head_jnt='r_hipResult_jnt', prefix='r_leg', rigScale=3, baseRig=baseRig)
 
 mc.parentConstraint('pelvisResult_ctrl', r_leg_rig['base_attach_grp'], mo=True)
 

@@ -24,6 +24,7 @@ class Setup():
                  resultChain=[],
                  offsetJnt='',
                  rotateTo=True,
+                 dontTransTo=[],
                  isStretchy=True,
                  scaleAxis='x',
                  prefix='l_arm',
@@ -35,6 +36,7 @@ class Setup():
         @param reusltChain: list(str), list of joints used for binding
         @param offsetJnt: str, can be a joint like the scapula for arms or hip
         @param rotateTo: boolean, if the controller should be rotated to the joint
+        @param dontTransTo: list(str), list of axis' that the controller shouldnt translate to. eg. ['x', 'y', 'z']
         @param isStretchy: boolean, decides if the IK setup should be stretchy or not
         @param scaleAxis: str, what axis the joints should scale from
         @param prefix: str, prefix to name new objects
@@ -46,6 +48,7 @@ class Setup():
         self.resultChain = resultChain
         self.offsetJnt = offsetJnt
         self.rotateTo = rotateTo
+        self.dontTransTo = dontTransTo
         self.isStretchy = isStretchy
         self.rigScale = rigScale
         self.prefix = prefix
@@ -62,6 +65,22 @@ class Setup():
         else:
             self.ik_ctrl = nc_control.Control(prefix=self.prefix + 'IK', translateTo=self.ikChain[-1],
                                               scale=self.rigScale * 2, parent=self.rigModule.controlsGrp, shape='cube')
+
+        if self.dontTransTo:
+            bbox = mc.exactWorldBoundingBox(self.ik_ctrl.Off)
+            bottom = [(bbox[0] + bbox[3])/2, bbox[1], (bbox[2] + bbox[5])/2]
+            mc.xform(self.ik_ctrl.Off, piv=bottom, ws=True)
+            for axis in self.dontTransTo:
+                ptrans = mc.xform(self.ik_ctrl.Off, q=1, ws=1, rp=1)
+                trans = mc.xform(self.ik_ctrl.Off, q=1, ws=1, t=1)
+
+                mc.move(trans[1] - ptrans[1], self.ik_ctrl.Off, y=True, ws=True)
+
+            tempClstr = mc.cluster(n='cluster', wn=(self.ikChain[-1], self.ikChain[-1]))
+            piv = mc.xform(tempClstr[1], q=True, ws=True, rp=True)
+            mc.delete(tempClstr[0])
+
+            mc.xform(self.ik_ctrl.C, ws=True, piv=(piv[0], piv[1], piv[2]) )
 
         return {'ctrl': self.ik_ctrl.C,
                 'grp': self.ik_ctrl.Off}
