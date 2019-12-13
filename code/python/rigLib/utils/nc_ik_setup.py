@@ -53,6 +53,7 @@ class Setup():
         self.rigScale = rigScale
         self.prefix = prefix
         self.rigModule = rigModule
+        self.lift_loc = mc.spaceLocator(name=self.prefix + 'Lift_loc', p=(0, 0, 0))[0] # used for the reverse foot setup
         self.taxis = scaleAxis
         self.saxis = scaleAxis
 
@@ -66,7 +67,7 @@ class Setup():
             self.ik_ctrl = nc_control.Control(prefix=self.prefix + 'IK', translateTo=self.ikChain[-1],
                                               scale=self.rigScale * 2, parent=self.rigModule.controlsGrp, shape='cube')
 
-        if self.dontTransTo:
+        """if self.dontTransTo:
             bbox = mc.exactWorldBoundingBox(self.ik_ctrl.Off)
             bottom = [(bbox[0] + bbox[3])/2, bbox[1], (bbox[2] + bbox[5])/2]
             mc.xform(self.ik_ctrl.Off, piv=bottom, ws=True)
@@ -80,7 +81,7 @@ class Setup():
             piv = mc.xform(tempClstr[1], q=True, ws=True, rp=True)
             mc.delete(tempClstr[0])
 
-            mc.xform(self.ik_ctrl.C, ws=True, piv=(piv[0], piv[1], piv[2]) )
+            mc.xform(self.ik_ctrl.C, ws=True, piv=(piv[0], piv[1], piv[2]) )"""
 
         return {'ctrl': self.ik_ctrl.C,
                 'grp': self.ik_ctrl.Off}
@@ -141,6 +142,8 @@ class Setup():
         upper_aim_loc = mc.spaceLocator(name=self.prefix + 'UpperAim_loc')[0]
         no_stretch_max_loc = mc.spaceLocator(name=self.prefix + 'NoStretchMax_loc')[0]
 
+        stretch_blend_grp = mc.createNode("transform", name=self.prefix + 'IKHdl_grp')
+
         mc.parent(upper_aim_loc, self.look_at_grp)
         mc.parent(no_stretch_max_loc, upper_aim_loc)
         mc.parent(self.look_at_grp, self.rigModule.partsGrp)
@@ -154,7 +157,7 @@ class Setup():
 
         mc.aimConstraint(self.ik_ctrl.C, upper_aim_loc)
 
-        stretch_blend_const = mc.pointConstraint(self.ik_ctrl.C, stretch_blend_loc, w=0, mo=1)
+        stretch_blend_const = mc.pointConstraint(ctrl_loc, stretch_blend_loc, w=0, mo=1)
         mc.pointConstraint(no_stretch_max_loc, stretch_blend_loc, w=0, mo=1)
 
         control_dist = nc_tools.measure(start_point=joint_loc_list[0], end_point=ctrl_loc)
@@ -261,7 +264,8 @@ class Setup():
         mc.connectAttr(ctrl_blendcolors + '.outputR', stretch_blend_const[0] + '.' + sb_const_list[0] + 'W' + str(0))
         mc.connectAttr(ctrl_reverse + '.outputX', stretch_blend_const[0] + '.' + sb_const_list[1] + 'W' + str(1))
 
-        mc.parent(self.ik_hdl, stretch_blend_loc)
+        mc.parent(stretch_blend_grp, stretch_blend_loc)
+        mc.parent(self.ik_hdl, stretch_blend_grp)
         mc.parent(stretch_blend_loc, self.rigModule.partsGrp)
         mc.parent(joint_loc_list[0], self.rigModule.partsGrp)
 
@@ -281,6 +285,8 @@ class Setup():
         mc.connectAttr(self.ik_ctrl.C + '.pinP', pin_const[0] + '.' + pin_const_list[0] + 'W' + str(0))"""
 
         mc.orientConstraint(ctrl_loc, self.ikChain[-1], mo=True)
+        #mc.parentConstraint(self.lift_loc, ctrl_loc, mo=True)
+        mc.parentConstraint(self.lift_loc, stretch_blend_grp, mo=True)
 
         return {'ik_hdl': self.ik_hdl,
                 'joint_loc_list': joint_loc_list}
@@ -292,6 +298,7 @@ class Setup():
             ik_hdl = self.create_stretchy_ik()
         elif self.isStretchy is False:
             ik_hdl = self.create_ik()
+            mc.parentConstraint(self.lift_loc, ik_ctrl['grp'], mo=True)
 
         mc.poleVectorConstraint(pole_vec['loc'], ik_hdl['ik_hdl'])
 
@@ -308,4 +315,5 @@ class Setup():
                 'pv_line': pv_line['crv'],
                 'pv_line_grp': pv_line['grp'],
                 'joint_loc_list': ik_hdl['joint_loc_list'],
-                'look_at_grp': self.look_at_grp}
+                'look_at_grp': self.look_at_grp,
+                'lift': self.lift_loc}

@@ -68,6 +68,7 @@ def jointDuplicate(jointChain=[], jointType="FK", offsetGrp="", skip=0):
     else:
         for i, j in enumerate(jointChain):
             nn = j.replace('Result_jnt', jointType + '_jnt')
+            print j
             jAppend = mc.duplicate(j, parentOnly=True, n=nn)
             mc.parent(jAppend, offsetGrp)
             jChain.extend(jAppend)

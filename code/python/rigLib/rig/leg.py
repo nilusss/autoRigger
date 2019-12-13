@@ -7,6 +7,8 @@ import maya.cmds as mc
 from ..base import nc_module
 from ..base import nc_control
 
+from . import reverse_foot
+
 from ..utils import nc_joint
 from ..utils import nc_name
 from ..utils import nc_constrain
@@ -17,6 +19,12 @@ from ..utils import nc_fk_setup
 def build(leg_joints,
           femoral_head_jnt='',
           stretchModule=True,
+          ball_joint='',
+          toe_joint='',
+          toe_tip='',
+          bank_inside='',
+          bank_outside='',
+          heel='',
           prefix='l_leg',
           rigScale=1.0,
           baseRig=None,
@@ -25,7 +33,7 @@ def build(leg_joints,
     """
     Setup for creating the leg, with a triple chain setup: IK - FK - Result
 
-    @param leg_joints: list(str), normally a three joints chain: Upper - Lower - End
+    @param leg_joints: list(str), normally a chain of three joints: Upper - Lower - End
     @param femoral_head_jnt: str, femoral head joint - parent of top leg joint
     @param stretchModule: boolean, wether to install the stretch module or not
     @param prefix: str, prefix to name new objects
@@ -57,7 +65,7 @@ def build(leg_joints,
     # setup of the IK module
 
     leg_ik = nc_ik_setup.Setup(ik_chain, result_chain, offsetJnt=femoral_head_jnt,
-                               rotateTo=False, dontTransTo=['y'], isStretchy=stretchModule,
+                               rotateTo=False, isStretchy=stretchModule,
                                prefix=prefix, rigScale=rigScale, rigModule=rig_module)
 
     leg_ik_rt = leg_ik.build()
@@ -71,7 +79,7 @@ def build(leg_joints,
     # setup of leg blending
 
     leg_blend_ctrl = nc_control.Control(prefix=prefix + 'IKFKBlend', translateTo=leg_joints[-1],
-                                      scale=rigScale * 2, parent=rig_module.controlsGrp, shape='settings')
+                                        scale=rigScale * 2, parent=rig_module.controlsGrp, shape='settings')
     mc.setAttr(leg_blend_ctrl.Off + '.rx', 90)
     mc.addAttr(leg_blend_ctrl.C, shortName='blend', longName='FKIKBlend', defaultValue=0, minValue=0.0, maxValue=1.0, k=1)
     mc.move(-30, z=True)
@@ -93,8 +101,9 @@ def build(leg_joints,
         mc.parentConstraint(femoral_head_chain[-1], ik_chain[0], mo=True)
         mc.pointConstraint(femoral_head_chain[-1], leg_fk_rt['ctrls'][0], mo=True)
 
-        femoral_head_ctrl = nc_control.Control(prefix=prefix + 'femoral_head', translateTo=femoral_head_chain[0], rotateTo=femoral_head_chain[0],
-                                          scale=rigScale * 2, parent=rig_module.controlsGrp, shape='circle')
+        femoral_head_ctrl = nc_control.Control(prefix=prefix + 'femoral_head', translateTo=femoral_head_chain[0],
+                                               rotateTo=femoral_head_chain[0], scale=rigScale * 2,
+                                               parent=rig_module.controlsGrp, shape='circle')
 
         nc_constrain.matrixConstraint(femoral_head_chain[0], femoral_head_jnt)
         nc_constrain.matrixConstraint(femoral_head_ctrl.C, femoral_head_chain[0], mo=True)
@@ -102,6 +111,27 @@ def build(leg_joints,
         # attach controls
 
         mc.parentConstraint(body_attach_grp, femoral_head_ctrl.Off, mo=1)
+
+    # foot setup
+    if ball_joint and toe_joint:
+        ball_temp = mc.duplicate(ball_joint, parentOnly=True, n=ball_joint.replace('Result_jnt', 'IK_jnt'))[0]
+        toe_temp = mc.duplicate(toe_joint, parentOnly=True, n=toe_joint.replace('Result_jnt', 'IK_jnt'))[0]
+
+        kwargs = {
+                  'ankle_joint': ik_chain[-1],
+                  'ball_joint': ball_temp,
+                  'toe_joint': toe_temp,
+                  'toe_tip': toe_tip,
+                  'bank_inside': bank_inside,
+                  'bank_outside': bank_outside,
+                  'heel': heel,
+                  'lift_loc': leg_ik_rt['lift'],
+                  'foot_ctrl': leg_ik_rt['ik_ctrl'],
+                  'prefix': prefix,
+                  'rigScale': rigScale,
+                  'rigModule': rig_module
+        }
+        reverse_foot.build(**kwargs)
 
     # switch between FK and IK visibility
 

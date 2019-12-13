@@ -11,6 +11,7 @@ from rigLib.rig import tail
 from rigLib.rig import neck
 from rigLib.rig import center_of_mass
 from rigLib.rig import leg
+from rigLib.rig import reverse_foot
 from rigLib.utils import nc_constrain
 from rigLib.utils import nc_joint
 from rigLib.utils import nc_name
@@ -28,6 +29,7 @@ reload(tail)
 reload(neck)
 reload(center_of_mass)
 reload(leg)
+reload(reverse_foot)
 reload(nc_constrain)
 reload(nc_joint)
 reload(nc_name)
@@ -66,7 +68,7 @@ com_rig = center_of_mass.build(com_joint, module_to_conn=spineRig['module'].topG
 # create left leg module
 
 l_leg_joints = ['l_legUpperResult_jnt', 'l_legLowerResult_jnt', 'l_legEndResult_jnt']
-l_leg_rig = leg.build(leg_joints=l_leg_joints, femoral_head_jnt='l_hipResult_jnt', prefix='l_leg', rigScale=3, baseRig=baseRig)
+l_leg_rig = leg.build(leg_joints=l_leg_joints, femoral_head_jnt='l_hipResult_jnt', ball_joint='l_footLowerResult_jnt', toe_joint='l_footEndResult_jnt', toe_tip='l_RVtoeTipResult_jnt', bank_inside='l_RVbankInsideResult_jnt', bank_outside='l_RVbankOutsideResult_jnt', heel='l_RVheelResult_jnt', prefix='l_leg', rigScale=3, baseRig=baseRig)
 
 mc.parentConstraint('pelvisResult_ctrl', l_leg_rig['base_attach_grp'], mo=True)
 
