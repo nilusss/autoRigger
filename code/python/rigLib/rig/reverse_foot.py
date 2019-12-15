@@ -7,8 +7,6 @@ import maya.cmds as mc
 from ..base import nc_module
 from ..base import nc_control
 
-from . import reverse_foot
-
 from ..utils import nc_joint
 from ..utils import nc_name
 from ..utils import nc_constrain
@@ -129,4 +127,49 @@ def build(ankle_joint='',
     ball_perc_mult = mc.createNode("multiplyDivide", n=prefix + 'BallPerc_mult')
     ball_roll_mult = mc.createNode("multiplyDivide", n=prefix + 'BallRoll_mult')
     ztb_clamp = mc.createNode("clamp", n=prefix + 'BallZeroToBend_clamp')
-    ztb_percent= mc.createNode("setRange", n=prefix + 'BallZeroToBend_percent')
+    ztb_percent = mc.createNode("setRange", n=prefix + 'BallZeroToBend_percent')
+    heel_rot_clamp = mc.createNode("clamp", n=prefix + 'HeelRot_clamp')
+    foot_roll_mult = mc.createNode("multiplyDivide", n=prefix + 'Roll_mult')
+
+    # connect attrs
+
+    mc.connectAttr(foot_ctrl + '.bla', bts_clamp + '.minR')
+    mc.connectAttr(foot_ctrl + '.tsa', bts_clamp + '.maxR')
+    mc.connectAttr(foot_ctrl + '.roll', bts_clamp + '.inputR')
+
+    mc.connectAttr(bts_clamp + '.inputR', bts_percent + '.valueX')
+    mc.connectAttr(bts_clamp + '.inputR', foot_roll_mult + '.input2X')
+    mc.connectAttr(bts_clamp + '.minR', bts_percent + '.oldMinX')
+    mc.connectAttr(bts_clamp + '.maxR', bts_percent + '.oldMaxX')
+
+    mc.connectAttr(bts_percent + '.outValueX', foot_roll_mult + '.input1X')
+    mc.setAttr(bts_percent + '.maxX', 1)
+    mc.setAttr(invert_percentage + '.op', 2)
+    mc.setAttr(invert_percentage + '.input1D[0]', 1)
+    mc.connectAttr(bts_percent + '.outValueX', invert_percentage + '.input1D[1]')
+
+    mc.connectAttr(invert_percentage + '.output1D', ball_perc_mult + '.input2X')
+
+    mc.connectAttr(foot_ctrl + '.bla', ztb_clamp + '.maxR')
+    mc.connectAttr(foot_ctrl + '.roll', ztb_clamp + '.inputR')
+
+    mc.connectAttr(ztb_clamp + '.inputR', ztb_percent + '.valueX')
+    mc.connectAttr(ztb_clamp + '.maxR', ztb_percent + '.oldMaxX')
+    mc.connectAttr(ztb_clamp + '.minR', ztb_percent + '.oldMinX')
+
+    mc.setAttr(ztb_percent + '.maxX', 1)
+    mc.connectAttr(ztb_percent + '.outValueX', ball_perc_mult + '.input1X')
+
+    mc.connectAttr(ball_perc_mult + '.outputX', ball_roll_mult + '.input1X')
+    mc.connectAttr(foot_ctrl + '.roll', ball_roll_mult + '.input2X')
+
+    mc.connectAttr(ball_roll_mult + '.outputX', ball_ctrl.Off + '.rotateX')
+    mc.connectAttr(foot_ctrl + '.lean', ball_ctrl.Off + '.rotateZ')
+
+    mc.setAttr(heel_rot_clamp + '.minR', -90)
+    mc.connectAttr(foot_ctrl + '.roll', heel_rot_clamp + '.inputR')
+
+    mc.connectAttr(heel_rot_clamp + '.outputR', heel_ctrl.Off + '.rotateX')
+
+    mc.connectAttr(foot_roll_mult + '.outputX', toe_ctrl.Off + '.rotateX')
+    mc.connectAttr(foot_ctrl + '.toespin', toe_ctrl.Off + '.rotateY')
