@@ -110,28 +110,30 @@ def build(leg_joints,
 
         # attach controls
 
-        mc.parentConstraint(body_attach_grp, femoral_head_ctrl.Off, mo=1)
+        mc.parentConstraint(base_attach_grp, femoral_head_ctrl.Off, mo=1)
 
     # foot setup
     if ball_joint and toe_joint:
-        ball_temp = mc.duplicate(ball_joint, parentOnly=True, n=ball_joint.replace('Result_jnt', 'IK_jnt'))[0]
-        toe_temp = mc.duplicate(toe_joint, parentOnly=True, n=toe_joint.replace('Result_jnt', 'IK_jnt'))[0]
 
         kwargs = {
-                  'ankle_joint': ik_chain[-1],
-                  'ball_joint': ball_temp,
-                  'toe_joint': toe_temp,
+                  'ankle_joint_ik': ik_chain[-1],
+                  'ankle_joint_fk': fk_chain[-1],
+                  'ball_joint': ball_joint,
+                  'toe_joint': toe_joint,
                   'toe_tip': toe_tip,
                   'bank_inside': bank_inside,
                   'bank_outside': bank_outside,
                   'heel': heel,
-                  'lift_loc': leg_ik_rt['lift'],
+                  'ik_hdl_grp': leg_ik_rt['ik_hdl_grp'],
                   'foot_ctrl': leg_ik_rt['ik_ctrl'],
+                  'blend_ctrl': leg_blend_ctrl.C,
                   'prefix': prefix,
                   'rigScale': rigScale,
                   'rigModule': rig_module
         }
-        reverse_foot.build(**kwargs)
+        foot_rt = reverse_foot.build(**kwargs)
+
+        mc.parent(foot_rt['ball_fk_ctrl_grp'], leg_fk_rt['ctrls'][-1])
 
     # switch between FK and IK visibility
 

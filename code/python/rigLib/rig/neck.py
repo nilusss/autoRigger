@@ -103,6 +103,9 @@ def build(neck_joints,
     nc_constrain.matrixConstraint(neck_ctrl.C, neck_start_fk_jnt, mo=True)
     nc_constrain.matrixConstraint(neck_ctrl.C, head_ctrl.Off, mo=True)
 
+    mc.parentConstraint(base_attach_grp, neck_ctrl.Off, mo=True)
+    mc.parentConstraint(base_attach_grp, rigModule.jointsGrp, mo=True)
+
     # create stretchy neck
     curve_info = mc.createNode("curveInfo", n='neckInfo')
     neck_md = mc.createNode("multiplyDivide")
@@ -123,6 +126,11 @@ def build(neck_joints,
             mc.connectAttr(neck_correct_md + '.outputX', j + '.sx')
 
     # constrain joints to the result joints
-
+    del chain[-1]
+    chain.append(neck_end_bind_jnt)
     for i in range(len(result_chain)):
         nc_constrain.matrixConstraint(chain[i], result_chain[i], mo=True, connMatrix=['t', 'r'])
+
+    return{'module': rigModule,
+           'base_attach_grp': base_attach_grp,
+           'body_attach_grp': body_attach_grp}

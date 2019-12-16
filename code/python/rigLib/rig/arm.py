@@ -100,7 +100,7 @@ def build(armJoints,
 
         # attach controls
 
-        mc.parentConstraint(body_attach_grp, scapula_ctrl.Off, mo=1)
+        mc.parentConstraint(base_attach_grp, scapula_ctrl.Off, mo=1)
 
     # switch between FK and IK visibility
 

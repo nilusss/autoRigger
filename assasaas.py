@@ -12,6 +12,7 @@ from rigLib.rig import neck
 from rigLib.rig import center_of_mass
 from rigLib.rig import leg
 from rigLib.rig import reverse_foot
+from rigLib.rig import head
 from rigLib.utils import nc_constrain
 from rigLib.utils import nc_joint
 from rigLib.utils import nc_name
@@ -30,6 +31,7 @@ reload(neck)
 reload(center_of_mass)
 reload(leg)
 reload(reverse_foot)
+reload(head)
 reload(nc_constrain)
 reload(nc_joint)
 reload(nc_name)
@@ -102,5 +104,18 @@ mc.parentConstraint('spineEndResult_ctrl', r_arm_rig['base_attach_grp'], mo=True
 
 neck_joints = ['neckStartResult_jnt', 'neckResult_jnt', 'neckEndResult_jnt']
 neck_rig = neck.build(neck_joints=neck_joints, prefix='neck', rigScale=4, baseRig=baseRig)
+
+mc.parentConstraint('spineEndResult_ctrl', neck_rig['base_attach_grp'], mo=True)
+
+# create head module
+eye_joints = ['l_eyeStartResult_jnt', 'r_eyeStartResult_jnt']
+head_rig = head.build(eye_joints=eye_joints,
+                     jaw_joint='jawStartResult_jnt',
+                     prefix='head',
+                     rigScale=3.0,
+                     baseRig=baseRig
+                     )
+
+mc.parentConstraint('head_ctrl', head_rig['base_attach_grp'], mo=True)
 
 mc.select(d=True)
