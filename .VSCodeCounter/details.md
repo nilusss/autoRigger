@@ -1,10 +1,10 @@
 # Details
 
-Date : 2019-12-13 17:55:45
+Date : 2019-12-17 16:47:51
 
 Directory c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib
 
-Total : 20 files,  1305 codes, 401 comments, 463 blanks, all 2169 lines
+Total : 21 files,  1451 codes, 429 comments, 519 blanks, all 2399 lines
 
 [summary](results.md)
 
@@ -19,11 +19,12 @@ Total : 20 files,  1305 codes, 401 comments, 463 blanks, all 2169 lines
 | [rig\arm.py](file:///c%3A/Users/nilas/Documents/maya/2019/modules/autoRigger/code/python/rigLib/rig/arm.py) | Python | 70 | 24 | 39 | 133 |
 | [rig\center_of_mass.py](file:///c%3A/Users/nilas/Documents/maya/2019/modules/autoRigger/code/python/rigLib/rig/center_of_mass.py) | Python | 19 | 12 | 9 | 40 |
 | [rig\hand.py](file:///c%3A/Users/nilas/Documents/maya/2019/modules/autoRigger/code/python/rigLib/rig/hand.py) | Python | 64 | 19 | 22 | 105 |
-| [rig\leg.py](file:///c%3A/Users/nilas/Documents/maya/2019/modules/autoRigger/code/python/rigLib/rig/leg.py) | Python | 97 | 25 | 42 | 164 |
-| [rig\neck.py](file:///c%3A/Users/nilas/Documents/maya/2019/modules/autoRigger/code/python/rigLib/rig/neck.py) | Python | 78 | 20 | 30 | 128 |
-| [rig\reverse_foot.py](file:///c%3A/Users/nilas/Documents/maya/2019/modules/autoRigger/code/python/rigLib/rig/reverse_foot.py) | Python | 67 | 31 | 27 | 125 |
+| [rig\head.py](file:///c%3A/Users/nilas/Documents/maya/2019/modules/autoRigger/code/python/rigLib/rig/head.py) | Python | 49 | 18 | 31 | 98 |
+| [rig\leg.py](file:///c%3A/Users/nilas/Documents/maya/2019/modules/autoRigger/code/python/rigLib/rig/leg.py) | Python | 98 | 25 | 43 | 166 |
+| [rig\neck.py](file:///c%3A/Users/nilas/Documents/maya/2019/modules/autoRigger/code/python/rigLib/rig/neck.py) | Python | 85 | 20 | 31 | 136 |
+| [rig\reverse_foot.py](file:///c%3A/Users/nilas/Documents/maya/2019/modules/autoRigger/code/python/rigLib/rig/reverse_foot.py) | Python | 155 | 41 | 50 | 246 |
 | [rig\spine.py](file:///c%3A/Users/nilas/Documents/maya/2019/modules/autoRigger/code/python/rigLib/rig/spine.py) | Python | 94 | 19 | 29 | 142 |
-| [rig\tail.py](file:///c%3A/Users/nilas/Documents/maya/2019/modules/autoRigger/code/python/rigLib/rig/tail.py) | Python | 93 | 17 | 27 | 137 |
+| [rig\tail.py](file:///c%3A/Users/nilas/Documents/maya/2019/modules/autoRigger/code/python/rigLib/rig/tail.py) | Python | 94 | 17 | 27 | 138 |
 | [utils\__init__.py](file:///c%3A/Users/nilas/Documents/maya/2019/modules/autoRigger/code/python/rigLib/utils/__init__.py) | Python | 6 | 0 | 1 | 7 |
 | [utils\nc_constrain.py](file:///c%3A/Users/nilas/Documents/maya/2019/modules/autoRigger/code/python/rigLib/utils/nc_constrain.py) | Python | 41 | 15 | 9 | 65 |
 | [utils\nc_fk_setup.py](file:///c%3A/Users/nilas/Documents/maya/2019/modules/autoRigger/code/python/rigLib/utils/nc_fk_setup.py) | Python | 51 | 17 | 16 | 84 |

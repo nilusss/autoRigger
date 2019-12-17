@@ -1,21 +1,21 @@
-Date : 2019-12-13 17:55:45
+Date : 2019-12-17 16:47:51
 Directory : c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib
-Total : 20 files,  1305 codes, 401 comments, 463 blanks, all 2169 lines
+Total : 21 files,  1451 codes, 429 comments, 519 blanks, all 2399 lines
 
 Languages
 +----------+------------+------------+------------+------------+------------+
 | language | files      | code       | comment    | blank      | total      |
 +----------+------------+------------+------------+------------+------------+
-| Python   |         20 |      1,305 |        401 |        463 |      2,169 |
+| Python   |         21 |      1,451 |        429 |        519 |      2,399 |
 +----------+------------+------------+------------+------------+------------+
 
 Directories
 +------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
 | path                                                                                           | files      | code       | comment    | blank      | total      |
 +------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
-| .                                                                                              |         20 |      1,305 |        401 |        463 |      2,169 |
+| .                                                                                              |         21 |      1,451 |        429 |        519 |      2,399 |
 | base                                                                                           |          3 |        227 |         43 |         50 |        320 |
-| rig                                                                                            |          9 |        584 |        167 |        226 |        977 |
+| rig                                                                                            |         10 |        730 |        195 |        282 |      1,207 |
 | utils                                                                                          |          7 |        491 |        191 |        186 |        868 |
 +------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
 
@@ -31,11 +31,12 @@ Files
 | c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\rig\arm.py            | Python   |         70 |         24 |         39 |        133 |
 | c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\rig\center_of_mass.py | Python   |         19 |         12 |          9 |         40 |
 | c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\rig\hand.py           | Python   |         64 |         19 |         22 |        105 |
-| c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\rig\leg.py            | Python   |         97 |         25 |         42 |        164 |
-| c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\rig\neck.py           | Python   |         78 |         20 |         30 |        128 |
-| c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\rig\reverse_foot.py   | Python   |         67 |         31 |         27 |        125 |
+| c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\rig\head.py           | Python   |         49 |         18 |         31 |         98 |
+| c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\rig\leg.py            | Python   |         98 |         25 |         43 |        166 |
+| c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\rig\neck.py           | Python   |         85 |         20 |         31 |        136 |
+| c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\rig\reverse_foot.py   | Python   |        155 |         41 |         50 |        246 |
 | c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\rig\spine.py          | Python   |         94 |         19 |         29 |        142 |
-| c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\rig\tail.py           | Python   |         93 |         17 |         27 |        137 |
+| c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\rig\tail.py           | Python   |         94 |         17 |         27 |        138 |
 | c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\utils\__init__.py     | Python   |          6 |          0 |          1 |          7 |
 | c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\utils\nc_constrain.py | Python   |         41 |         15 |          9 |         65 |
 | c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\utils\nc_fk_setup.py  | Python   |         51 |         17 |         16 |         84 |
@@ -43,5 +44,5 @@ Files
 | c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\utils\nc_joint.py     | Python   |         77 |         37 |         31 |        145 |
 | c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\utils\nc_name.py      | Python   |         14 |         11 |         15 |         40 |
 | c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\utils\nc_tools.py     | Python   |        104 |         50 |         53 |        207 |
-| Total                                                                                          |          |      1,305 |        401 |        463 |      2,169 |
+| Total                                                                                          |          |      1,451 |        429 |        519 |      2,399 |
 +------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

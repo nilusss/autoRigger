@@ -45,11 +45,12 @@ def build(tail_joints,
     mc.delete(mc.parentConstraint(getOffsetJoint, jointsOffsetGrp, mo=0))
 
     # get joints and insert inbetween joints
-    for i, j in enumerate(tail_joints):
-        if j is not tail_joints[-1]:
-            c_joint = mc.listRelatives(j, children=True)[0]
+    if density > 0.0:
+        for i, j in enumerate(tail_joints):
+            if j is not tail_joints[-1]:
+                c_joint = mc.listRelatives(j, children=True)[0]
 
-            joints_inbetween = nc_tools.insert_joints(j, c_joint, amount=density, parent=True)
+                joints_inbetween = nc_tools.insert_joints(j, c_joint, amount=density, parent=True)
 
     # create fk setup for tail module
 

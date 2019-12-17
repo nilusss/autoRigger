@@ -93,6 +93,7 @@ class Module():
         self.jointsGrp = mc.group(name=prefix + 'Joints_grp', em=1, p=self.topGrp)
         self.partsGrp = mc.group(name=prefix + 'Parts_grp', em=1, p=self.topGrp)
         self.partsStaticGrp = mc.group(name=prefix + 'PartsStatic_grp', em=1, p=self.topGrp)
+        self.infoGrp = mc.group(name=prefix + 'ModuleInfo_grp', em=1, p=self.topGrp)
 
         mc.hide(self.partsGrp, self.partsStaticGrp)
         mc.setAttr(self.partsStaticGrp + '.it', 0, l=1)
