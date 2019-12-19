@@ -4,8 +4,11 @@ biped builder @ builder
 import sys
 import maya.cmds as mc
 
+from .. import nc_deform as defo
+
 from ..rigLib.base import nc_module
 from ..rigLib.rig import arm
+from ..rigLib.rig import hand
 from ..rigLib.rig import spine
 from ..rigLib.rig import tail
 from ..rigLib.rig import neck
@@ -25,12 +28,11 @@ from nc_auto_rigger_files.rigLib.utils import nc_name
 from nc_auto_rigger_files.rigLib.utils import nc_ik_setup
 from nc_auto_rigger_files.rigLib.utils import nc_fk_setup
 from nc_auto_rigger_files.rigLib.utils import nc_tools
+"""
 
-reload(rigLib)
-reload(rigLib.utils)
 reload(nc_module)
-reload(nc_control)
 reload(arm)
+reload(hand)
 reload(spine)
 reload(tail)
 reload(neck)
@@ -38,6 +40,7 @@ reload(center_of_mass)
 reload(leg)
 reload(reverse_foot)
 reload(head)
+"""
 reload(nc_constrain)
 reload(nc_joint)
 reload(nc_name)
@@ -46,24 +49,36 @@ reload(nc_fk_setup)
 reload(nc_tools)"""
 
 
-def create(characterName='', sceneScale=1, rootJnt='root'):
-    mc.file(new=True, force=True)
+def create(characterName='', pathSkeleton='', pathModel='', pathSkinCluster='', update=False, sceneScale=1, rootJnt='root'):
 
-    characterName = characterName
-    sceneScale = sceneScale
-    rootJnt = rootJnt
+    if update is not True:
+        mc.file(new=True, force=True)
 
-    pathSkeleton = r"C:\Users\nilas\Documents\maya\2019\modules\autoRigger\assetsTest/skeleton.ma"
-    mc.file(pathSkeleton, i=1)
+        characterName = characterName
+        sceneScale = sceneScale
+        rootJnt = rootJnt
+        if pathSkeleton:
+            mc.file(pathSkeleton, i=1)
 
-    """
-    pathModel = r"C:\Users\nilas\Documents\maya\2019\modules\autoRigger\assetsTest/model.ma"
-    mc.file(pathModel, i=1)
-    """
+        # create base rig
+        baseRig = nc_module.Base(characterName=characterName, scale=sceneScale, globalCtrlScale=15)
+        mc.parent(rootJnt, baseRig.jointsGrp)
 
-    # create base rig
-    baseRig = nc_module.Base(characterName=characterName, scale=sceneScale, globalCtrlScale=15)
-    mc.parent(rootJnt, baseRig.jointsGrp)
+        if pathModel:
+            before = mc.ls(assemblies=True)
+            mc.file(pathModel, i=1)
+            after = mc.ls(assemblies=True)
+            model_node = set(after).difference(before).pop() # using the before and after variable to determine the top node
+            mc.parent(model_node, baseRig.modelGrp)
+
+        if pathSkinCluster:
+            geo_list = defo.get_geo(model_grp=baseRig.modelGrp)
+            defo.load_weights(weight_dir=pathSkinCluster, geo_list=geo_list)
+
+    else:
+        baseRig = nc_module.Base(characterName=characterName, scale=sceneScale, globalCtrlScale=15)
+        mc.parent(rootJnt, baseRig.jointsGrp)
+        mc.parent(pathModel, baseRig.modelGrp)
 
     # create spine module
 
@@ -85,7 +100,7 @@ def create(characterName='', sceneScale=1, rootJnt='root'):
     # create right leg module
 
     r_leg_joints = ['r_legUpperResult_jnt', 'r_legLowerResult_jnt', 'r_legEndResult_jnt']
-    r_leg_rig = leg.build(leg_joints=r_leg_joints, femoral_head_jnt='r_hipResult_jnt', prefix='r_leg', rigScale=3, baseRig=baseRig)
+    r_leg_rig = leg.build(leg_joints=r_leg_joints, femoral_head_jnt='r_hipResult_jnt', ball_joint='r_footLowerResult_jnt', toe_joint='r_footEndResult_jnt', toe_tip='r_RVtoeTipResult_jnt', bank_inside='r_RVbankInsideResult_jnt', bank_outside='r_RVbankOutsideResult_jnt', heel='r_RVheelResult_jnt', prefix='r_leg', rigScale=3, baseRig=baseRig)
 
     mc.parentConstraint('pelvisResult_ctrl', r_leg_rig['base_attach_grp'], mo=True)
 
@@ -101,12 +116,28 @@ def create(characterName='', sceneScale=1, rootJnt='root'):
 
     mc.parentConstraint('spineEndResult_ctrl', l_arm_rig['base_attach_grp'], mo=True)
 
+    # create left hand module
+    
+    l_finger_joints = ['l_pinkyFStartResult_jnt', 'l_pinkyFMid1Result_jnt', 'l_pinkyFMid2Result_jnt', 'l_pinkyFEndResult_jnt', 'l_ringFStartResult_jnt', 'l_ringFMid1Result_jnt', 'l_ringFMid2Result_jnt', 'l_ringFEndResult_jnt', 'l_middleFStartResult_jnt', 'l_middleFMid1Result_jnt', 'l_middleFMid2Result_jnt', 'l_middleFEndResult_jnt', 'l_indexFStartResult_jnt', 'l_indexFMid1Result_jnt', 'l_indexFMid2Result_jnt', 'l_indexFEndResult_jnt', 'l_thumbFStartResult_jnt', 'l_thumbFMid1Result_jnt', 'l_thumbFMid2Result_jnt', 'l_thumbFEndResult_jnt']
+    l_wrist_joint = 'l_armEndFK_jnt'
+    l_hand_rig = hand.build(finger_joints=l_finger_joints, cup_joint='l_handCup_jnt', wrist_joint=l_wrist_joint, prefix='l_hand', rigScale=1, baseRig=baseRig)
+
+    mc.parentConstraint('l_armEndResult_jnt', l_hand_rig['body_attach_grp'], mo=True)
+    
     # create right arm module
 
     rArmJoints = ['r_armUpperResult_jnt', 'r_armLowerResult_jnt', 'r_armEndResult_jnt']
     r_arm_rig = arm.build(armJoints=rArmJoints, scapulaJnt='r_clavicleResult_jnt', prefix='r_arm', rigScale=3, baseRig=baseRig)
 
     mc.parentConstraint('spineEndResult_ctrl', r_arm_rig['base_attach_grp'], mo=True)
+
+    # create right hand module
+
+    r_finger_joints = ['r_pinkyFStartResult_jnt', 'r_pinkyFMid1Result_jnt', 'r_pinkyFMid2Result_jnt', 'r_pinkyFEndResult_jnt', 'r_ringFStartResult_jnt', 'r_ringFMid1Result_jnt', 'r_ringFMid2Result_jnt', 'r_ringFEndResult_jnt', 'r_middleFStartResult_jnt', 'r_middleFMid1Result_jnt', 'r_middleFMid2Result_jnt', 'r_middleFEndResult_jnt', 'r_indexFStartResult_jnt', 'r_indexFMid1Result_jnt', 'r_indexFMid2Result_jnt', 'r_indexFEndResult_jnt', 'r_thumbFStartResult_jnt', 'r_thumbFMid1Result_jnt', 'r_thumbFMid2Result_jnt', 'r_thumbFEndResult_jnt']
+    r_wrist_joint = 'r_armEndFK_jnt'
+    r_hand_rig = hand.build(finger_joints=r_finger_joints, cup_joint='r_handCup_jnt', wrist_joint=r_wrist_joint, prefix='r_hand', rigScale=1, baseRig=baseRig)
+
+    mc.parentConstraint('r_armEndResult_jnt', r_hand_rig['body_attach_grp'], mo=True)
 
     # create neck module
 

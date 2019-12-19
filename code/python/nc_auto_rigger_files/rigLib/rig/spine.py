@@ -133,7 +133,9 @@ def build(spineJoints,
             mc.connectAttr(spine_corect_md + '.outputX', j + '.sx')
 
     # constrain joints to the result joints
-
+    del ikChain[-1]
+    ikChain.append(spine_end_bind_jnt)
+    ikChain[0] = pelvis_bind_jnt
     for i in range(len(resultChain)):
         nc_constrain.matrixConstraint(ikChain[i], resultChain[i], mo=True, connMatrix=['t', 'r'])
 

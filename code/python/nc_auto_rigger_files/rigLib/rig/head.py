@@ -48,10 +48,9 @@ def build(eye_joints,
     # setup eyes
 
     if eye_joints:
-
-
         eye_chain = []
         eye_ctrls = []
+
         for index, eye in enumerate(eye_joints):
 
             # duplicate eye joints
@@ -60,8 +59,8 @@ def build(eye_joints,
 
             eye_chain.append(eye_joint)
 
-            eye_ctrl = nc_control.Control(prefix=eye_joint + 'FK', translateTo=eye, scale=rigScale,
-                                        parent=rig_module.controlsGrp, shape='circleZ')
+            eye_ctrl = nc_control.Control(prefix=eye_joint.replace("_jnt", ""), translateTo=eye, scale=rigScale,
+                                          parent=rig_module.controlsGrp, shape='circleZ')
 
             eye_ctrls.append(eye_ctrl.Off)
             mc.move(rigScale*10, eye_ctrl.Off, moveZ=True)
@@ -69,13 +68,9 @@ def build(eye_joints,
 
             nc_constrain.matrixConstraint(eye_joint, eye_joints[index], mo=True)
 
-            # parent root control group to base attach group
-
-            mc.parentConstraint(base_attach_grp, eye_joint, mo=True)
-
         if len(eye_joints) == 2:
             eyes_ctrl = nc_control.Control(prefix='eyesLookAt', scale=rigScale,
-                                        parent=rig_module.controlsGrp, shape='circleZ')
+                                           parent=rig_module.controlsGrp, shape='circleZ')
 
             mc.delete(mc.parentConstraint(eye_ctrls[0], eye_ctrls[1], eyes_ctrl.Off))
 
@@ -85,13 +80,14 @@ def build(eye_joints,
     if jaw_joint:
 
         jaw_ctrl = nc_control.Control(prefix='Jaw', scale=rigScale, translateTo=jaw_joint, rotateTo=jaw_joint,
-                                        parent=rig_module.controlsGrp, shape='circleY')
+                                      parent=rig_module.controlsGrp, shape='circleY')
 
         nc_constrain.matrixConstraint(jaw_ctrl.C, jaw_joint, mo=True)
 
     # parent root control group to base attach group
 
     mc.parentConstraint(base_attach_grp, rig_module.controlsGrp, mo=True)
+    mc.parentConstraint(base_attach_grp, rig_module.jointsGrp, mo=True)
 
     return{'module': rig_module,
            'base_attach_grp': base_attach_grp,

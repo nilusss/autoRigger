@@ -74,6 +74,7 @@ class Base():
             mc.setAttr(self.globalCtrl.C + '.s' + axis,  keyable=0)
 
         self.jointsGrp = mc.group(n='joints_grp', em=1, p=self.offsetCtrl.C)
+        #mc.hide(self.jointsGrp)
         self.modulesGrp = mc.group(n='modules_grp', em=1, p=self.offsetCtrl.C)
 
         self.extraNodesGrp = mc.group(n='extraNodes_grp', em=1, p=self.rigGrp)
@@ -106,6 +107,7 @@ class Module():
         self.infoGrp = mc.group(name=prefix + 'ModuleInfo_grp', em=1, p=self.topGrp)
 
         mc.hide(self.partsGrp, self.partsStaticGrp)
+        #mc.hide(self.jointsGrp)
         mc.setAttr(self.partsStaticGrp + '.it', 0, l=1)
 
         # parent module

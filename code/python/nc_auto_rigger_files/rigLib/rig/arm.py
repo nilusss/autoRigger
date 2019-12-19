@@ -56,7 +56,7 @@ def build(armJoints,
 
     # setup of the IK module
 
-    arm_ik = nc_ik_setup.Setup(ikChain, resultChain, offsetJnt=scapulaJnt, isStretchy=stretchModule,
+    arm_ik = nc_ik_setup.Setup(ikChain, resultChain, offsetJnt=scapulaJnt, rotateTo=True, isStretchy=stretchModule,
                                prefix=prefix, rigScale=rigScale, rigModule=rigModule)
 
     arm_ik_rt = arm_ik.build()

@@ -25,6 +25,7 @@ class Setup():
                  offsetJnt='',
                  rotateTo=True,
                  dontTransTo=[],
+                 seperateRot=True,
                  isStretchy=True,
                  scaleAxis='x',
                  prefix='l_arm',
@@ -37,6 +38,7 @@ class Setup():
         @param offsetJnt: str, can be a joint like the scapula for arms or hip
         @param rotateTo: boolean, if the controller should be rotated to the joint
         @param dontTransTo: list(str), list of axis' that the controller shouldnt translate to. eg. ['x', 'y', 'z']
+        @param seperateRot: boolean, decides if translation and rotation should have different controllers
         @param isStretchy: boolean, decides if the IK setup should be stretchy or not
         @param scaleAxis: str, what axis the joints should scale from
         @param prefix: str, prefix to name new objects
@@ -49,6 +51,7 @@ class Setup():
         self.offsetJnt = offsetJnt
         self.rotateTo = rotateTo
         self.dontTransTo = dontTransTo
+        self.seperateRot = seperateRot
         self.isStretchy = isStretchy
         self.rigScale = rigScale
         self.prefix = prefix
@@ -65,7 +68,9 @@ class Setup():
         else:
             self.ik_ctrl = nc_control.Control(prefix=self.prefix + 'IK', translateTo=self.ikChain[-1],
                                               scale=self.rigScale * 2, parent=self.rigModule.controlsGrp, shape='cube')
-
+        """if self.seperateRot is True:
+            self.ik_ctrl = nc_control.Control(prefix=self.prefix + 'IK', translateTo=self.ikChain[-1], rotateTo=self.ikChain[-1],
+                                              scale=self.rigScale * 2, parent=self.rigModule.controlsGrp, shape='sphere')"""
         """if self.dontTransTo:
             bbox = mc.exactWorldBoundingBox(self.ik_ctrl.Off)
             bottom = [(bbox[0] + bbox[3])/2, bbox[1], (bbox[2] + bbox[5])/2]

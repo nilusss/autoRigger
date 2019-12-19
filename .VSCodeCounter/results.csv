@@ -1,23 +1,33 @@
-filename, language, Python, comment, blank, total
-c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\__init__.py, Python, 3, 0, 1, 4
-c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\base\__init__.py, Python, 2, 0, 1, 3
-c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\base\nc_control.py, Python, 171, 20, 22, 213
-c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\base\nc_module.py, Python, 54, 23, 27, 104
-c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\rig\__init__.py, Python, 2, 0, 1, 3
-c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\rig\arm.py, Python, 70, 24, 39, 133
-c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\rig\center_of_mass.py, Python, 19, 12, 9, 40
-c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\rig\hand.py, Python, 64, 19, 22, 105
-c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\rig\head.py, Python, 49, 18, 31, 98
-c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\rig\leg.py, Python, 98, 25, 43, 166
-c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\rig\neck.py, Python, 85, 20, 31, 136
-c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\rig\reverse_foot.py, Python, 155, 41, 50, 246
-c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\rig\spine.py, Python, 94, 19, 29, 142
-c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\rig\tail.py, Python, 94, 17, 27, 138
-c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\utils\__init__.py, Python, 6, 0, 1, 7
-c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\utils\nc_constrain.py, Python, 41, 15, 9, 65
-c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\utils\nc_fk_setup.py, Python, 51, 17, 16, 84
-c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\utils\nc_ik_setup.py, Python, 198, 61, 61, 320
-c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\utils\nc_joint.py, Python, 77, 37, 31, 145
-c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\utils\nc_name.py, Python, 14, 11, 15, 40
-c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\rigLib\utils\nc_tools.py, Python, 104, 50, 53, 207
-Total, -, 1451, 429, 519, 2399
+filename, language, Python, MEL, comment, blank, total
+c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\__init__.py, Python, 0, 0, 0, 2, 2
+c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\autoRigger.py, Python, 89, 0, 1, 19, 109
+c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\nc_auto_rigger_files\__init__.py, Python, 0, 0, 0, 1, 1
+c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\nc_auto_rigger_files\builder\__init__.py, Python, 0, 0, 0, 1, 1
+c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\nc_auto_rigger_files\builder\biped.py, Python, 80, 0, 43, 36, 159
+c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\nc_auto_rigger_files\builder\biped_ske.ma, MEL, 0, 1425, 5, 2, 1432
+c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\nc_auto_rigger_files\builder\cat_ske.ma, MEL, 0, 2406, 5, 2, 2413
+c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\nc_auto_rigger_files\nc_deform.py, Python, 27, 0, 19, 29, 75
+c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\nc_auto_rigger_files\nc_info.py, Python, 3, 0, 0, 1, 4
+c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\nc_auto_rigger_files\nc_updater.py, Python, 97, 0, 18, 41, 156
+c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\nc_auto_rigger_files\rigLib\__init__.py, Python, 0, 0, 0, 1, 1
+c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\nc_auto_rigger_files\rigLib\base\__init__.py, Python, 0, 0, 0, 1, 1
+c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\nc_auto_rigger_files\rigLib\base\nc_control.py, Python, 170, 0, 20, 22, 212
+c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\nc_auto_rigger_files\rigLib\base\nc_module.py, Python, 61, 0, 24, 30, 115
+c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\nc_auto_rigger_files\rigLib\rig\__init__.py, Python, 1, 0, 0, 1, 2
+c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\nc_auto_rigger_files\rigLib\rig\arm.py, Python, 70, 0, 24, 39, 133
+c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\nc_auto_rigger_files\rigLib\rig\center_of_mass.py, Python, 19, 0, 12, 9, 40
+c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\nc_auto_rigger_files\rigLib\rig\hand.py, Python, 62, 0, 20, 22, 104
+c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\nc_auto_rigger_files\rigLib\rig\head.py, Python, 49, 0, 17, 28, 94
+c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\nc_auto_rigger_files\rigLib\rig\leg.py, Python, 98, 0, 25, 43, 166
+c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\nc_auto_rigger_files\rigLib\rig\neck.py, Python, 85, 0, 20, 31, 136
+c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\nc_auto_rigger_files\rigLib\rig\reverse_foot.py, Python, 155, 0, 45, 50, 250
+c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\nc_auto_rigger_files\rigLib\rig\spine.py, Python, 97, 0, 19, 28, 144
+c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\nc_auto_rigger_files\rigLib\rig\tail.py, Python, 94, 0, 17, 27, 138
+c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\nc_auto_rigger_files\rigLib\utils\__init__.py, Python, 0, 0, 0, 1, 1
+c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\nc_auto_rigger_files\rigLib\utils\nc_constrain.py, Python, 41, 0, 15, 9, 65
+c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\nc_auto_rigger_files\rigLib\utils\nc_fk_setup.py, Python, 51, 0, 17, 16, 84
+c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\nc_auto_rigger_files\rigLib\utils\nc_ik_setup.py, Python, 200, 0, 65, 60, 325
+c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\nc_auto_rigger_files\rigLib\utils\nc_joint.py, Python, 76, 0, 37, 31, 144
+c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\nc_auto_rigger_files\rigLib\utils\nc_name.py, Python, 14, 0, 11, 15, 40
+c:\Users\nilas\Documents\maya\2019\modules\autoRigger\code\python\nc_auto_rigger_files\rigLib\utils\nc_tools.py, Python, 113, 0, 50, 56, 219
+Total, -, 1752, 3831, 529, 654, 6766

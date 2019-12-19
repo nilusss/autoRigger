@@ -37,6 +37,8 @@ def build(finger_joints='',
 
     finger_result_chain = []
     finger_result_chain.extend(finger_joints)
+    #if cup_joint:
+        #finger_result_chain.extend(cup_joint)
     rigModule = nc_module.Module(prefix=prefix, baseObj=baseRig)
     get_offset_joint = mc.listRelatives(wrist_joint, parent=True)
 
@@ -88,16 +90,13 @@ def build(finger_joints='',
                 prefix_compare = []
                 temp_finger_list.append(joint)
 
-    # create triple chain setup
-
     # attach hand to attach grp
 
     mc.parentConstraint(body_attach_grp, rigModule.controlsGrp)
 
     # constrain joints to the result joints
-    print finger_chain
+
     for i in range(len(finger_result_chain)):
-        print finger_chain
         nc_constrain.matrixConstraint(finger_chain[i], finger_result_chain[i], mo=True, connMatrix=['t', 'r'])
 
     return{'module': rigModule,

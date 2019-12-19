@@ -98,28 +98,32 @@ def build(ankle_joint_ik='',
     toe_tip_loc = mc.spaceLocator(n=prefix + 'ToeTip_loc')[0]
     mc.parent(toe_tip_loc, toe_tip_loc_grp)
     mc.delete(mc.parentConstraint(toe_tip, toe_tip_loc_grp))
-    mc.delete(toe_tip)
+    #mc.delete(toe_tip)
+    mc.setAttr(toe_tip + '.v', 0)
     mc.setAttr(toe_tip_loc + '.v', 0)
 
     bank_outside_loc_grp = mc.createNode("transform", n=prefix + 'BankOutsideOffset_grp')
     bank_outside_loc = mc.spaceLocator(n=prefix + 'BankOutside_loc')[0]
     mc.parent(bank_outside_loc, bank_outside_loc_grp)
     mc.delete(mc.parentConstraint(bank_outside, bank_outside_loc))
-    mc.delete(bank_outside)
+    #mc.delete(bank_outside)
+    mc.setAttr(bank_outside + '.v', 0)
     mc.setAttr(bank_outside_loc + '.v', 0)
 
     bank_inside_loc_grp = mc.createNode("transform", n=prefix + 'BankInsideOffset_grp')
     bank_inside_loc = mc.spaceLocator(n=prefix + 'BankInside_loc')[0]
     mc.parent(bank_inside_loc, bank_inside_loc_grp)
     mc.delete(mc.parentConstraint(bank_inside, bank_inside_loc))
-    mc.delete(bank_inside)
+    #mc.delete(bank_inside)
+    mc.setAttr(bank_inside + '.v', 0)
     mc.setAttr(bank_inside_loc + '.v', 0)
 
     heel_loc_grp = mc.createNode("transform", n=prefix + 'HeelOffset_grp')
     heel_loc = mc.spaceLocator(n=prefix + 'Heel_loc')[0]
     mc.parent(heel_loc, heel_loc_grp)
     mc.delete(mc.parentConstraint(heel, heel_loc))
-    mc.delete(heel)
+    #mc.delete(heel)
+    mc.setAttr(heel + '.v', 0)
     mc.setAttr(heel_loc + '.v', 0)
 
     ball_loc_grp = mc.createNode("transform", n=prefix + 'BallOffset_grp')
