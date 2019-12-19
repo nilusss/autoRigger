@@ -6,10 +6,7 @@ import maya.cmds as mc
 import maya.mel as mel
 import maya.OpenMaya as om
 
-from ..base import nc_module
-from ..base import nc_control
-
-from . import nc_joint
+import nc_joint
 
 """from . import nc_name
 from . import nc_constrain
@@ -204,3 +201,18 @@ def insert_joints(start='', end='', amount=0.0, parent=True):
     mc.parent(end, new_joint_list[-1])
 
     return new_joint_list
+
+
+def lock_channels(obj='', lockChannels=['t', 'r', 's']):
+
+    singleAttributeLockList = []
+
+    for ch in lockChannels:
+        if ch in ['t', 'r', 's']:
+            for axis in ['x', 'y', 'z']:
+                attr = ch + axis
+                singleAttributeLockList.append(attr)
+        else:
+            singleAttributeLockList.append(ch)
+    for attr in singleAttributeLockList:
+        mc.setAttr(obj + '.' + attr, l=1, k=0)

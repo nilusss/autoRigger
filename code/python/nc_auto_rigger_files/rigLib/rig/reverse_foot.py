@@ -150,7 +150,7 @@ def build(ankle_joint_ik='',
     # create controllers for toe, ball, and heel
     # fk
     ball_ctrl_fk = nc_control.Control(prefix=prefix + 'BallFK', translateTo=ball_joint, scale=rigScale * 2,
-                                    parent=rigModule.controlsGrp, shape='circleZ')
+                                      parent=rigModule.controlsGrp, shape='circleZ')
 
     mc.parentConstraint(ball_ctrl_fk.C, ball_fk, mo=True)
 
@@ -159,16 +159,16 @@ def build(ankle_joint_ik='',
                                   parent=rigModule.controlsGrp, shape='circleZ')
 
     ball_ctrl = nc_control.Control(prefix=prefix + 'BallIK', translateTo=ball_ik, scale=rigScale * 2,
-                                  parent=rigModule.controlsGrp, shape='circleZ')
+                                   parent=rigModule.controlsGrp, shape='circleZ')
 
     heel_ctrl = nc_control.Control(prefix=prefix + 'HeelIK', translateTo=heel_loc, scale=rigScale * 2,
-                                  parent=rigModule.controlsGrp, shape='circleX')
+                                   parent=rigModule.controlsGrp, shape='circleX')
 
     # parent and constraint toe ball and heel controls
     mc.parent(toe_ctrl.Off, heel_ctrl.C)
     mc.parent(ball_ctrl.Off, toe_ctrl.C)
 
-    ik_ctrl_grp = mc.createNode("transform", n=prefix + '.IKCtrlOffset_grp')
+    ik_ctrl_grp = mc.createNode("transform", n=prefix + 'IKCtrlOffset_grp')
     mc.parent(heel_ctrl.Off, ik_ctrl_grp)
     mc.parent(ik_ctrl_grp, rigModule.controlsGrp)
 

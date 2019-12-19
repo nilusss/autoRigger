@@ -106,6 +106,3 @@ def arCleanUpUI(*args):
 
     mc.showWindow(arModelCleanUpWin)
     mc.window('arModelCleanUp', e=True, widthHeight=(280, 170))
-
-
-UI()

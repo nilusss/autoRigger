@@ -4,7 +4,12 @@ module for making top rig structure and rig module
 
 import maya.cmds as mc
 
+from ... import nc_info as info
+
 from . import nc_control
+from ..utils import nc_tools
+
+reload(info)
 
 sceneObjectType = 'rig'
 
@@ -31,7 +36,12 @@ class Base():
         self.topGrp = mc.group(name=characterName + '_rig_grp', em=1)
         self.rigGrp = mc.group(name='rig_grp', em=1, p=self.topGrp)
         self.modelGrp = mc.group(name='model_grp', em=1, p=self.topGrp)
-        self.verGrp = mc.group(name='version_grp', em=1, p=self.topGrp)
+        self.infoGrp = mc.group(name='info_grp', em=1, p=self.topGrp)
+        mc.addAttr(self.infoGrp, shortName='version', longName='VERSION', at="enum", enumName=info.AR_VERSION, keyable=False)
+        mc.setAttr(self.infoGrp + '.version', edit=True, channelBox=True)
+
+        # lock info group channels
+        nc_tools.lock_channels(obj=self.infoGrp, lockChannels=['t', 'r', 's', 'v'])
 
         characterNameAt = 'characterName'
         sceneObjectTypeAt = 'sceneObjectType'
