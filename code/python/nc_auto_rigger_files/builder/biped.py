@@ -117,7 +117,7 @@ def create(characterName='', pathSkeleton='', pathModel='', pathSkinCluster='', 
     mc.parentConstraint('spineEndResult_ctrl', l_arm_rig['base_attach_grp'], mo=True)
 
     # create left hand module
-    
+
     l_finger_joints = ['l_pinkyFStartResult_jnt', 'l_pinkyFMid1Result_jnt', 'l_pinkyFMid2Result_jnt', 'l_pinkyFEndResult_jnt', 'l_ringFStartResult_jnt', 'l_ringFMid1Result_jnt', 'l_ringFMid2Result_jnt', 'l_ringFEndResult_jnt', 'l_middleFStartResult_jnt', 'l_middleFMid1Result_jnt', 'l_middleFMid2Result_jnt', 'l_middleFEndResult_jnt', 'l_indexFStartResult_jnt', 'l_indexFMid1Result_jnt', 'l_indexFMid2Result_jnt', 'l_indexFEndResult_jnt', 'l_thumbFStartResult_jnt', 'l_thumbFMid1Result_jnt', 'l_thumbFMid2Result_jnt', 'l_thumbFEndResult_jnt']
     l_wrist_joint = 'l_armEndFK_jnt'
     l_hand_rig = hand.build(finger_joints=l_finger_joints, cup_joint='l_handCup_jnt', wrist_joint=l_wrist_joint, prefix='l_hand', rigScale=1, baseRig=baseRig)

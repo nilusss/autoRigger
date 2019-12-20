@@ -6,7 +6,7 @@ import maya.cmds as mc
 import maya.OpenMaya as om
 
 
-def matrixConstraint(driver, driven, mo=True, oc=False, pc=False, connMatrix=['t', 'r', 's']):
+def matrixConstraint(driver, driven, mo=True, connMatrix=['t', 'r', 's']):
 
     """
     Does the same as a normal parent constraint, but uses matrices for better accuracy
@@ -14,8 +14,6 @@ def matrixConstraint(driver, driven, mo=True, oc=False, pc=False, connMatrix=['t
     @param driver: str, object to drive the constraint
     @param driven: str, object to be driven
     @param mo: boolean, wether the constraint should maintain offset or not
-    @param oc: boolean, short for orient constraint. If oc and pc if false it will work as a parent constraint
-    @param pc: boolean, short for point constraint. If oc and pc if false it will work as a parent constraint
     @param connMatrix: list(str), the attributes that should be connected from the driver to the driven
     @return: none
     """
@@ -55,10 +53,6 @@ def matrixConstraint(driver, driven, mo=True, oc=False, pc=False, connMatrix=['t
         mc.connectAttr(decomposeMatrix + '.o' + connMatrix[0], driven + '.' + connMatrix[0])
         #mc.connectAttr(decomposeMatrix + '.o' + connMatrix[2], driven + '.' + connMatrix[2])
         mc.connectAttr(qTE + '.outputRotate', driven + '.r')
-    elif oc == True:
-        mc.connectAttr(qTE + '.outputRotate', driven + '.r')
-    elif pc == True:
-        mc.connectAttr(decomposeMatrix + '.o' + connMatrix[0], driven + '.' + connMatrix[0])
     else:
         for m in connMatrix:
             mc.connectAttr(decomposeMatrix + '.o' + m, driven + '.' + m)

@@ -12,7 +12,6 @@ import maya.cmds as mc
 import maya.mel as mel
 import nc_info as info
 
-from time import sleep
 from builder import biped
 
 reload(info)
@@ -68,7 +67,6 @@ def update(file_location=[], builder_file=''):
                     for attr in disc_attr:
                         print attr
                         mel.eval("source channelBoxCommand; CBdeleteConnection \"{}.{}\"".format(joint, attr))
-
 
                 get_model_grp = mc.ls(file_title + ':model_grp')[0]
                 get_geometry = mc.listRelatives(get_model_grp, c=True)
