@@ -231,6 +231,9 @@ def make_live():
                 is_empty(asset)
 
 
-make_live()
+if __name__ == "__main__":
+    make_live()
+    logging.debug('\n')
 
-logging.debug('\n')
+
+
