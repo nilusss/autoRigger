@@ -118,7 +118,7 @@ def create(characterName='', pathSkeleton='', pathModel='', pathSkinCluster='', 
 
     # create left hand module
 
-    l_finger_joints = ['l_pinkyfstart_result_jnt', 'l_pinkyfmid1_result_jnt', 'l_pinkyfmid2_result_jnt', 'l_pinkyFEnd_result_jnt', 'l_ringfstart_result_jnt', 'l_ringfmid1_result_jnt', 'l_ringfmid2_result_jnt', 'l_ringFEnd_result_jnt', 'l_middlefstart_result_jnt', 'l_middlefmid1_result_jnt', 'l_middlefmid2_result_jnt', 'l_middleFEnd_result_jnt', 'l_indexfstart_result_jnt', 'l_indexfmid1_result_jnt', 'l_indexfmid2_result_jnt', 'l_indexFEnd_result_jnt', 'l_thumbfstart_result_jnt', 'l_thumbfmid1_result_jnt', 'l_thumbfmid2_result_jnt', 'l_thumbFEnd_result_jnt']
+    l_finger_joints = ['l_pinkyfstart_result_jnt', 'l_pinkyfmid1_result_jnt', 'l_pinkyfmid2_result_jnt', 'l_pinkyfEnd_result_jnt', 'l_ringfstart_result_jnt', 'l_ringfmid1_result_jnt', 'l_ringfmid2_result_jnt', 'l_ringFEnd_result_jnt', 'l_middlefstart_result_jnt', 'l_middlefmid1_result_jnt', 'l_middlefmid2_result_jnt', 'l_middleFEnd_result_jnt', 'l_indexfstart_result_jnt', 'l_indexfmid1_result_jnt', 'l_indexfmid2_result_jnt', 'l_indexFEnd_result_jnt', 'l_thumbfstart_result_jnt', 'l_thumbfmid1_result_jnt', 'l_thumbfmid2_result_jnt', 'l_thumbFEnd_result_jnt']
     l_wrist_joint = 'l_armEnd_FK_jnt'
     l_hand_rig = hand.build(finger_joints=l_finger_joints, cup_joint='l_handcup_jnt', wrist_joint=l_wrist_joint, prefix='l_hand', rigScale=1, baseRig=baseRig)
 
