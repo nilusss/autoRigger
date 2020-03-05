@@ -64,11 +64,11 @@ def build(tail_joints,
     loc_list = []
     ik_ctrl_list = []
     for i, joint in enumerate(tail_joints):
-        loc = mc.spaceLocator(n=joint.replace('Result_jnt', '_loc'))[0]
+        loc = mc.spaceLocator(n=joint.replace('result_jnt', '_loc'))[0]
         mc.parent(loc, rigModule.partsGrp)
         loc_list.append(loc)
         mc.delete(mc.parentConstraint(joint, loc))
-        ik_ctrl = nc_control.Control(prefix=joint.replace('Result_jnt', 'IK'), translateTo=loc, rotateTo=loc,
+        ik_ctrl = nc_control.Control(prefix=joint.replace('result_jnt', 'IK'), translateTo=loc, rotateTo=loc,
                                      scale=rigScale * 2, parent=rigModule.controlsGrp, shape='cube')
         ik_ctrl_list.append(ik_ctrl.C)
         if i <= len(tail_fk_rt['ctrls'])-1:

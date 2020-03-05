@@ -54,13 +54,13 @@ def build(ankle_joint_ik='',
     prefix = prefix + "Foot"
 
     # duplicate joints
-    ball_ik = mc.duplicate(ball_joint, parentOnly=True, n=ball_joint.replace('Result_jnt', 'IK_jnt'))[0]
-    toe_ik = mc.duplicate(toe_joint, parentOnly=True, n=toe_joint.replace('Result_jnt', 'IK_jnt'))[0]
+    ball_ik = mc.duplicate(ball_joint, parentOnly=True, n=ball_joint.replace('result_jnt', 'IK_jnt'))[0]
+    toe_ik = mc.duplicate(toe_joint, parentOnly=True, n=toe_joint.replace('result_jnt', 'IK_jnt'))[0]
     print ball_ik
     print toe_ik
 
-    ball_fk = mc.duplicate(ball_joint, parentOnly=True, n=ball_joint.replace('Result_jnt', 'FK_jnt'))[0]
-    toe_fk = mc.duplicate(toe_joint, parentOnly=True, n=toe_joint.replace('Result_jnt', 'FK_jnt'))[0]
+    ball_fk = mc.duplicate(ball_joint, parentOnly=True, n=ball_joint.replace('result_jnt', 'FK_jnt'))[0]
+    toe_fk = mc.duplicate(toe_joint, parentOnly=True, n=toe_joint.replace('result_jnt', 'FK_jnt'))[0]
 
     # fix chains
     result_chain = []

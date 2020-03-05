@@ -54,7 +54,7 @@ def build(eye_joints,
         for index, eye in enumerate(eye_joints):
 
             # duplicate eye joints
-            eye_joint = mc.duplicate(eye, parentOnly=True, n=eye.replace("Result_jnt", "FK_jnt"))[0]
+            eye_joint = mc.duplicate(eye, parentOnly=True, n=eye.replace("result_jnt", "FK_jnt"))[0]
             mc.parent(eye_joint, joints_offset_grp)
 
             eye_chain.append(eye_joint)

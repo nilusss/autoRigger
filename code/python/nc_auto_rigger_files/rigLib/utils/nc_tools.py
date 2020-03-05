@@ -174,7 +174,7 @@ def insert_joints(start='', end='', amount=0.0, parent=True):
             mc.select(clear=True)
 
             # duplicate start joint to get same attributes on all the joints
-            new_joint = mc.duplicate(start, parentOnly=True, n=start.replace('Result_jnt', str(i) + 'INBTResult_jnt'))[0]
+            new_joint = mc.duplicate(start, parentOnly=True, n=start.replace('result_jnt', str(i) + 'INBT_result_jnt'))[0]
             mc.parent(new_joint, world=True)
             new_joint_list.append(new_joint)
 
