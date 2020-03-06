@@ -87,7 +87,7 @@ def create(characterName='', pathSkeleton='', pathModel='', pathSkinCluster='', 
 
     # create center of mass module
 
-    com_joint = 'spine1IK_jnt'
+    com_joint = 'spine1_IK_jnt'
     com_rig = center_of_mass.build(com_joint, module_to_conn=spineRig['module'].topGrp, prefix='COM', rigScale=10, baseRig=baseRig)
 
     # create left leg module
@@ -97,7 +97,7 @@ def create(characterName='', pathSkeleton='', pathModel='', pathSkinCluster='', 
 
     mc.parentConstraint('pelvis_result_ctrl', l_leg_rig['base_attach_grp'], mo=True)
 
-    # create right leg module
+    # create right leg module 
 
     r_leg_joints = ['r_legupper_result_jnt', 'r_leglower_result_jnt', 'r_legEnd_result_jnt']
     r_leg_rig = leg.build(leg_joints=r_leg_joints, femoral_head_jnt='r_hip_result_jnt', ball_joint='r_footlower_result_jnt', toe_joint='r_footEnd_result_jnt', toe_tip='r_rvtoetip_result_jnt', bank_inside='r_rvbankinside_result_jnt', bank_outside='r_rvbankoutside_result_jnt', heel='r_rvheel_result_jnt', prefix='r_leg', rigScale=3, baseRig=baseRig)
@@ -118,7 +118,7 @@ def create(characterName='', pathSkeleton='', pathModel='', pathSkinCluster='', 
 
     # create left hand module
 
-    l_finger_joints = ['l_pinkyfstart_result_jnt', 'l_pinkyfmid1_result_jnt', 'l_pinkyfmid2_result_jnt', 'l_pinkyfEnd_result_jnt', 'l_ringfstart_result_jnt', 'l_ringfmid1_result_jnt', 'l_ringfmid2_result_jnt', 'l_ringFEnd_result_jnt', 'l_middlefstart_result_jnt', 'l_middlefmid1_result_jnt', 'l_middlefmid2_result_jnt', 'l_middleFEnd_result_jnt', 'l_indexfstart_result_jnt', 'l_indexfmid1_result_jnt', 'l_indexfmid2_result_jnt', 'l_indexFEnd_result_jnt', 'l_thumbfstart_result_jnt', 'l_thumbfmid1_result_jnt', 'l_thumbfmid2_result_jnt', 'l_thumbFEnd_result_jnt']
+    l_finger_joints = ['l_pinkyFstart_result_jnt', 'l_pinkyFmid1_result_jnt', 'l_pinkyFmid2_result_jnt', 'l_pinkyFEnd_result_jnt', 'l_ringFstart_result_jnt', 'l_ringFmid1_result_jnt', 'l_ringFmid2_result_jnt', 'l_ringFEnd_result_jnt', 'l_middleFstart_result_jnt', 'l_middleFmid1_result_jnt', 'l_middleFmid2_result_jnt', 'l_middleFEnd_result_jnt', 'l_indexFstart_result_jnt', 'l_indexFmid1_result_jnt', 'l_indexFmid2_result_jnt', 'l_indexFEnd_result_jnt', 'l_thumbFstart_result_jnt', 'l_thumbFmid1_result_jnt', 'l_thumbFmid2_result_jnt', 'l_thumbFEnd_result_jnt']
     l_wrist_joint = 'l_armEnd_FK_jnt'
     l_hand_rig = hand.build(finger_joints=l_finger_joints, cup_joint='l_handcup_jnt', wrist_joint=l_wrist_joint, prefix='l_hand', rigScale=1, baseRig=baseRig)
 
@@ -133,7 +133,7 @@ def create(characterName='', pathSkeleton='', pathModel='', pathSkinCluster='', 
 
     # create right hand module
 
-    r_finger_joints = ['r_pinkyfstart_result_jnt', 'r_pinkyfmid1_result_jnt', 'r_pinkyfmid2_result_jnt', 'r_pinkyfEnd_result_jnt', 'r_ringfstart_result_jnt', 'r_ringfmid1_result_jnt', 'r_ringfmid2_result_jnt', 'r_ringFEnd_result_jnt', 'r_middlefstart_result_jnt', 'r_middlefmid1_result_jnt', 'r_middlefmid2_result_jnt', 'r_middleFEnd_result_jnt', 'r_indexfstart_result_jnt', 'r_indexfmid1_result_jnt', 'r_indexfmid2_result_jnt', 'r_indexFEnd_result_jnt', 'r_thumbfstart_result_jnt', 'r_thumbfmid1_result_jnt', 'r_thumbfmid2_result_jnt', 'r_thumbFEnd_result_jnt']
+    r_finger_joints = ['r_pinkyFstart_result_jnt', 'r_pinkyFmid1_result_jnt', 'r_pinkyFmid2_result_jnt', 'r_pinkyFEnd_result_jnt', 'r_ringFstart_result_jnt', 'r_ringFmid1_result_jnt', 'r_ringFmid2_result_jnt', 'r_ringFEnd_result_jnt', 'r_middleFstart_result_jnt', 'r_middleFmid1_result_jnt', 'r_middleFmid2_result_jnt', 'r_middleFEnd_result_jnt', 'r_indexFstart_result_jnt', 'r_indexFmid1_result_jnt', 'r_indexFmid2_result_jnt', 'r_indexFEnd_result_jnt', 'r_thumbFstart_result_jnt', 'r_thumbFmid1_result_jnt', 'r_thumbFmid2_result_jnt', 'r_thumbFEnd_result_jnt']
     r_wrist_joint = 'r_armEnd_FK_jnt'
     r_hand_rig = hand.build(finger_joints=r_finger_joints, cup_joint='r_handcup_jnt', wrist_joint=r_wrist_joint, prefix='r_hand', rigScale=1, baseRig=baseRig)
 

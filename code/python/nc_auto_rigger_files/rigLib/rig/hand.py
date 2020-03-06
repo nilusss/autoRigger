@@ -62,7 +62,7 @@ def build(finger_joints='',
             iteration = 0
             temp_finger_list = []
 
-        finger = re.findall('[a-zA-Z][^A-Z]*', joint)
+        finger = re.findall('', joint)
         prefix_compare.append(finger[0])
 
         if iteration == 0:
