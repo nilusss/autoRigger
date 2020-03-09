@@ -17,6 +17,7 @@ from ..utils import nc_fk_setup
 def build(neck_joints,
           pelvisJnt='',
           prefix='neck',
+          prefixHead='head',
           rigScale=1.0,
           baseRig=None
           ):
@@ -73,7 +74,7 @@ def build(neck_joints,
 
     # create head controller and constrain it to the neck end bind joint
 
-    head_ctrl = nc_control.Control(prefix='head', translateTo=neck_end_bind_jnt,
+    head_ctrl = nc_control.Control(prefix=prefixHead, translateTo=neck_end_bind_jnt,
                                    scale=rigScale, parent=rigModule.controlsGrp, shape='cube')
 
     nc_constrain.matrixConstraint(head_ctrl.C, neck_end_bind_jnt, mo=True)

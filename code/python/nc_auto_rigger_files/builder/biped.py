@@ -82,27 +82,27 @@ def create(characterName='', pathSkeleton='', pathModel='', pathSkinCluster='', 
 
     # create spine module
 
-    spineJoints = ['spine1_result_jnt', 'spine2_result_jnt', 'spine3_result_jnt', 'spine4_result_jnt', 'spine5_result_jnt', 'spineEnd_result_jnt']
-    spineRig = spine.build(spineJoints=spineJoints, pelvisJnt='pelvis_result_jnt', prefix='spine', rigScale=10, baseRig=baseRig)
+    spineJoints = ['c_spineA_result_jnt', 'c_spineB_result_jnt', 'c_spineC_result_jnt', 'c_spineD_result_jnt', 'c_spineE_result_jnt', 'c_spineF_result_jnt']
+    spineRig = spine.build(spineJoints=spineJoints, pelvisJnt='c_pelvis_result_jnt', prefix='c_spine', rigScale=10, baseRig=baseRig)
 
     # create center of mass module
 
-    com_joint = 'spine1_IK_jnt'
+    com_joint = 'c_spineA_IK_jnt'
     com_rig = center_of_mass.build(com_joint, module_to_conn=spineRig['module'].topGrp, prefix='COM', rigScale=10, baseRig=baseRig)
 
     # create left leg module
 
-    l_leg_joints = ['l_legupper_result_jnt', 'l_leglower_result_jnt', 'l_legEnd_result_jnt']
-    l_leg_rig = leg.build(leg_joints=l_leg_joints, femoral_head_jnt='l_hip_result_jnt', ball_joint='l_footlower_result_jnt', toe_joint='l_footEnd_result_jnt', toe_tip='l_rvtoetip_result_jnt', bank_inside='l_rvbankinside_result_jnt', bank_outside='l_rvbankoutside_result_jnt', heel='l_rvheel_result_jnt', prefix='l_leg', rigScale=3, baseRig=baseRig)
+    l_leg_joints = ['l_legUpper_result_jnt', 'l_legLower_result_jnt', 'l_legEnd_result_jnt']
+    l_leg_rig = leg.build(leg_joints=l_leg_joints, femoral_head_jnt='l_hip_result_jnt', ball_joint='l_footLower_result_jnt', toe_joint='l_footEnd_result_jnt', toe_tip='l_footToetipLast_result_jnt', bank_inside='l_footBankinsideLast_result_jnt', bank_outside='l_footBankoutsideLast_result_jnt', heel='l_footHeelLast_result_jnt', prefix='l_leg', rigScale=3, baseRig=baseRig)
 
-    mc.parentConstraint('pelvis_result_ctrl', l_leg_rig['base_attach_grp'], mo=True)
+    mc.parentConstraint('c_pelvis_result_ctrl', l_leg_rig['base_attach_grp'], mo=True)
 
     # create right leg module 
 
-    r_leg_joints = ['r_legupper_result_jnt', 'r_leglower_result_jnt', 'r_legEnd_result_jnt']
-    r_leg_rig = leg.build(leg_joints=r_leg_joints, femoral_head_jnt='r_hip_result_jnt', ball_joint='r_footlower_result_jnt', toe_joint='r_footEnd_result_jnt', toe_tip='r_rvtoetip_result_jnt', bank_inside='r_rvbankinside_result_jnt', bank_outside='r_rvbankoutside_result_jnt', heel='r_rvheel_result_jnt', prefix='r_leg', rigScale=3, baseRig=baseRig)
+    r_leg_joints = ['r_legUpper_result_jnt', 'r_legLower_result_jnt', 'r_legEnd_result_jnt']
+    r_leg_rig = leg.build(leg_joints=r_leg_joints, femoral_head_jnt='r_hip_result_jnt', ball_joint='r_footLower_result_jnt', toe_joint='r_footEnd_result_jnt', toe_tip='r_footToetipLast_result_jnt', bank_inside='r_footBankinsideLast_result_jnt', bank_outside='r_footBankoutsideLast_result_jnt', heel='r_footHeelLast_result_jnt', prefix='r_leg', rigScale=3, baseRig=baseRig)
 
-    mc.parentConstraint('pelvis_result_ctrl', r_leg_rig['base_attach_grp'], mo=True)
+    mc.parentConstraint('c_pelvis_result_ctrl', r_leg_rig['base_attach_grp'], mo=True)
 
     # test of tail module
     """
@@ -111,29 +111,29 @@ def create(characterName='', pathSkeleton='', pathModel='', pathSkinCluster='', 
     """
     # create left arm module
 
-    lArmJoints = ['l_armupper_result_jnt', 'l_armlower_result_jnt', 'l_armEnd_result_jnt']
+    lArmJoints = ['l_armUpper_result_jnt', 'l_armLower_result_jnt', 'l_armEnd_result_jnt']
     l_arm_rig = arm.build(armJoints=lArmJoints, scapulaJnt='l_clavicle_result_jnt', prefix='l_arm', rigScale=3, baseRig=baseRig)
 
-    mc.parentConstraint('spineEnd_result_ctrl', l_arm_rig['base_attach_grp'], mo=True)
+    mc.parentConstraint('c_spineF_result_ctrl', l_arm_rig['base_attach_grp'], mo=True)
 
     # create left hand module
 
-    l_finger_joints = ['l_pinkyFstart_result_jnt', 'l_pinkyFmid1_result_jnt', 'l_pinkyFmid2_result_jnt', 'l_pinkyFEnd_result_jnt', 'l_ringFstart_result_jnt', 'l_ringFmid1_result_jnt', 'l_ringFmid2_result_jnt', 'l_ringFEnd_result_jnt', 'l_middleFstart_result_jnt', 'l_middleFmid1_result_jnt', 'l_middleFmid2_result_jnt', 'l_middleFEnd_result_jnt', 'l_indexFstart_result_jnt', 'l_indexFmid1_result_jnt', 'l_indexFmid2_result_jnt', 'l_indexFEnd_result_jnt', 'l_thumbFstart_result_jnt', 'l_thumbFmid1_result_jnt', 'l_thumbFmid2_result_jnt', 'l_thumbFEnd_result_jnt']
+    l_finger_joints = ['l_pinkyFA_result_jnt', 'l_pinkyFB_result_jnt', 'l_pinkyFC_result_jnt', 'l_pinkyFLast_result_jnt', 'l_ringFA_result_jnt', 'l_ringFB_result_jnt', 'l_ringFC_result_jnt', 'l_ringFLast_result_jnt', 'l_middleFA_result_jnt', 'l_middleFB_result_jnt', 'l_middleFC_result_jnt', 'l_middleFLast_result_jnt', 'l_indexFA_result_jnt', 'l_indexFB_result_jnt', 'l_indexFC_result_jnt', 'l_indexFLast_result_jnt', 'l_thumbFA_result_jnt', 'l_thumbFB_result_jnt', 'l_thumbFC_result_jnt', 'l_thumbFLast_result_jnt']
     l_wrist_joint = 'l_armEnd_FK_jnt'
-    l_hand_rig = hand.build(finger_joints=l_finger_joints, cup_joint='l_handcup_jnt', wrist_joint=l_wrist_joint, prefix='l_hand', rigScale=1, baseRig=baseRig)
+    l_hand_rig = hand.build(finger_joints=l_finger_joints, cup_joint='l_handCup_jnt', wrist_joint=l_wrist_joint, prefix='l_hand', rigScale=1, baseRig=baseRig)
 
     mc.parentConstraint('l_armEnd_result_jnt', l_hand_rig['body_attach_grp'], mo=True)
 
     # create right arm module
 
-    rArmJoints = ['r_armupper_result_jnt', 'r_armlower_result_jnt', 'r_armEnd_result_jnt']
+    rArmJoints = ['r_armUpper_result_jnt', 'r_armLower_result_jnt', 'r_armEnd_result_jnt']
     r_arm_rig = arm.build(armJoints=rArmJoints, scapulaJnt='r_clavicle_result_jnt', prefix='r_arm', rigScale=3, baseRig=baseRig)
 
-    mc.parentConstraint('spineEnd_result_ctrl', r_arm_rig['base_attach_grp'], mo=True)
+    mc.parentConstraint('c_spineF_result_ctrl', r_arm_rig['base_attach_grp'], mo=True)
 
     # create right hand module
 
-    r_finger_joints = ['r_pinkyFstart_result_jnt', 'r_pinkyFmid1_result_jnt', 'r_pinkyFmid2_result_jnt', 'r_pinkyFEnd_result_jnt', 'r_ringFstart_result_jnt', 'r_ringFmid1_result_jnt', 'r_ringFmid2_result_jnt', 'r_ringFEnd_result_jnt', 'r_middleFstart_result_jnt', 'r_middleFmid1_result_jnt', 'r_middleFmid2_result_jnt', 'r_middleFEnd_result_jnt', 'r_indexFstart_result_jnt', 'r_indexFmid1_result_jnt', 'r_indexFmid2_result_jnt', 'r_indexFEnd_result_jnt', 'r_thumbFstart_result_jnt', 'r_thumbFmid1_result_jnt', 'r_thumbFmid2_result_jnt', 'r_thumbFEnd_result_jnt']
+    r_finger_joints = ['r_pinkyFA_result_jnt', 'r_pinkyFB_result_jnt', 'r_pinkyFC_result_jnt', 'r_pinkyFLast_result_jnt', 'r_ringFA_result_jnt', 'r_ringFB_result_jnt', 'r_ringFC_result_jnt', 'r_ringFLast_result_jnt', 'r_middleFA_result_jnt', 'r_middleFB_result_jnt', 'r_middleFC_result_jnt', 'r_middleFLast_result_jnt', 'r_indexFA_result_jnt', 'r_indexFB_result_jnt', 'r_indexFC_result_jnt', 'r_indexFLast_result_jnt', 'r_thumbFA_result_jnt', 'r_thumbFB_result_jnt', 'r_thumbFC_result_jnt', 'r_thumbFLast_result_jnt']
     r_wrist_joint = 'r_armEnd_FK_jnt'
     r_hand_rig = hand.build(finger_joints=r_finger_joints, cup_joint='r_handcup_jnt', wrist_joint=r_wrist_joint, prefix='r_hand', rigScale=1, baseRig=baseRig)
 
@@ -141,21 +141,21 @@ def create(characterName='', pathSkeleton='', pathModel='', pathSkinCluster='', 
 
     # create neck module
 
-    neck_joints = ['neckstart_result_jnt', 'neck_result_jnt', 'neckEnd_result_jnt']
-    neck_rig = neck.build(neck_joints=neck_joints, prefix='neck', rigScale=4, baseRig=baseRig)
+    neck_joints = ['c_neckA_result_jnt', 'c_neckB_result_jnt', 'c_headA_result_jnt']
+    neck_rig = neck.build(neck_joints=neck_joints, prefix='c_neck', prefixHead='c_head', rigScale=4, baseRig=baseRig)
 
-    mc.parentConstraint('spineEnd_result_ctrl', neck_rig['base_attach_grp'], mo=True)
+    mc.parentConstraint('c_spineF_result_ctrl', neck_rig['base_attach_grp'], mo=True)
 
     # create head module
-    eye_joints = ['l_eyestart_result_jnt', 'r_eyestart_result_jnt']
+    eye_joints = ['l_eyeA_result_jnt', 'r_eyeA_result_jnt']
     head_rig = head.build(eye_joints=eye_joints,
-                        jaw_joint='jawstart_result_jnt',
-                        prefix='head',
-                        rigScale=3.0,
-                        baseRig=baseRig
-                        )
+                          jaw_joint='c_jawA_result_jnt',
+                          prefix='c_head',
+                          rigScale=3.0,
+                          baseRig=baseRig
+                          )
 
-    mc.parentConstraint('head_ctrl', head_rig['base_attach_grp'], mo=True)
+    mc.parentConstraint('c_head_ctrl', head_rig['base_attach_grp'], mo=True)
 
     mc.select(d=True)
 
