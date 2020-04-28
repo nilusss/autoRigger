@@ -94,14 +94,12 @@ def create(characterName='', pathSkeleton='', pathModel='', pathSkinCluster='', 
 
     l_leg_joints = ['l_legUpper_result_jnt', 'l_legLower_result_jnt', 'l_legEnd_result_jnt']
     l_leg_rig = leg.build(leg_joints=l_leg_joints, femoral_head_jnt='l_hip_result_jnt', ball_joint='l_footLower_result_jnt', toe_joint='l_footEnd_result_jnt', toe_tip='l_footToetipLast_result_jnt', bank_inside='l_footBankinsideLast_result_jnt', bank_outside='l_footBankoutsideLast_result_jnt', heel='l_footHeelLast_result_jnt', prefix='l_leg', rigScale=3, baseRig=baseRig)
-
     mc.parentConstraint('c_pelvis_result_ctrl', l_leg_rig['base_attach_grp'], mo=True)
 
     # create right leg module 
 
     r_leg_joints = ['r_legUpper_result_jnt', 'r_legLower_result_jnt', 'r_legEnd_result_jnt']
     r_leg_rig = leg.build(leg_joints=r_leg_joints, femoral_head_jnt='r_hip_result_jnt', ball_joint='r_footLower_result_jnt', toe_joint='r_footEnd_result_jnt', toe_tip='r_footToetipLast_result_jnt', bank_inside='r_footBankinsideLast_result_jnt', bank_outside='r_footBankoutsideLast_result_jnt', heel='r_footHeelLast_result_jnt', prefix='r_leg', rigScale=3, baseRig=baseRig)
-
     mc.parentConstraint('c_pelvis_result_ctrl', r_leg_rig['base_attach_grp'], mo=True)
 
     # test of tail module

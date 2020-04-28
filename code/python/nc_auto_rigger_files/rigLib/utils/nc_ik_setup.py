@@ -101,7 +101,8 @@ class Setup():
         nc_constrain.matrixConstraint(self.pole_vector_ctrl.C, self.pole_vector_loc, mo=True)
 
         return {'loc': self.pole_vector_loc,
-                'ctrl': self.pole_vector_ctrl.C}
+                'ctrl': self.pole_vector_ctrl.C,
+                'offset': self.pole_vector_ctrl.Off}
 
     # create IK handle and parent it under IK controller
 
@@ -311,6 +312,12 @@ class Setup():
 
         pv_line = nc_tools.create_line(obj_from=self.resultChain[get_mid_joint], obj_to=pole_vec['loc'],
                             prefix=self.prefix, rigModule=self.rigModule)
+
+        # Change pole vector offset group pivot to match mid joint pos
+        # makes it easier for humanIK when setting up pole vector/knee controller
+        s2 = mc.xform(self.resultChain[get_mid_joint], sp=True , q=True , ws=True)
+
+        mc.move(s2[0], s2[1], s2[2], pole_vec['offset'] + '.scalePivot', pole_vec['offset'] + '.rotatePivot', absolute=True)
 
         return {'ik_hdl': ik_hdl['ik_hdl'],
                 'ik_hdl_grp': ik_hdl['ik_hdl_grp'],

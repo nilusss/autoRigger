@@ -73,9 +73,15 @@ class Base():
             mc.connectAttr(self.globalCtrl.C + '.sx', self.globalCtrl.C + '.s' + axis)
             mc.setAttr(self.globalCtrl.C + '.s' + axis,  keyable=0)
 
-        self.jointsGrp = mc.group(n='joints_grp', em=1, p=self.offsetCtrl.C)
+        self.jointsGrp = mc.group(n='joints_grp', em=1, p=self.rigGrp)
         #mc.hide(self.jointsGrp)
-        self.modulesGrp = mc.group(n='modules_grp', em=1, p=self.offsetCtrl.C)
+        self.modulesGrp = mc.group(n='modules_grp', em=1, p=self.rigGrp)
+
+        mc.parentConstraint(self.offsetCtrl.C, self.jointsGrp, mo=True)
+        mc.parentConstraint(self.offsetCtrl.C, self.modulesGrp, mo=True)
+
+        mc.scaleConstraint(self.offsetCtrl.C, self.jointsGrp, mo=True)
+        mc.scaleConstraint(self.offsetCtrl.C, self.modulesGrp, mo=True)
 
         self.extraNodesGrp = mc.group(n='extraNodes_grp', em=1, p=self.rigGrp)
         mc.setAttr(self.extraNodesGrp + '.it', 0, lock=1)

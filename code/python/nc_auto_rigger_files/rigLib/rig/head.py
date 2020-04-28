@@ -16,6 +16,7 @@ from ..utils import nc_fk_setup
 
 def build(eye_joints,
           jaw_joint='',
+          ear_joints='',
           prefix='neck',
           rigScale=1.0,
           baseRig=None
