@@ -34,7 +34,7 @@ def build(com_joint,
 
     rigModule = nc_module.Module(prefix=prefix, baseObj=baseRig)
 
-    COM_ctrl = nc_control.Control(prefix=prefix, translateTo=com_joint, scale=rigScale * 2.5,
+    com_ctrl = nc_control.Control(prefix=prefix, translateTo=com_joint, scale=rigScale * 2.5,
                                   parent=rigModule.controlsGrp, shape='diamond' + axis)
 
-    mc.parentConstraint(COM_ctrl.C, module_to_conn, mo=True)
+    return{'ctrl': com_ctrl.C}

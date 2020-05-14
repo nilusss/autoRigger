@@ -92,8 +92,12 @@ def get_file(path, ext=[]):
     files = os.listdir(path)
     for mfile in files:
         if any([x in mfile for x in ext]):
-            logging.info('File found:' + mfile)
-            return mfile
+            sort = ['_low', '_high']
+            if any(x in mfile for x in sort):
+                logging.info('No files in here')
+            else:
+                logging.info('File found:' + mfile)
+                return mfile
         else:
             logging.info('No files in here')
 

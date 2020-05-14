@@ -75,13 +75,16 @@ def build(finger_joints='',
                 iteration += 1
                 if joint == finger_joints[-1]:
                     lfinger_list = nc_joint.jointDuplicate(jointChain=temp_finger_list, jointType="FK", offsetGrp=joints_offset_grp)
-                    finger_fk = nc_fk_setup.Setup(lfinger_list, incl_last=False, prefix=prefix, rigScale=rigScale * 0.5, rigModule=rigModule)
+                    if 'thumb' in joint:
+                        finger_fk = nc_fk_setup.Setup(lfinger_list, incl_last=False, prefix=prefix, rigScale=rigScale * 1.5, rigModule=rigModule)
+                    else:
+                        finger_fk = nc_fk_setup.Setup(lfinger_list, incl_last=False, prefix=prefix, rigScale=rigScale * 0.8, rigModule=rigModule)
                     finger_fk_rt = finger_fk.build()
                     finger_chain.extend(lfinger_list)
 
             elif finger[0] != prefix_compare[0]:
                 fk_chain = nc_joint.jointDuplicate(jointChain=temp_finger_list, jointType="FK", offsetGrp=joints_offset_grp)
-                finger_fk = nc_fk_setup.Setup(fk_chain, incl_last=False, prefix=prefix, rigScale=rigScale * 0.5, rigModule=rigModule)
+                finger_fk = nc_fk_setup.Setup(fk_chain, incl_last=False, prefix=prefix, rigScale=rigScale * 0.8, rigModule=rigModule)
                 finger_fk_rt = finger_fk.build()
                 finger_chain.extend(fk_chain)
                 mc.select(d=True)

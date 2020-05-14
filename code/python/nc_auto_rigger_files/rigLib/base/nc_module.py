@@ -113,7 +113,7 @@ class Module():
         self.infoGrp = mc.group(name=prefix + 'ModuleInfo_grp', em=1, p=self.topGrp)
 
         mc.hide(self.partsGrp, self.partsStaticGrp)
-        #mc.hide(self.jointsGrp)
+        mc.hide(self.jointsGrp)
         mc.setAttr(self.partsStaticGrp + '.it', 0, l=1)
 
         # parent module

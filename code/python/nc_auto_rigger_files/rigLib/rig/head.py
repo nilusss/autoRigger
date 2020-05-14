@@ -17,6 +17,10 @@ from ..utils import nc_fk_setup
 def build(eye_joints,
           jaw_joint='',
           ear_joints='',
+          lipupper_joints='',
+          liplower_joints='',
+          eyelid_joints='',
+          eyebrow_joints='',
           prefix='neck',
           rigScale=1.0,
           baseRig=None
@@ -46,7 +50,7 @@ def build(eye_joints,
     body_attach_grp = mc.group(n=prefix + 'BodyAttach_grp', em=1, p=rig_module.partsGrp)
     base_attach_grp = mc.group(n=prefix + 'BaseAttach_grp', em=1, p=rig_module.partsGrp)
 
-    # setup eyes
+    # Setup eyes
 
     if eye_joints:
         eye_chain = []
@@ -78,12 +82,45 @@ def build(eye_joints,
             mc.parent(eye_ctrls[0], eyes_ctrl.C)
             mc.parent(eye_ctrls[1], eyes_ctrl.C)
 
+    # Setup jaw
     if jaw_joint:
 
         jaw_ctrl = nc_control.Control(prefix='Jaw', scale=rigScale, translateTo=jaw_joint, rotateTo=jaw_joint,
                                       parent=rig_module.controlsGrp, shape='circleY')
 
         nc_constrain.matrixConstraint(jaw_ctrl.C, jaw_joint, mo=True)
+
+    # Setup lips
+    if lipupper_joints:
+        for lip_joint in lipupper_joints:
+            lipupper_part_ctrl = nc_control.Control(prefix=lip_joint.replace("_jnt", ""), translateTo=lip_joint, rotateTo=lip_joint, scale=rigScale/6,
+                                                    parent=rig_module.controlsGrp, shape='sphere')
+
+            nc_constrain.matrixConstraint(lipupper_part_ctrl.C, lip_joint, mo=True)
+
+    if liplower_joints:
+        for lip_joint in liplower_joints:
+            liplower_part_ctrl = nc_control.Control(prefix=lip_joint.replace("_jnt", ""), translateTo=lip_joint, rotateTo=lip_joint, scale=rigScale/6,
+                                                    parent=rig_module.controlsGrp, shape='sphere')
+
+            nc_constrain.matrixConstraint(liplower_part_ctrl.C, lip_joint, mo=True)
+            nc_constrain.matrixConstraint(jaw_ctrl.C, liplower_part_ctrl.Off, mo=True)
+
+    # Setup eyelids
+    if eyelid_joints:
+        for eyelid_joint in eyelid_joints:
+            eyelid_part_ctrl = nc_control.Control(prefix=eyelid_joint.replace("_jnt", ""), translateTo=eyelid_joint, rotateTo=eyelid_joint, scale=rigScale/6,
+                                                    parent=rig_module.controlsGrp, shape='sphere')
+
+            nc_constrain.matrixConstraint(eyelid_part_ctrl.C, eyelid_joint, mo=True)
+
+    # Setup eyebrows
+    if eyebrow_joints:
+        for eyebrow_joint in eyebrow_joints:
+            eyebrow_part_ctrl = nc_control.Control(prefix=eyebrow_joint.replace("_jnt", ""), translateTo=eyebrow_joint, rotateTo=eyebrow_joint, scale=rigScale/6,
+                                                    parent=rig_module.controlsGrp, shape='sphere')
+
+            nc_constrain.matrixConstraint(eyebrow_part_ctrl.C, eyebrow_joint, mo=True)
 
     # parent root control group to base attach group
 

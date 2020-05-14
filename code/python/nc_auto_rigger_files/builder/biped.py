@@ -146,8 +146,16 @@ def create(characterName='', pathSkeleton='', pathModel='', pathSkinCluster='', 
 
     # create head module
     eye_joints = ['l_eyeA_result_jnt', 'r_eyeA_result_jnt']
+    lipupper_joints = ['l_lipUpperCorner_result_jnt', 'l_lipUpper_result_jnt', 'c_lipUpper_result_jnt', 'r_lipUpper_result_jnt', 'r_lipUpperCorner_result_jnt']
+    liplower_joints = ['c_lipLower_result_jnt', 'l_lipLower_result_jnt', 'r_lipLower_result_jnt']
+    eyelid_joints = ['l_eyelidLower_result_jnt', 'l_eyelidUpper_result_jnt', 'r_eyelidLower_result_jnt', 'r_eyelidUpper_result_jnt']
+    eyebrow_joints = ['l_eyebrow_result_jnt', 'r_eyebrow_result_jnt', 'c_eyebrow_result_jnt']
     head_rig = head.build(eye_joints=eye_joints,
                           jaw_joint='c_jawA_result_jnt',
+                          lipupper_joints=lipupper_joints,
+                          liplower_joints=liplower_joints,
+                          eyelid_joints=eyelid_joints,
+                          eyebrow_joints=eyebrow_joints,
                           prefix='c_head',
                           rigScale=3.0,
                           baseRig=baseRig
