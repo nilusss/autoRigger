@@ -20,6 +20,7 @@ from ..rigLib.rig import fk
 from .. import nc_info as info
 reload(info)
 reload(hand)
+reload(arm)
 
 
 class Biped(object):

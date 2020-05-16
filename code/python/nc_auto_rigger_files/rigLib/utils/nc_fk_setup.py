@@ -54,15 +54,19 @@ class Setup():
         fk_ctrl_chain = []
         fk_ctrl_grps = []
         for i, j in enumerate(self.fkChain):
+            try:
+                jnt_size = mc.getAttr(j + '.size')
+            except:
+                jnt_size = 2
             if j == self.fkChain[-1] and self.incl_last is False:
                 pass
             else:
                 fkCtrlNN = j.replace('FK_jnt', "FK")
                 if self.rotateTo is True:
                     fkCtrl = nc_control.Control(prefix=fkCtrlNN, translateTo=j, rotateTo=j,
-                                                scale=self.rigScale * 2, parent=self.rigModule.controlsGrp, shape=self.shape)
+                                                scale=self.rigScale * jnt_size, parent=self.rigModule.controlsGrp, shape=self.shape)
                 else:
-                    fkCtrl = nc_control.Control(prefix=fkCtrlNN, translateTo=j, scale=self.rigScale * 2,
+                    fkCtrl = nc_control.Control(prefix=fkCtrlNN, translateTo=j, scale=self.rigScale * jnt_size,
                                                 parent=self.rigModule.controlsGrp, shape=self.shape)
                 fk_ctrl_chain.append(fkCtrl.C)
                 fk_ctrl_grps.append(fkCtrl.Off)

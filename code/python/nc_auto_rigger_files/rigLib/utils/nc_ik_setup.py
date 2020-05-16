@@ -62,12 +62,16 @@ class Setup():
     # create controller for IK
 
     def create_ik_ctrl(self):
+        try:
+            jnt_size = mc.getAttr(self.ikChain[-1] + '.size')
+        except:
+            jnt_size = 2
         if self.rotateTo is True:
             self.ik_ctrl = nc_control.Control(prefix=self.prefix + 'IK', translateTo=self.ikChain[-1], rotateTo=self.ikChain[-1],
-                                              scale=self.rigScale * 2, parent=self.rigModule.controlsGrp, shape='cube')
+                                              scale=self.rigScale * jnt_size, parent=self.rigModule.controlsGrp, shape='cube')
         else:
             self.ik_ctrl = nc_control.Control(prefix=self.prefix + 'IK', translateTo=self.ikChain[-1],
-                                              scale=self.rigScale * 2, parent=self.rigModule.controlsGrp, shape='cube')
+                                              scale=self.rigScale * jnt_size, parent=self.rigModule.controlsGrp, shape='cube')
         """if self.seperateRot is True:
             self.ik_ctrl = nc_control.Control(prefix=self.prefix + 'IK', translateTo=self.ikChain[-1], rotateTo=self.ikChain[-1],
                                               scale=self.rigScale * 2, parent=self.rigModule.controlsGrp, shape='sphere')"""
@@ -91,7 +95,11 @@ class Setup():
                 'grp': self.ik_ctrl.Off}
 
     def create_pole_vec(self):
-        self.pole_vector_ctrl = nc_control.Control(prefix=self.prefix + 'PoleVec', scale=self.rigScale * 2,
+        try:
+            jnt_size = mc.getAttr(nc_joint.get_mid_joint(self.ikChain) + '.size')
+        except:
+            jnt_size = 2
+        self.pole_vector_ctrl = nc_control.Control(prefix=self.prefix + 'PoleVec', scale=self.rigScale * jnt_size,
                                                    parent=self.rigModule.controlsGrp, shape='fancy_sphere', lockChannels=['r', 's', 'v'])
         self.pole_vector_loc = nc_tools.get_pole_vec_pos(self.ikChain)
         self.pole_vector_loc = mc.rename(self.pole_vector_loc, self.prefix + 'poleVec_loc')

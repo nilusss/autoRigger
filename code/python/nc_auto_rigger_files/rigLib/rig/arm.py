@@ -13,6 +13,8 @@ from ..utils import nc_constrain
 from ..utils import nc_ik_setup
 from ..utils import nc_fk_setup
 
+reload(nc_ik_setup)
+
 
 def build(armJoints,
           scapulaJnt='',
