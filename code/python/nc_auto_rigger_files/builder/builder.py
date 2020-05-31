@@ -2,6 +2,7 @@
 builder file @ builder
 """
 import sys
+import time
 import maya.cmds as mc
 
 from .. import nc_deform as defo
@@ -21,6 +22,11 @@ from .. import nc_info as info
 reload(info)
 reload(hand)
 reload(arm)
+reload(head)
+reload(neck)
+reload(spine)
+reload(leg)
+reload(defo)
 
 
 class Biped(object):
@@ -93,7 +99,8 @@ class Biped(object):
 
             if self.pathSkeleton:
                 mc.file(self.pathSkeleton, i=1)
-                mc.parent(self.rootJnt, self.baseRig.jointsGrp)
+                if not self.pathSkinCluster:
+                    mc.parent(self.rootJnt, self.baseRig.jointsGrp)
 
             if self.pathModel:
                 before = mc.ls(assemblies=True)
@@ -106,8 +113,10 @@ class Biped(object):
 
             if self.pathSkinCluster:
                 geo_list = defo.get_geo(model_grp=self.baseRig.modelGrp)
+                joint_list = defo.get_joints(root_joint='root')
                 defo.load_weights(weight_dir=self.pathSkinCluster,
-                                  geo_list=geo_list)
+                                  geo_list=geo_list, joint_list=joint_list)
+                mc.parent(self.rootJnt, self.baseRig.jointsGrp)
 
             if self.pathBlendshapes:
                 before = mc.ls(assemblies=True)
@@ -119,6 +128,11 @@ class Biped(object):
                 bs_list = defo.get_geo(bs_node)
                 mc.blendShape(bs_list, self.blendshapes_to,
                               name='{}_bs'.format(self.characterName))
+                mc.select('{}_body_geo'.format(self.characterName))
+                mc.reorderDeformers('{}_body_scls'.format(self.characterName), '{}_bs'.format(self.characterName))
+                mc.parent(bs_node, self.baseRig.modelGrp)
+                mc.select(d=True)
+                
 
         else:
             baseRig = nc_module.Base(characterName=self.characterName,
@@ -139,23 +153,23 @@ class Biped(object):
         mc.addAttr(self.baseRig.infoGrp, shortName='charname', longName='CHARACTERNAME', at="enum", enumName=self.characterName, keyable=False)
         mc.setAttr(self.baseRig.infoGrp + '.charname', edit=True, channelBox=True)
 
-    def spine(self, spine_joints=spine_joints, pelvis_joint=pelvis_joint):
+    def spine(self, spine_joints=spine_joints, pelvis_joint=pelvis_joint, rigScale=10):
 
         # Create spine module
         self.spine_rig = spine.build(spineJoints=spine_joints,
                                      pelvisJnt=pelvis_joint,
                                      prefix='c_spine',
-                                     rigScale=10,
+                                     rigScale=rigScale,
                                      baseRig=self.baseRig)
 
-    def com(self, com_joint=com_joint):
+    def com(self, com_joint=com_joint, rigScale=10):
 
         # Create center of mass module
         self.com_rig = center_of_mass.build(com_joint,
                                        module_to_conn=self.spine_rig['module'].topGrp,
-                                       prefix='COM', rigScale=10, baseRig=self.baseRig)
+                                       prefix='COM', rigScale=rigScale, baseRig=self.baseRig)
 
-    def leg(self, l_leg_joints=l_leg_joints, r_leg_joints=r_leg_joints):
+    def leg(self, l_leg_joints=l_leg_joints, r_leg_joints=r_leg_joints, rigScale=3):
 
         # Create left leg module
 
@@ -163,7 +177,7 @@ class Biped(object):
                                    ball_joint='l_footLower_result_jnt', toe_joint='l_footEnd_result_jnt',
                                    toe_tip='l_footToetipLast_result_jnt', bank_inside='l_footBankinsideLast_result_jnt',
                                    bank_outside='l_footBankoutsideLast_result_jnt', heel='l_footHeelLast_result_jnt',
-                                   prefix='l_leg', rigScale=3, baseRig=self.baseRig)
+                                   prefix='l_leg', rigScale=rigScale, baseRig=self.baseRig)
 
         # Create right leg module
 
@@ -171,29 +185,35 @@ class Biped(object):
                                    ball_joint='r_footLower_result_jnt', toe_joint='r_footEnd_result_jnt',
                                    toe_tip='r_footToetipLast_result_jnt', bank_inside='r_footBankinsideLast_result_jnt',
                                    bank_outside='r_footBankoutsideLast_result_jnt', heel='r_footHeelLast_result_jnt',
-                                   prefix='r_leg', rigScale=3, baseRig=self.baseRig)
+                                   prefix='r_leg', rigScale=rigScale, baseRig=self.baseRig)
 
-    def arm(self, l_arm_joints=l_arm_joints, r_arm_joints=r_arm_joints):
-        self.l_arm_rig = arm.build(armJoints=l_arm_joints,
-                                   scapulaJnt='l_clavicle_result_jnt',
-                                   prefix='l_arm', rigScale=3, baseRig=self.baseRig)
+    def arm(self, l_arm_joints=l_arm_joints, r_arm_joints=r_arm_joints, rigScale=3):
+        try:
+            self.l_arm_rig = arm.build(armJoints=l_arm_joints,
+                                       scapulaJnt='l_clavicle_result_jnt',
+                                       prefix='l_arm', rigScale=rigScale, baseRig=self.baseRig)
+        except Exception as e:
+            print e
 
-        self.r_arm_rig = arm.build(armJoints=r_arm_joints,
-                                   scapulaJnt='r_clavicle_result_jnt',
-                                   prefix='r_arm', rigScale=3, baseRig=self.baseRig)
+        try:
+            self.r_arm_rig = arm.build(armJoints=r_arm_joints,
+                                       scapulaJnt='r_clavicle_result_jnt',
+                                       prefix='r_arm', rigScale=rigScale, baseRig=self.baseRig)
+        except Exception as e:
+            print e
 
-    def hand(self, l_finger_joints=l_finger_joints, r_finger_joints=r_finger_joints, l_wrist_joint=l_wrist_joint, r_wrist_joint=r_wrist_joint):
+    def hand(self, l_finger_joints=l_finger_joints, r_finger_joints=r_finger_joints, l_wrist_joint=l_wrist_joint, r_wrist_joint=r_wrist_joint, rigScale=1):
 
         self.l_hand_rig = hand.build(finger_joints=l_finger_joints, cup_joint='l_handCup_jnt', wrist_joint=l_wrist_joint,
-                                     prefix='l_hand', rigScale=1, baseRig=self.baseRig)
+                                     prefix='l_hand', rigScale=rigScale, baseRig=self.baseRig)
         self.r_hand_rig = hand.build(finger_joints=r_finger_joints, cup_joint='r_handCup_jnt', wrist_joint=r_wrist_joint,
-                                     prefix='r_hand', rigScale=1, baseRig=self.baseRig)
+                                     prefix='r_hand', rigScale=rigScale, baseRig=self.baseRig)
 
-    def neck(self, neck_joints=neck_joints):
+    def neck(self, neck_joints=neck_joints, rigScale=4):
 
-        self.neck_rig = neck.build(neck_joints=neck_joints, prefix='c_neck', prefixHead='c_head', rigScale=4, baseRig=self.baseRig)
+        self.neck_rig = neck.build(neck_joints=neck_joints, prefix='c_neck', prefixHead='c_head', rigScale=rigScale, baseRig=self.baseRig)
 
-    def head(self, jaw_joint=jaw_joint, eye_joints=eye_joints, liplower_joints=liplower_joints, lipupper_joints=lipupper_joints, eyelid_joints=eyelid_joints, eyebrow_joints=eyebrow_joints):
+    def head(self, jaw_joint=jaw_joint, eye_joints=eye_joints, liplower_joints=liplower_joints, lipupper_joints=lipupper_joints, eyelid_joints=eyelid_joints, eyebrow_joints=eyebrow_joints, rigScale=3):
 
         self.head_rig = head.build(eye_joints=eye_joints,
                                    jaw_joint=jaw_joint,
@@ -202,7 +222,7 @@ class Biped(object):
                                    eyelid_joints=eyelid_joints,
                                    eyebrow_joints=eyebrow_joints,
                                    prefix='c_head',
-                                   rigScale=3.0,
+                                   rigScale=rigScale,
                                    baseRig=self.baseRig
                                    )
 
@@ -211,19 +231,19 @@ class Biped(object):
         mc.parentConstraint(self.com_rig['ctrl'], self.spine_rig['module'].topGrp, mo=True)
 
         # Parent leg module
-        mc.parentConstraint('c_pelvis_result_ctrl', self.l_leg_rig['base_attach_grp'], mo=True)
-        mc.parentConstraint('c_pelvis_result_ctrl', self.r_leg_rig['base_attach_grp'], mo=True)
+        mc.parentConstraint('c_pelvis_IK_ctrl', self.l_leg_rig['base_attach_grp'], mo=True)
+        mc.parentConstraint('c_pelvis_IK_ctrl', self.r_leg_rig['base_attach_grp'], mo=True)
 
         # Parent arm module
-        mc.parentConstraint('c_spineF_result_ctrl', self.l_arm_rig['base_attach_grp'], mo=True)
-        mc.parentConstraint('c_spineF_result_ctrl', self.r_arm_rig['base_attach_grp'], mo=True)
+        mc.parentConstraint('c_spineF_IK_ctrl', self.l_arm_rig['base_attach_grp'], mo=True)
+        mc.parentConstraint('c_spineF_IK_ctrl', self.r_arm_rig['base_attach_grp'], mo=True)
 
         # Parent hand module
         mc.parentConstraint('l_armEnd_result_jnt', self.l_hand_rig['body_attach_grp'], mo=True)
         mc.parentConstraint('r_armEnd_result_jnt', self.r_hand_rig['body_attach_grp'], mo=True)
 
         # Parent neck module
-        mc.parentConstraint('c_spineF_result_ctrl', self.neck_rig['base_attach_grp'], mo=True)
+        mc.parentConstraint('c_spineF_IK_ctrl', self.neck_rig['base_attach_grp'], mo=True)
 
         # Parent head module
         mc.parentConstraint('c_head_ctrl', self.head_rig['base_attach_grp'], mo=True)
@@ -237,4 +257,5 @@ class Biped(object):
         self.hand()
         self.neck()
         self.head()
+        time.sleep(1)
         self.connect()

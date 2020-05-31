@@ -33,8 +33,11 @@ def build(com_joint,
     """
 
     rigModule = nc_module.Module(prefix=prefix, baseObj=baseRig)
-
-    com_ctrl = nc_control.Control(prefix=prefix, translateTo=com_joint, scale=rigScale * 2.5,
+    try:
+        jnt_size = mc.getAttr(com_joint + '.size')
+    except:
+        jnt_size = 2.5
+    com_ctrl = nc_control.Control(prefix=prefix, translateTo=com_joint, scale=rigScale * jnt_size,
                                   parent=rigModule.controlsGrp, shape='diamond' + axis)
 
     return{'ctrl': com_ctrl.C}

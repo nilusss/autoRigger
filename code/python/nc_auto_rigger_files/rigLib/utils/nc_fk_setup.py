@@ -64,9 +64,9 @@ class Setup():
                 fkCtrlNN = j.replace('FK_jnt', "FK")
                 if self.rotateTo is True:
                     fkCtrl = nc_control.Control(prefix=fkCtrlNN, translateTo=j, rotateTo=j,
-                                                scale=self.rigScale * jnt_size, parent=self.rigModule.controlsGrp, shape=self.shape)
+                                                scale=self.rigScale*jnt_size, parent=self.rigModule.controlsGrp, shape=self.shape)
                 else:
-                    fkCtrl = nc_control.Control(prefix=fkCtrlNN, translateTo=j, scale=self.rigScale * jnt_size,
+                    fkCtrl = nc_control.Control(prefix=fkCtrlNN, translateTo=j, scale=self.rigScale*jnt_size,
                                                 parent=self.rigModule.controlsGrp, shape=self.shape)
                 fk_ctrl_chain.append(fkCtrl.C)
                 fk_ctrl_grps.append(fkCtrl.Off)

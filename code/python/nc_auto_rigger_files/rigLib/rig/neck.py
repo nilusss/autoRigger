@@ -73,9 +73,20 @@ def build(neck_joints,
     mc.parent(neck_end_bind_jnt, joints_offset_grp)
 
     # create head controller and constrain it to the neck end bind joint
+    try:
+        jnt_size = mc.getAttr(result_chain[-1] + '.size')
+    except:
+        jnt_size = 5
 
     head_ctrl = nc_control.Control(prefix=prefixHead, translateTo=neck_end_bind_jnt,
-                                   scale=rigScale, parent=rigModule.controlsGrp, shape='cube')
+                                   scale=rigScale*jnt_size, parent=rigModule.controlsGrp, shape='cube')
+
+    last_head_jnt = mc.listRelatives('c_neckA_result_jnt', ad=True)[0]
+
+    mc.delete(mc.pointConstraint(last_head_jnt, neck_end_bind_jnt, head_ctrl.C))
+    mc.makeIdentity(head_ctrl.C, apply=True, t=True, r=True)
+    s2 = mc.xform(neck_end_bind_jnt, sp=True , q=True , ws=True)
+    mc.move(s2[0], s2[1], s2[2], head_ctrl.C + '.scalePivot', head_ctrl.C + '.rotatePivot', absolute=True)
 
     nc_constrain.matrixConstraint(head_ctrl.C, neck_end_bind_jnt, mo=True)
 
@@ -97,9 +108,13 @@ def build(neck_joints,
     neck_start_fk_jnt = mc.duplicate(chain[0], parentOnly=True, name=chain[0].replace('IK_jnt', 'FK_jnt'))[0]
     neck_end_fk_jnt = mc.duplicate(chain[-1], parentOnly=True, name=chain[-1].replace('IK_jnt', 'FK_jnt'))[0]
     mc.parent(neck_end_fk_jnt, neck_start_fk_jnt)
+    try:
+        jnt_size = mc.getAttr(result_chain[0] + '.size')
+    except:
+        jnt_size = 2
 
     neck_ctrl = nc_control.Control(prefix=prefix + 'FK', translateTo=neck_start_fk_jnt, rotateTo=neck_start_fk_jnt,
-                                   scale=rigScale, parent=rigModule.controlsGrp, shape='circle')
+                                   scale=rigScale*jnt_size, parent=rigModule.controlsGrp, shape='circle')
 
     nc_constrain.matrixConstraint(neck_ctrl.C, neck_start_fk_jnt, mo=True)
     nc_constrain.matrixConstraint(neck_ctrl.C, head_ctrl.Off, mo=True)

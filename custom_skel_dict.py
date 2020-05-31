@@ -197,6 +197,8 @@ custom_skel_dict = {
 'c_necklaceA_result_jnt': 'c_necklaceA_result_jnt',
 'c_necklaceB_result_jnt': 'c_necklaceB_result_jnt',
 'c_necklaceC_result_jnt': 'c_necklaceC_result_jnt',
+'c_necklaceD_result_jnt': 'c_necklaceD_result_jnt',
+'c_necklaceE_result_jnt': 'c_necklaceE_result_jnt',
 'c_necklaceLast_result_jnt': 'c_necklaceLast_result_jnt',
 'l_necklaceAA_result_jnt': 'l_necklaceAA_result_jnt',
 'l_necklaceALast_result_jnt': 'l_necklaceALast_result_jnt',
@@ -227,6 +229,21 @@ custom_skel_dict = {
 'l_hairstrandALast_result_jnt': 'l_hairstrandALast_result_jnt',
 'r_bracelet_result_jnt ': 'r_bracelet_result_jnt ',
 'l_bracelet_result_jnt ': 'l_bracelet_result_jnt ',
+'c_collarHelper_result_jnt': 'c_collarHelper_result_jnt',
+'c_collarAA_result_jnt': 'c_collarAA_result_jnt',
+'l_collarAA_result_jnt': 'l_collarAA_result_jnt',
+'l_collarAB_result_jnt': 'l_collarAB_result_jnt',
+'l_collarAC_result_jnt': 'l_collarAC_result_jnt',
+'r_collarAA_result_jnt': 'r_collarAA_result_jnt',
+'r_collarAB_result_jnt': 'r_collarAB_result_jnt',
+'r_collarAC_result_jnt': 'r_collarAC_result_jnt',
+'r_bracelet_result_jnt': 'r_bracelet_result_jnt',
+'r_armUpperHelper_result_jnt': 'r_armUpperHelper_result_jnt',
+'l_armUpperHelper_result_jnt': 'l_armUpperHelper_result_jnt',
+'l_armLowerHelper_result_jnt': 'l_armLowerHelper_result_jnt',
+'r_armLowerHelper_result_jnt': 'r_armLowerHelper_result_jnt',
+'l_legLowerHelper_result_jnt': 'l_legLowerHelper_result_jnt',
+'r_legLowerHelper_result_jnt': 'r_legLowerHelper_result_jnt'
 }
 
 rokoko_skel_dict = {
@@ -426,6 +443,8 @@ rokoko_skel_dict = {
 'c_necklaceA_result_jnt': 'Necklace01',
 'c_necklaceB_result_jnt': 'Necklace02',
 'c_necklaceC_result_jnt': 'Necklace03',
+'c_necklaceD_result_jnt': 'Necklace04',
+'c_necklaceE_result_jnt': 'Necklace05',
 'c_necklaceLast_result_jnt': 'Necklace_end',
 'l_necklaceAA_result_jnt': 'LeftNecklaceA01',
 'l_necklaceALast_result_jnt': 'LeftNecklaceA_end',
@@ -456,10 +475,22 @@ rokoko_skel_dict = {
 'l_hairstrandALast_result_jnt': 'LeftHairStrandA_end',
 'r_bracelet_result_jnt ': 'RightBracelet ',
 'l_bracelet_result_jnt ': 'LeftBracelet ',
-
+'c_collarHelper_result_jnt': 'CollarHelper',
+'c_collarAA_result_jnt': 'Collar01',
+'l_collarAA_result_jnt': 'LeftCollar01',
+'l_collarAB_result_jnt': 'LeftCollar02',
+'l_collarAC_result_jnt': 'LeftCollar03',
+'r_collarAA_result_jnt': 'RightCollar01',
+'r_collarAB_result_jnt': 'RightCollar02',
+'r_collarAC_result_jnt': 'RightCollar03',
+'r_bracelet_result_jnt': 'RightBracelet',
+'r_armUpperHelper_result_jnt': 'RightShoulderHelper',
+'l_armUpperHelper_result_jnt': 'LeftShoulderHelper',
+'l_armLowerHelper_result_jnt': 'LeftElbowHelper',
+'r_armLowerHelper_result_jnt': 'RightElbowHelper',
+'l_legLowerHelper_result_jnt': 'LeftKneeHelper',
+'r_legLowerHelper_result_jnt': 'RightKneeHelper'
 }
-
-
 
 for key, value in custom_skel_dict.items():
     print 'Renaming: {} : {}'.format(custom_skel_dict[key], rokoko_skel_dict[key])

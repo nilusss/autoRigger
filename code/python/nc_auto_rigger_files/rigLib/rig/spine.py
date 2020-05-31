@@ -94,10 +94,17 @@ def build(spineJoints,
         }
     scls = mc.skinCluster(influences, spine_crv, **kwargs)[0]
 
-    pelvis_ctrl = nc_control.Control(prefix=resultChain[0].replace('_jnt', ''), translateTo=pelvis_bind_jnt,
-                                     scale=rigScale * 2, parent=rigModule.controlsGrp, shape='cube')
-    spine_end_ctrl = nc_control.Control(prefix=resultChain[-1].replace('_jnt', ''), translateTo=spine_end_bind_jnt,
-                                        scale=rigScale * 2, parent=rigModule.controlsGrp, shape='cube')
+    try:
+        pelvis_size = mc.getAttr(resultChain[0] + '.size')
+        spine_end_size = mc.getAttr(resultChain[-1] + '.size')
+    except:
+        pelvis_size = 2
+        spine_end_size = 2
+
+    pelvis_ctrl = nc_control.Control(prefix=resultChain[0].replace('result_jnt', 'IK'), translateTo=pelvis_bind_jnt,
+                                     scale=rigScale * pelvis_size, parent=rigModule.controlsGrp, shape='rectangle')
+    spine_end_ctrl = nc_control.Control(prefix=resultChain[-1].replace('result_jnt', 'IK'), translateTo=spine_end_bind_jnt,
+                                        scale=rigScale * spine_end_size, parent=rigModule.controlsGrp, shape='rectangle')
 
     nc_constrain.matrixConstraint(fkChain[-1], spine_end_ctrl.Off)
 

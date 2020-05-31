@@ -78,8 +78,13 @@ def build(leg_joints,
 
     # setup of leg blending
 
+    try:
+        blend_size = mc.getAttr(result_chain[-1] + '.size')
+    except:
+        blend_size = 2
+
     leg_blend_ctrl = nc_control.Control(prefix=prefix + 'IKFKBlend', translateTo=leg_joints[-1],
-                                        scale=rigScale * 2, parent=rig_module.controlsGrp, shape='settings')
+                                        scale=rigScale * blend_size, parent=rig_module.controlsGrp, shape='settings')
     mc.setAttr(leg_blend_ctrl.Off + '.rx', 90)
     mc.addAttr(leg_blend_ctrl.C, shortName='blend', longName='FKIKBlend', defaultValue=1, minValue=0.0, maxValue=1.0, k=1)
     mc.move(-30, z=True)
