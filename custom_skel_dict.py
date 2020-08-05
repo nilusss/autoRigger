@@ -174,10 +174,16 @@ custom_skel_dict = {
 'l_beltA_result_jnt': 'l_beltA_result_jnt',
 'l_beltB_result_jnt': 'l_beltB_result_jnt',
 'l_beltC_result_jnt': 'l_beltC_result_jnt',
+'l_beltD_result_jnt': 'l_beltD_result_jnt',
+'l_beltE_result_jnt': 'l_beltE_result_jnt',
+'l_beltF_result_jnt': 'l_beltF_result_jnt',
 'l_beltLast_result_jnt': 'l_beltLast_result_jnt',
 'r_beltA_result_jnt': 'r_beltA_result_jnt',
 'r_beltB_result_jnt': 'r_beltB_result_jnt',
 'r_beltC_result_jnt': 'r_beltC_result_jnt',
+'r_beltD_result_jnt': 'r_beltD_result_jnt',
+'r_beltE_result_jnt': 'r_beltE_result_jnt',
+'r_beltF_result_jnt': 'r_beltF_result_jnt',
 'r_beltLast_result_jnt': 'r_beltLast_result_jnt',
 'c_beltA_result_jnt': 'c_beltA_result_jnt',
 'c_beltB_result_jnt': 'c_beltB_result_jnt',
@@ -199,6 +205,7 @@ custom_skel_dict = {
 'c_necklaceC_result_jnt': 'c_necklaceC_result_jnt',
 'c_necklaceD_result_jnt': 'c_necklaceD_result_jnt',
 'c_necklaceE_result_jnt': 'c_necklaceE_result_jnt',
+'c_necklaceF_result_jnt': 'c_necklaceF_result_jnt',
 'c_necklaceLast_result_jnt': 'c_necklaceLast_result_jnt',
 'l_necklaceAA_result_jnt': 'l_necklaceAA_result_jnt',
 'l_necklaceALast_result_jnt': 'l_necklaceALast_result_jnt',
@@ -243,7 +250,10 @@ custom_skel_dict = {
 'l_armLowerHelper_result_jnt': 'l_armLowerHelper_result_jnt',
 'r_armLowerHelper_result_jnt': 'r_armLowerHelper_result_jnt',
 'l_legLowerHelper_result_jnt': 'l_legLowerHelper_result_jnt',
-'r_legLowerHelper_result_jnt': 'r_legLowerHelper_result_jnt'
+'r_legLowerHelper_result_jnt': 'r_legLowerHelper_result_jnt',
+'l_blazerCollar_result_jnt': 'l_blazerCollar_result_jnt',
+'r_blazerCollar_result_jnt': 'r_blazerCollar_result_jnt',
+'c_stomachHelper_result_jnt': 'c_stomachHelper_result_jnt',
 }
 
 rokoko_skel_dict = {
@@ -420,10 +430,16 @@ rokoko_skel_dict = {
 'l_beltA_result_jnt': 'LeftBelt01',
 'l_beltB_result_jnt': 'LeftBelt02',
 'l_beltC_result_jnt': 'LeftBelt03',
+'l_beltD_result_jnt': 'LeftBelt04',
+'l_beltE_result_jnt': 'LeftBelt05',
+'l_beltF_result_jnt': 'LeftBelt06',
 'l_beltLast_result_jnt': 'LeftBelt_end',
 'r_beltA_result_jnt': 'RightBelt01',
 'r_beltB_result_jnt': 'RightBelt02',
 'r_beltC_result_jnt': 'RightBelt03',
+'r_beltD_result_jnt': 'RightBelt04',
+'r_beltE_result_jnt': 'RightBelt05',
+'r_beltF_result_jnt': 'RightBelt06',
 'r_beltLast_result_jnt': 'RightBelt_end',
 'c_beltA_result_jnt': 'Belt01',
 'c_beltB_result_jnt': 'Belt02',
@@ -434,17 +450,18 @@ rokoko_skel_dict = {
 'l_headJewleryD_result_jnt': 'LeftHeadJewlery04',
 'l_headJewleryE_result_jnt': 'LeftHeadJewlery05',
 'l_headJewleryLast_result_jnt': 'LeftHeadJewlery_end',
-'r_headJewleryA_result_jnt': 'LeftHeadJewlery01',
-'r_headJewleryB_result_jnt': 'LeftHeadJewlery02',
-'r_headJewleryC_result_jnt': 'LeftHeadJewlery03',
-'r_headJewleryD_result_jnt': 'LeftHeadJewlery04',
-'r_headJewleryE_result_jnt': 'LeftHeadJewlery05',
+'r_headJewleryA_result_jnt': 'RightHeadJewlery01',
+'r_headJewleryB_result_jnt': 'RightHeadJewlery02',
+'r_headJewleryC_result_jnt': 'RightHeadJewlery03',
+'r_headJewleryD_result_jnt': 'RightHeadJewlery04',
+'r_headJewleryE_result_jnt': 'RightHeadJewlery05',
 'r_headJewleryLast_result_jnt': 'LeftHeadJewlery_end',
 'c_necklaceA_result_jnt': 'Necklace01',
 'c_necklaceB_result_jnt': 'Necklace02',
 'c_necklaceC_result_jnt': 'Necklace03',
 'c_necklaceD_result_jnt': 'Necklace04',
 'c_necklaceE_result_jnt': 'Necklace05',
+'c_necklaceF_result_jnt': 'Necklace06',
 'c_necklaceLast_result_jnt': 'Necklace_end',
 'l_necklaceAA_result_jnt': 'LeftNecklaceA01',
 'l_necklaceALast_result_jnt': 'LeftNecklaceA_end',
@@ -489,7 +506,10 @@ rokoko_skel_dict = {
 'l_armLowerHelper_result_jnt': 'LeftElbowHelper',
 'r_armLowerHelper_result_jnt': 'RightElbowHelper',
 'l_legLowerHelper_result_jnt': 'LeftKneeHelper',
-'r_legLowerHelper_result_jnt': 'RightKneeHelper'
+'r_legLowerHelper_result_jnt': 'RightKneeHelper',
+'l_blazerCollar_result_jnt': 'LeftBlazerCollar',
+'r_blazerCollar_result_jnt': 'RightBlazerCollar',
+'c_stomachHelper_result_jnt': 'StomachHelper',
 }
 
 for key, value in custom_skel_dict.items():
@@ -500,3 +520,11 @@ for key, value in custom_skel_dict.items():
     else:
         print "no"
     #mc.rename(custom_skel_dict[key], rokoko_skel_dict[key])
+    
+for key, value in rokoko_skel_dict.items():
+    print 'Renaming: {} : {}'.format(rokoko_skel_dict[key], custom_skel_dict[key])
+    if mc.objExists(value):
+        mc.rename(rokoko_skel_dict[key], custom_skel_dict[key])
+        print 'Exists'
+    else:
+        print "no"

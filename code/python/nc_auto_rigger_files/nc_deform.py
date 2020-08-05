@@ -122,7 +122,6 @@ def load_weights(weight_dir, geo_list=[], joint_list=[]):
         if ".json" in ext_res[1]:
             with open(fullpath_weight_file, 'r') as f:
                 data = f.read()
-                time.sleep(0.2)
 
             #with open(fullpath_weight_file) as json_file:
                 #data = json.load(json_file)

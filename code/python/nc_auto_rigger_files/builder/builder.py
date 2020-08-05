@@ -257,5 +257,4 @@ class Biped(object):
         self.hand()
         self.neck()
         self.head()
-        time.sleep(1)
         self.connect()
