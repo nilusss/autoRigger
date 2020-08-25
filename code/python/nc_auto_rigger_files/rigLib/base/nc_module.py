@@ -43,6 +43,10 @@ class Base():
         # lock info group channels
         nc_tools.lock_channels(obj=self.infoGrp, lockChannels=['t', 'r', 's', 'v'])
 
+        # make modelGrp content non-selectable
+        mc.setAttr(self.modelGrp + '.overrideEnabled', 1)
+        mc.setAttr(self.modelGrp + '.overrideDisplayType', 2)
+
         characterNameAt = 'characterName'
         sceneObjectTypeAt = 'sceneObjectType'
 

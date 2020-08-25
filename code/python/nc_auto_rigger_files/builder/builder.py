@@ -18,6 +18,7 @@ from ..rigLib.rig import leg
 from ..rigLib.rig import reverse_foot
 from ..rigLib.rig import head
 from ..rigLib.rig import fk
+from ..rigLib.rig import tail
 from .. import nc_info as info
 reload(info)
 reload(hand)
@@ -26,6 +27,7 @@ reload(head)
 reload(neck)
 reload(spine)
 reload(leg)
+reload(tail)
 reload(defo)
 
 
@@ -75,6 +77,7 @@ class Biped(object):
                  pathBlendshapes='',
                  blendshapes_to='',
                  sceneScale=1,
+                 globalCtrlScale=15,
                  rootJnt='root',
                  update=False):
         self.characterName = characterName
@@ -84,6 +87,7 @@ class Biped(object):
         self.pathBlendshapes = pathBlendshapes
         self.blendshapes_to = blendshapes_to
         self.sceneScale = sceneScale
+        self.globalCtrlScale = globalCtrlScale
         self.rootJnt = rootJnt
         self.update = update
 
@@ -95,7 +99,7 @@ class Biped(object):
             # Create base rig
             self.baseRig = nc_module.Base(characterName=self.characterName,
                                           scale=self.sceneScale,
-                                          globalCtrlScale=15)
+                                          globalCtrlScale=self.globalCtrlScale)
 
             if self.pathSkeleton:
                 mc.file(self.pathSkeleton, i=1)
@@ -172,20 +176,20 @@ class Biped(object):
     def leg(self, l_leg_joints=l_leg_joints, r_leg_joints=r_leg_joints, rigScale=3):
 
         # Create left leg module
-
-        self.l_leg_rig = leg.build(leg_joints=l_leg_joints, femoral_head_jnt='l_hip_result_jnt',
-                                   ball_joint='l_footLower_result_jnt', toe_joint='l_footEnd_result_jnt',
-                                   toe_tip='l_footToetipLast_result_jnt', bank_inside='l_footBankinsideLast_result_jnt',
-                                   bank_outside='l_footBankoutsideLast_result_jnt', heel='l_footHeelLast_result_jnt',
-                                   prefix='l_leg', rigScale=rigScale, baseRig=self.baseRig)
+        if l_leg_joints:
+            self.l_leg_rig = leg.build(leg_joints=l_leg_joints, femoral_head_jnt='l_hip_result_jnt',
+                                    ball_joint='l_footLower_result_jnt', toe_joint='l_footEnd_result_jnt',
+                                    toe_tip='l_footToetipLast_result_jnt', bank_inside='l_footBankinsideLast_result_jnt',
+                                    bank_outside='l_footBankoutsideLast_result_jnt', heel='l_footHeelLast_result_jnt',
+                                    prefix='l_leg', rigScale=rigScale, baseRig=self.baseRig)
 
         # Create right leg module
-
-        self.r_leg_rig = leg.build(leg_joints=r_leg_joints, femoral_head_jnt='r_hip_result_jnt',
-                                   ball_joint='r_footLower_result_jnt', toe_joint='r_footEnd_result_jnt',
-                                   toe_tip='r_footToetipLast_result_jnt', bank_inside='r_footBankinsideLast_result_jnt',
-                                   bank_outside='r_footBankoutsideLast_result_jnt', heel='r_footHeelLast_result_jnt',
-                                   prefix='r_leg', rigScale=rigScale, baseRig=self.baseRig)
+        if r_leg_joints:
+            self.r_leg_rig = leg.build(leg_joints=r_leg_joints, femoral_head_jnt='r_hip_result_jnt',
+                                    ball_joint='r_footLower_result_jnt', toe_joint='r_footEnd_result_jnt',
+                                    toe_tip='r_footToetipLast_result_jnt', bank_inside='r_footBankinsideLast_result_jnt',
+                                    bank_outside='r_footBankoutsideLast_result_jnt', heel='r_footHeelLast_result_jnt',
+                                    prefix='r_leg', rigScale=rigScale, baseRig=self.baseRig)
 
     def arm(self, l_arm_joints=l_arm_joints, r_arm_joints=r_arm_joints, rigScale=3):
         try:
@@ -225,6 +229,10 @@ class Biped(object):
                                    rigScale=rigScale,
                                    baseRig=self.baseRig
                                    )
+
+    def tail(self, tail_joints=[], density=10.0, axis='', prefix='tail', rigScale=4):
+        if tail_joints:
+            self.tail_rig = tail.build(tail_joints=tail_joints, density=10.0, axis=axis, prefix=prefix, rigScale=rigScale, baseRig=self.baseRig)
 
     def connect(self):
         # Parent spine module

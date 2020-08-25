@@ -238,11 +238,12 @@ def build(ankle_joint_ik='',
     mc.connectAttr(foot_ctrl + '.toespin', toe_ctrl.Off + '.rotateY')
 
     # setup joint blending
-    nc_joint.jointBlend(resultChain=result_chain, ikChain=ik_chain, fkChain=fk_chain, blender=blend_ctrl)
+    if blend_ctrl:
+        nc_joint.jointBlend(resultChain=result_chain, ikChain=ik_chain, fkChain=fk_chain, blender=blend_ctrl)
 
-    mc.connectAttr(blend_ctrl + '.blend', ball_ctrl.Off + '.v')
-    mc.connectAttr(blend_ctrl + '.blend', toe_ctrl.Off + '.v')
-    mc.connectAttr(blend_ctrl + '.blend', heel_ctrl.Off + '.v')
+        mc.connectAttr(blend_ctrl + '.blend', ball_ctrl.Off + '.v')
+        mc.connectAttr(blend_ctrl + '.blend', toe_ctrl.Off + '.v')
+        mc.connectAttr(blend_ctrl + '.blend', heel_ctrl.Off + '.v')
 
     return{'ball_fk_ctrl_grp': ball_ctrl_fk.Off,
            'ball_fk_ctrl': ball_ctrl_fk.C,
