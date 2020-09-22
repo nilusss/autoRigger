@@ -15,7 +15,6 @@ from ..utils import nc_fk_setup
 
 
 def build(neck_joints,
-          pelvisJnt='',
           prefix='neck',
           prefixHead='head',
           rigScale=1.0,
@@ -30,7 +29,7 @@ def build(neck_joints,
     @param rigScale: float, scale factor for size of controls
     @param baseRig: instance of base.module.Base class
     """
-
+    print "Building Neck"
     result_chain = []
     result_chain.extend(neck_joints)
     rigModule = nc_module.Module(prefix=prefix, baseObj=baseRig)
@@ -39,12 +38,14 @@ def build(neck_joints,
     joints_offset_grp = mc.createNode('transform', n=prefix + 'JointsOffset_grp')
     mc.parent(joints_offset_grp, rigModule.jointsGrp)
     mc.delete(mc.parentConstraint(get_offset_joint, joints_offset_grp, mo=0))
+    print get_offset_joint
 
     # make attach groups
-
+    print "Building Neck Attach Groups"
     body_attach_grp = mc.group(n=prefix + 'BodyAttach_grp', em=1, p=rigModule.partsGrp)
     base_attach_grp = mc.group(n=prefix + 'BaseAttach_grp', em=1, p=rigModule.partsGrp)
 
+    print "Duplicating Neck Joints"
     chain = nc_joint.jointDuplicate(jointChain=result_chain, jointType="IK", offsetGrp=joints_offset_grp)
 
     kwargs = {

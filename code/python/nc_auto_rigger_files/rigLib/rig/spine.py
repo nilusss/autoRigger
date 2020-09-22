@@ -50,6 +50,7 @@ def build(spineJoints,
 
     ikChain = nc_joint.jointDuplicate(jointChain=resultChain, jointType="IK", offsetGrp=joints_offset_grp)
     fkChain = nc_joint.jointDuplicate(jointChain=resultChain, jointType="FK", offsetGrp=joints_offset_grp, skip=2)
+    print fkChain
 
     fk_ctrl_list = []
     for index, joint in enumerate(fkChain):
