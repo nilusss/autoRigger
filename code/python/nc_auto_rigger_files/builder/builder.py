@@ -5,7 +5,11 @@ import sys
 import time
 import maya.cmds as mc
 
-from .. import nc_deform as defo
+try:
+    from .. import nc_deform as defo
+    reload(defo)
+except:
+    pass
 
 from ..rigLib.base import nc_module
 from ..rigLib.rig import arm
@@ -28,7 +32,6 @@ reload(neck)
 reload(spine)
 reload(leg)
 reload(tail)
-reload(defo)
 
 
 class Biped(object):
@@ -243,26 +246,39 @@ class Biped(object):
         mc.parentConstraint('c_pelvis_IK_ctrl', self.r_leg_rig['base_attach_grp'], mo=True)
 
         # Parent arm module
-        mc.parentConstraint('c_spineF_IK_ctrl', self.l_arm_rig['base_attach_grp'], mo=True)
-        mc.parentConstraint('c_spineF_IK_ctrl', self.r_arm_rig['base_attach_grp'], mo=True)
+        
+        mc.parentConstraint('c_spineEnd_IK_ctrl', self.l_arm_rig['base_attach_grp'], mo=True)
+        mc.parentConstraint('c_spineEnd_IK_ctrl', self.r_arm_rig['base_attach_grp'], mo=True)
 
         # Parent hand module
         mc.parentConstraint('l_armEnd_result_jnt', self.l_hand_rig['body_attach_grp'], mo=True)
         mc.parentConstraint('r_armEnd_result_jnt', self.r_hand_rig['body_attach_grp'], mo=True)
 
         # Parent neck module
-        mc.parentConstraint('c_spineF_IK_ctrl', self.neck_rig['base_attach_grp'], mo=True)
+        mc.parentConstraint('c_spineEnd_IK_ctrl', self.neck_rig['base_attach_grp'], mo=True)
 
         # Parent head module
         mc.parentConstraint('c_head_ctrl', self.head_rig['base_attach_grp'], mo=True)
 
-    def quick_rig(self):
+    def quick_rig(self,
+                  spine_joints=spine_joints,
+                  com_joint=com_joint,
+                  l_leg_joints=l_leg_joints,
+                  r_leg_joints=r_leg_joints,
+                  l_arm_joints=l_arm_joints,
+                  r_arm_joints=r_arm_joints,
+                  l_finger_joints=l_finger_joints,
+                  r_finger_joints=r_finger_joints,
+                  neck_joints=neck_joints):
         self.base()
-        self.spine()
+        self.spine(spine_joints=spine_joints)
         self.com()
-        self.leg()
-        self.arm()
-        self.hand()
-        self.neck()
+        self.leg(l_leg_joints=l_leg_joints,
+                  r_leg_joints=r_leg_joints)
+        self.arm(l_arm_joints=l_arm_joints,
+                  r_arm_joints=r_arm_joints)
+        self.hand(l_finger_joints=l_finger_joints,
+                  r_finger_joints=r_finger_joints)
+        self.neck(neck_joints=neck_joints)
         self.head()
         self.connect()
