@@ -14,6 +14,7 @@ from ..utils import nc_ik_setup
 from ..utils import nc_fk_setup
 
 reload(nc_ik_setup)
+reload(nc_control)
 
 
 def build(armJoints,
@@ -99,8 +100,8 @@ def build(armJoints,
         mc.parentConstraint(scapula_chain[-1], ikChain[0], mo=True)
         mc.pointConstraint(scapula_chain[-1], arm_fk_rt['ctrls'][0], mo=True)
 
-        scapula_ctrl = nc_control.Control(prefix=prefix + 'Scapula', translateTo=scapula_chain[0], rotateTo=scapula_chain[0],
-                                          scale=rigScale * 2, parent=rigModule.controlsGrp, shape='circle')
+        scapula_ctrl = nc_control.Control(prefix=prefix + 'Scapula', translateTo=scapula_chain[0], rotateTo=scapula_chain[0], not_rot_shape=True,
+                                          scale=rigScale * 2, parent=rigModule.controlsGrp, shape='line_sphere')
 
         nc_constrain.matrixConstraint(scapula_chain[0], scapulaJnt)
         nc_constrain.matrixConstraint(scapula_ctrl.C, scapula_chain[0], mo=True)

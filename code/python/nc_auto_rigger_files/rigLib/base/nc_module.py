@@ -5,8 +5,7 @@ module for making top rig structure and rig module
 import maya.cmds as mc
 
 from ... import nc_info as info
-
-from . import nc_control
+import nc_control
 from ..utils import nc_tools
 
 reload(info)

@@ -12,6 +12,7 @@ class Control():
                  scale=1.0,
                  translateTo='',
                  rotateTo='',
+                 not_rot_shape=False,
                  parent='',
                  shape='circle',
                  lockChannels=['s', 'v']
@@ -178,6 +179,33 @@ class Control():
                                      (-3.21, 0, 0), (-2.27, 0, -2.27), (0, 0, -3.21),
                                      (2.27, 0, -2.27), (3.21, 0, 0), (2.27, 0, 2.27),
                                      (0, 0, 3.21)])
+        elif shape == 'line_sphere':
+            ctrlObject = mc.curve(name=prefix+'_ctrl', d=1, p=[ (0, 0, 0),
+                        (0, 0, 4.6666666666666661),
+                        (0, 0, 9.3333333333333321),
+                        (0, 0, 14)])
+            linePosz = mc.getAttr(ctrlObject+".cv[3].zValue")
+            addShape1 = mc.circle(name=prefix + '_ctrl', constructionHistory=False,
+                                    normal=[1, 0, 0], radius=scale*0.5)[0]
+            addShape2 = mc.circle(name=prefix + '_ctrl', constructionHistory=False,
+                                    normal=[0, 1, 0], radius=scale*0.5)[0]
+            addShape3 = mc.circle(name=prefix + '_ctrl', constructionHistory=False,
+                                    normal=[0, 0, 1], radius=scale*0.5)[0]
+            mc.setAttr(addShape1+".tz", 17)
+            mc.setAttr(addShape2+".tz", 17)
+            mc.setAttr(addShape3+".tz", 17)
+            mc.makeIdentity(addShape1, apply=True, t=True)
+            mc.makeIdentity(addShape2, apply=True, t=True)
+            mc.makeIdentity(addShape3, apply=True, t=True)
+            mc.parent(mc.listRelatives(addShape1, s=1),
+                        ctrlObject, relative=1, shape=1)
+            mc.parent(mc.listRelatives(addShape2, s=1),
+                        ctrlObject, relative=1, shape=1)
+            mc.parent(mc.listRelatives(addShape3, s=1),
+                        ctrlObject, relative=1, shape=1)
+            mc.delete(addShape1)
+            mc.delete(addShape2)
+            mc.delete(addShape3)
         if not ctrlObject:
 
             ctrlObject = mc.circle(name=prefix + '_ctrl', constructionHistory=False,
@@ -203,7 +231,24 @@ class Control():
 
         # rotate control
         if mc.objExists(rotateTo):
-            mc.delete(mc.orientConstraint(rotateTo, ctrlOffset))
+            if not_rot_shape:
+                shapes = mc.listRelatives(ctrlObject, shapes=True)
+                loc = mc.spaceLocator()[0]
+                for shape in shapes:
+                    mc.parent(shape, loc, relative=1, shape=1)
+                mc.delete(mc.orientConstraint(rotateTo, ctrlOffset))
+                mc.parent(loc, rotateTo)
+                mc.setAttr(loc+".tx", 0)
+                mc.setAttr(loc+".ty", 0)
+                mc.setAttr(loc+".tz", 0)
+                mc.makeIdentity(loc, apply=True, r=True, t=True)
+                for shape in shapes:
+                    mc.parent(shape, ctrlObject, relative=1, shape=1)
+                mc.delete(loc)
+            else:
+                mc.delete(mc.orientConstraint(rotateTo, ctrlOffset))
+
+
 
         # parent control
         if mc.objExists(parent):

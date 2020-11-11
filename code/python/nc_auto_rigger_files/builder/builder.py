@@ -12,6 +12,7 @@ except:
     pass
 
 from ..rigLib.base import nc_module
+from ..rigLib.base import nc_control
 from ..rigLib.rig import arm
 from ..rigLib.rig import hand
 from ..rigLib.rig import spine
@@ -32,6 +33,7 @@ reload(neck)
 reload(spine)
 reload(leg)
 reload(tail)
+reload(nc_control)
 
 
 class Biped(object):
