@@ -271,7 +271,14 @@ class Biped(object):
                   r_arm_joints=r_arm_joints,
                   l_finger_joints=l_finger_joints,
                   r_finger_joints=r_finger_joints,
-                  neck_joints=neck_joints):
+                  neck_joints=neck_joints,
+                  jaw_joint=jaw_joint,
+                  eye_joints=eye_joints,
+                  liplower_joints=liplower_joints,
+                  lipupper_joints=lipupper_joints,
+                  eyelid_joints=eyelid_joints,
+                  eyebrow_joints=eyebrow_joints
+                  ):
         self.base()
         self.spine(spine_joints=spine_joints)
         self.com()
@@ -282,5 +289,5 @@ class Biped(object):
         self.hand(l_finger_joints=l_finger_joints,
                   r_finger_joints=r_finger_joints)
         self.neck(neck_joints=neck_joints)
-        self.head()
+        self.head(jaw_joint=jaw_joint, eye_joints=eye_joints, liplower_joints=liplower_joints, lipupper_joints=lipupper_joints, eyelid_joints=eyelid_joints, eyebrow_joints=eyebrow_joints)
         self.connect()

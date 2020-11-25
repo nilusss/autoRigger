@@ -1,890 +1,1267 @@
 //Maya ASCII 2020 scene
 //Name: viking01_skeleton.ma
-//Last modified: Wed, Nov 11, 2020 10:08:06 PM
+//Last modified: Tue, Nov 24, 2020 10:22:13 AM
 //Codeset: 1252
 requires maya "2020";
-requires "stereoCamera" "10.0";
-requires "mtoa" "4.0.2";
-requires "stereoCamera" "10.0";
-currentUnit -l centimeter -a degree -t ntsc;
+requires -dataType "ngSkinLayerDataStorage" "ngSkinTools" "1.8.2";
+requires "mtoa" "4.0.0";
+currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
 fileInfo "product" "Maya 2020";
 fileInfo "version" "2020";
-fileInfo "cutIdentifier" "202002251615-329d215872";
+fileInfo "cutIdentifier" "201911140446-42a737a01c";
 fileInfo "osv" "Microsoft Windows 10 Technical Preview  (Build 19041)\n";
-fileInfo "UUID" "1A49F675-4FD9-1D1D-9D02-898900567577";
-fileInfo "license" "student";
+fileInfo "UUID" "87CC4C7E-48B6-DE0F-FFFA-7F9F480A32AB";
+fileInfo "license" "education";
 createNode joint -n "root";
-	rename -uid "5A6A1681-435E-DCD4-8CFD-7F86DC184514";
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "9C6A178F-490E-67AB-A2A8-EFB10E5C27E6";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".ssc" no;
 	setAttr ".bps" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
 	setAttr ".radi" 2;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "c_pelvis_result_jnt" -p "root";
-	rename -uid "1EF95A7C-417C-0CD8-5F98-7598612C70E0";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
+	rename -uid "AF82A5A3-4254-76DF-6438-EB93F928CFB1";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 2.5 -smx 2.5 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
 	setAttr ".t" -type "double3" -7.6988043766336043e-15 80.881693486350812 -10.797576279748176 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	setAttr ".r" -type "double3" 5.649800061504203e-30 3.5311250384401269e-30 -1.1927080055488188e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999989 0.99999999999999989 0.99999999999999989 ;
 	setAttr ".jo" -type "double3" -89.999999999999972 -1.8201854910308664 89.999999999999972 ;
-	setAttr ".bps" -type "matrix" 4.4408920985006262e-16 0.99354865567819917 0.11340665236238673 0
-		 -4.4408920985006262e-16 0.11340665236238678 -0.99354865567819917 0 -1 4.4408920985006262e-16 4.4408920985006262e-16 0
-		 -9.0227418220582778e-15 65.968924715336172 -5.4796226487740594 1;
+	setAttr ".bps" -type "matrix" 0 0.99949500000000002 0.031762899999999997 0 0 0.031762899999999997 -0.99949500000000002 0
+		 -1 0 0 0 0 80.881692999999999 -10.797575999999999 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 2.5;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "c_spineA_result_jnt" -p "c_pelvis_result_jnt";
-	rename -uid "5276B0CD-4F21-B147-CF9D-5E821144B454";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 1;
-	setAttr ".t" -type "double3" 12.806748289399707 -0.56256587995249241 7.349656310210268e-15 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "8DE4721E-47D3-8A06-9D95-D194EA0F1403";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 3.5 -smx 3.5 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 12.806748289399707 -0.56256587995249063 7.3496563102102617e-15 ;
+	setAttr ".r" -type "double3" 1.1855423499329105e-19 -8.2854922493701877e-17 2.981770013872047e-16 ;
+	setAttr ".s" -type "double3" 0.99999999999999989 0.99999999999999989 0.99999999999999989 ;
 	setAttr ".jo" -type "double3" 0 0 -0.1639649755988683 ;
-	setAttr ".bps" -type "matrix" 4.0997889206976075e-16 0.99921918166983559 0.039509834004510885 0
-		 -4.7576019239503153e-16 0.039509834004510941 -0.99921918166983559 0 -1 4.4408920985006262e-16 4.4408920985006262e-16 0
-		 -8.4508517988849539e-15 80.268555112226309 -2.0021731039187634 1;
+	setAttr ".bps" -type "matrix" 0 0.99939999999999996 0.034623000000000001 0 0 0.034623000000000001 -0.99939999999999996 0
+		 -1 0 0 0 0 93.664111000000005 -9.8285149999999994 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 3.5;
-	setAttr ".liw" yes;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "c_spineB_result_jnt" -p "c_spineA_result_jnt";
-	rename -uid "69A259D0-4B8F-1551-1CC1-CF85AE88B758";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 2;
-	setAttr ".t" -type "double3" 13.39365570247918 0.1319003945119146 -4.2207622964138998e-15 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "1AEF25A3-452B-8770-3916-72BA5484A9FC";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 2 -smx 2 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 13.39365570247918 0.13190039451191282 -4.2207622964138872e-15 ;
+	setAttr ".r" -type "double3" 1.1512276067928964e-17 8.1638994280129956e-16 -5.9635400277440939e-16 ;
+	setAttr ".s" -type "double3" 0.99999999999999989 0.99999999999999989 0.99999999999999989 ;
 	setAttr ".jo" -type "double3" 0 0 1.615799217897653 ;
-	setAttr ".bps" -type "matrix" 3.865779525304551e-16 0.99996229449287122 -0.0086838696761335488 0
-		 -4.9496256346098246e-16 -0.0086838696761334933 -0.99996229449287122 0 -1 4.4408920985006262e-16 4.4408920985006262e-16 0
-		 8.6385835366336286e-16 92.968385511650723 -1.5000128169953628 1;
+	setAttr ".bps" -type "matrix" 0 0.99997899999999995 0.0064289000000000004 0 0 0.0064289000000000004 -0.99997899999999995 0
+		 -1 0 0 0 0 107.054303 -9.4966069999999991 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 2;
-	setAttr ".liw" yes;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "c_spineC_result_jnt" -p "c_spineB_result_jnt";
-	rename -uid "F2F9AF6C-4793-A9CD-3530-B881A18D010B";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 3;
-	setAttr ".t" -type "double3" 14.270071231463874 -0.25912082874198461 7.0273371732799204e-15 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "50DC29BC-431A-A0DD-D8D3-669486967A49";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 1 -smx 1 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 14.270071231463874 -0.25912082874198461 7.0273371732799267e-15 ;
+	setAttr ".r" -type "double3" 4.4455023698007591e-17 -1.6038135392909587e-15 -1.987846675914698e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999967 0.99999999999999967 0.99999999999999989 ;
 	setAttr ".jo" -type "double3" 0 0 -3.1754729100480592 ;
-	setAttr ".bps" -type "matrix" 3.9890506077838716e-16 0.9998643578411418 0.016470152364837232 0
-		 -4.8508267861870426e-16 0.016470152364837287 -0.9998643578411418 0 -1 4.4408920985006262e-16 4.4408920985006262e-16 0
-		 8.9927777378410847e-16 104.85888557404816 -1.6032722633710654 1;
+	setAttr ".bps" -type "matrix" 0 0.99808799999999998 0.061811999999999999 0 0 0.061811999999999999 -0.99808799999999998 0
+		 -1 0 0 0 0 121.32241399999999 -9.1457510000000006 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 1;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "c_spineEnd_result_jnt" -p "c_spineC_result_jnt";
-	rename -uid "61AB7719-4D08-F2A2-1D7C-41A1B0B37083";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 4;
-	setAttr ".t" -type "double3" 12.826080096203199 0.45059853144177708 -2.4788580297390556e-16 ;
-	setAttr ".r" -type "double3" -5.7130769156583844e-16 -1.1834181219711954e-14 -6.520137097000207e-14 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "669CA50A-4307-4E28-CE78-1F960176E4DD";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 2.25 -smx 2.25 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 12.826080096203185 0.45059853144177708 -2.4788580297393081e-16 ;
+	setAttr ".r" -type "double3" 1.3463971355316933e-16 2.7889538213484171e-15 1.5902773407317584e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999967 0.99999999999999967 0.99999999999999989 ;
 	setAttr ".jo" -type "double3" 0 0 5.5277378432201862 ;
-	setAttr ".bps" -type "matrix" 3.7360907735970182e-16 0.99940058598388404 -0.034618907190563486 0
-		 -5.0482344430992722e-16 -0.03461890719056343 -0.99940058598388404 0 -1 4.4408920985006262e-16 4.4408920985006262e-16 0
-		 4.9379823875290267e-15 116.59960958766879 -1.4098745171053926 1;
+	setAttr ".bps" -type "matrix" 0 0.99940099999999998 -0.034618900000000001 0 0 -0.034618900000000001 -0.99940099999999998 0
+		 -1 0 0 0 0 134.15181999999999 -8.802683 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 2.25;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "c_neckA_result_jnt" -p "c_spineEnd_result_jnt";
-	rename -uid "2BBD8188-4D71-6182-ECA2-47B5A5385D0E";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 5;
-	setAttr ".t" -type "double3" 41.485996949841592 -0.21495027950716317 8.840266670637653e-15 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "B1BB6929-4470-FDCF-A3E1-DA9707AC6005";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 2 -smx 2 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 41.485996949841592 -0.21495027950716317 8.8402666706376593e-15 ;
+	setAttr ".r" -type "double3" -2.2261706739699294e-15 1.5773343250643365e-15 -3.1805546814635168e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999922 0.99999999999999933 0.99999999999999989 ;
 	setAttr ".jo" -type "double3" 0 0 -21.137544429780817 ;
-	setAttr ".bps" -type "matrix" 4.7717264958339313e-16 0.98177037614682372 0.19007085131740703 0
-		 -4.0833407291098053e-16 0.19007085131740709 -0.98177037614682372 0 -1 4.4408920985006262e-16 4.4408920985006262e-16 0
-		 4.765125149471678e-15 142.75193627530092 -2.31578250146491 1;
+	setAttr ".bps" -type "matrix" 0 0.94464199999999998 0.328102 0 0 0.328102 -0.94464199999999998 0
+		 -1 0 0 0 0 175.62039100000001 -10.024061 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 2;
-	setAttr ".liw" yes;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "c_neckB_result_jnt" -p "c_neckA_result_jnt";
-	rename -uid "8AEDD076-47C8-A98B-99D5-7F875EA25E8F";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 6;
-	setAttr ".t" -type "double3" 6.293561015524773 4.2632564145606011e-14 4.0293022254401479e-15 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "A0C9BC12-4726-3974-928F-158AE2997218";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 1 -smx 1 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 6.293561015524773 4.2632564145606011e-14 4.0293022254401227e-15 ;
+	setAttr ".r" -type "double3" 7.6473207218366753e-15 -1.1284019603308569e-15 2.3854160110976376e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999911 0.99999999999999922 0.99999999999999989 ;
 	setAttr ".jo" -type "double3" -7.6407578907978621e-15 5.1197557010269539e-16 -1.2199617659908333 ;
-	setAttr ".bps" -type "matrix" 5.997117894695939e-16 0.82670417888557512 0.56263682834767104 0
-		 -1.8648383892896239e-16 0.56263682834767104 -0.82670417888557512 0 -1 4.4408920985006262e-16 4.4408920985006262e-16 0
-		 3.0799846599917717e-15 148.44526764589509 -1.2135529305462989 1;
+	setAttr ".bps" -type "matrix" 0 0.93744300000000003 0.34814000000000001 0 0 0.34814000000000001 -0.93744300000000003 0
+		 -1 0 0 0 0 181.56555499999999 -7.9591289999999999 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 1;
-	setAttr ".liw" yes;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "c_headA_result_jnt" -p "c_neckB_result_jnt";
-	rename -uid "508DD865-4E00-7362-6C4A-6DB9F5D95710";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 7;
-	setAttr ".t" -type "double3" 6.1339128085508037 2.8421709430404007e-14 3.9696924392281087e-15 ;
-	setAttr ".r" -type "double3" -9.3821166632746572e-15 -9.078997642976486e-14 -1.1290969119195484e-13 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "F82415F5-40FE-714B-0794-28839FF45D76";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 6.25 -smx 6.25 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 6.1339128085508321 2.8421709430404007e-14 3.9696924392281339e-15 ;
+	setAttr ".r" -type "double3" -1.408364728979041e-15 2.7576160026537699e-15 3.1805546814635168e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999933 0.99999999999999922 0.99999999999999989 ;
 	setAttr ".jo" -type "double3" 3.9168529135354979e-15 -9.4170008849766233e-15 11.799856729456383 ;
-	setAttr ".bps" -type "matrix" 4.5978042097431665e-16 0.98882482372701508 0.1490820847091871 0
-		 -4.2782288052322062e-16 0.1490820847091871 -0.98882482372701508 0 -1 4.4408920985006262e-16 4.4408920985006262e-16 0
-		 3.0576543312374907e-15 153.36845267887765 2.1370593961750304 1;
-	setAttr ".typ" 7;
+	setAttr ".bps" -type "matrix" 0 0.98882499999999995 0.14908199999999999 0 0 0.14908199999999999 -0.98882499999999995 0
+		 -1 0 0 0 0 187.31574599999999 -5.8236689999999998 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 6.25;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "c_headLast_result_jnt" -p "c_headA_result_jnt";
-	rename -uid "8C118BB6-4F8C-D3EF-331F-4B917C87F44A";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".t" -type "double3" 29.910127903211674 1.4210854715202004e-14 3.4209474216647755e-14 ;
-	setAttr ".r" -type "double3" 0 0 -1.5902773407317584e-15 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "7509D96C-4173-B7EA-9A05-67A05F971AAD";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 1 -smx 1 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 29.910127903211674 2.1316282072803006e-14 3.4209474216647793e-14 ;
+	setAttr ".r" -type "double3" -1.6639071639389563e-14 -6.3080562262848297e-15 7.9513867036587903e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999933 0.99999999999999922 0.99999999999999989 ;
 	setAttr ".jo" -type "double3" 1.6639071639389563e-14 6.3080562262848289e-15 -6.3611093629270304e-15 ;
-	setAttr ".bps" -type "matrix" 4.5978042097431665e-16 0.98882482372701508 0.1490820847091871 0
-		 -4.2782288052322062e-16 0.1490820847091871 -0.98882482372701508 0 -1 4.4408920985006262e-16 4.4408920985006262e-16 0
-		 -2.1417889485425353e-14 174.88512047425695 5.3810613811168855 1;
+	setAttr ".bps" -type "matrix" 0 0.98882499999999995 0.14908199999999999 0 0 0.14908199999999999 -0.98882499999999995 0
+		 -1 0 0 0 0 216.89162300000001 -1.3646050000000001 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 1;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_clavicle_result_jnt" -p "c_spineEnd_result_jnt";
-	rename -uid "A9724343-42FE-38A4-0308-3F9B8CA4BF4C";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 5;
-	setAttr ".t" -type "double3" 28.678489776334118 -6.6464163711014148 -4.972771183614249 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "54B647CC-4E08-7B96-A53C-5191F1BE7427";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 2 -smx 2 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 28.678489776334118 -6.6464163711014148 -4.9727711836142499 ;
+	setAttr ".r" -type "double3" -3.180554681463516e-15 -3.1805546814635168e-15 4.7708320221952752e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999967 0.99999999999999956 1 ;
 	setAttr ".jo" -type "double3" 110.53369857619607 74.093030244410627 109.29544486048356 ;
-	setAttr ".bps" -type "matrix" 0.96170797661426755 -0.099466518969540493 -0.25539024907105085 0
-		 -0.25666306443228992 1.4173687309706003e-16 -0.96650094224280292 0 0.096134484305672549 0.99504090951281077 -0.025529381567134621 0
-		 4.9727711836142614 129.09591859677909 4.807660169621923 1;
+	setAttr ".bps" -type "matrix" 0.96170800000000001 -0.099466499999999999 -0.25539000000000001 0
+		 -0.25666299999999997 0 -0.96650100000000005 0 0.096134499999999998 0.99504099999999995 -0.025529400000000001 0
+		 4.9727709999999998 163.04321200000001 -3.1530680000000002 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 2;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_armUpper_result_jnt" -p "l_clavicle_result_jnt";
-	rename -uid "2B96BFAB-4BCC-AD34-970C-1CBBF975D21A";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 6;
-	setAttr ".t" -type "double3" 38.44131575900947 -2.4399520010692757 -0.26995180472712832 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "1A20A619-41D6-55C4-CE0B-169BE4BAD5E2";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 3 -smx 3 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 38.441315759009477 -2.4399520010692797 -0.26995180472712832 ;
+	setAttr ".r" -type "double3" -7.3550327008843804e-15 9.5416640443905503e-15 -3.5781240166464568e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999967 0.99999999999999967 0.99999999999999967 ;
 	setAttr ".jo" -type "double3" 2.1357493607618978 41.156563087052994 -14.902413227058082 ;
-	setAttr ".bps" -type "matrix" 0.68615872115345522 -0.72722602375911227 0.018125113863529069 0
-		 0.026406125917679182 -2.0816681711721685e-16 -0.99965129746027903 0 0.72697243819767654 0.68639806990368979 0.019203221953996218 0
-		 33.896006272407448 126.10447672297023 -2.8731664356358184 1;
+	setAttr ".bps" -type "matrix" 0.68615899999999996 -0.72722600000000004 0.018125100000000002 0
+		 0.026406099999999998 0 -0.99965099999999996 0 0.72697199999999995 0.68639799999999995 0.0192032 0
+		 42.542385000000003 158.950975 -10.605498000000001 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 3;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_armLower_result_jnt" -p "l_armUpper_result_jnt";
-	rename -uid "55FA47B7-418F-7685-E4E7-078C0558C479";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 7;
-	setAttr ".t" -type "double3" 44.998984771893369 -3.584431297246768 2.5579538487363607e-13 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
-	setAttr ".jot" -type "string" "xzy";
-	setAttr ".jo" -type "double3" 0 0 -23.67662360456929 ;
-	setAttr ".bps" -type "matrix" 0.52995821998744419 -0.5851124570356816 0.61383034927364688 0
-		 0.75692547152731149 4.9960036108132044e-16 -0.65350120929739441 0 0.38237169824778738 0.81095216420061877 0.44288652243823751 0
-		 59.163363489772323 99.32484228329389 -2.2057206793167445 1;
+	rename -uid "BD2A04B1-4E93-6F0F-75FE-AB90F720773E";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 2 -smx 2 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 44.998984771893362 -3.5844312972467698 2.8421709430404007e-13 ;
+	setAttr ".r" -type "double3" 7.7526020360673251e-15 -3.975693351829396e-15 3.1805546814635164e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999967 0.99999999999999933 0.99999999999999967 ;
+	setAttr ".jo" -type "double3" 0 0 -23.676623604569293 ;
+	setAttr ".bps" -type "matrix" 0.61779799999999996 -0.66601299999999997 0.41803400000000002 0
+		 0.29972700000000002 -0.29203499999999999 -0.90822899999999995 0 0.72697199999999995 0.68639799999999995 0.0192032 0
+		 73.324179999999998 126.22654199999999 -6.2067050000000004 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 2;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_armEnd_result_jnt" -p "l_armLower_result_jnt";
-	rename -uid "B837F856-4C24-4612-7DAA-EC87E950E49F";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".t" -type "double3" 51.649331136365532 -1.9795589292608167 -3.1263880373444408e-13 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
-	setAttr ".bps" -type "matrix" -0.59548579731083762 0.56389216790777041 0.57220825594651392 0
-		 0.69287321720158568 -5.3845816694320092e-15 0.72105943228330671 0 0.40659976646058277 0.82584842614869391 -0.39070578053303029 0
-		 80.349432295933667 75.933879927065647 22.333293009969278 1;
+	rename -uid "FD294BA0-4625-699A-BDC8-1692E88196CA";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 2 -smx 2 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 51.649331136365518 -1.9795589292608096 -3.1263880373444408e-13 ;
+	setAttr ".r" -type "double3" 2.1866313435061676e-15 4.4726550208080702e-15 3.1805546814635168e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999944 0.99999999999999933 0.99999999999999967 ;
+	setAttr ".bps" -type "matrix" 0.61779799999999996 -0.66601299999999997 0.41803400000000002 0
+		 0.29972700000000002 -0.29203499999999999 -0.90822899999999995 0 0.72697199999999995 0.68639799999999995 0.0192032 0
+		 104.639723 92.405523000000002 17.182342999999999 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 2;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_handCup_result_jnt" -p "l_armEnd_result_jnt";
-	rename -uid "C00F15BF-4AE1-997A-34DB-06836F53F7DB";
-	setAttr ".t" -type "double3" 2.2613026019063955 1.6533147156131722 -0.36285727486657038 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "31B5CE9B-40D3-D583-6422-50A88E3C8DE6";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 2.2613026019064044 1.6533147156131722 -0.3628572748665988 ;
+	setAttr ".r" -type "double3" 1.5902773407317588e-15 9.4422717105948149e-16 -1.987846675914698e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999922 0.99999999999999978 0.99999999999999944 ;
 	setAttr ".jo" -type "double3" 99.171143094147098 1.1682866948205313 9.9474479749277425 ;
-	setAttr ".radi" 0.65517241379310343;
+	setAttr ".bps" -type "matrix" 0.64532699999999998 -0.72029600000000005 0.254413 0
+		 0.70077699999999998 0.69077200000000005 0.178174 0 -0.30407899999999999 0.063305899999999998 0.95054099999999997 0
+		 106.268508 90.167575999999997 16.619087 1;
+	setAttr ".radi" 0.65517241379310354;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_pinkyFA_result_jnt" -p "l_handCup_result_jnt";
-	rename -uid "0C1B2DD9-4106-8757-C115-6E8443F7255A";
-	setAttr ".t" -type "double3" 7.8329808097997367 -0.11796951814298495 1.9768907057254097 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "8CF8ED37-4F48-5FDF-3DBD-A290F2A2397B";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 7.8329808097997189 -0.11796951814298495 1.9768907057254079 ;
+	setAttr ".r" -type "double3" 1.1927080055488186e-15 -1.1479814553407381e-14 1.5902773407317582e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999933 0.99999999999999911 0.99999999999999933 ;
 	setAttr ".jo" -type "double3" -91.880554701645323 -8.1208896119890799 -31.872230943936845 ;
-	setAttr ".radi" 0.65517241379310343;
+	setAttr ".bps" -type "matrix" 0.13326099999999999 -0.95770699999999997 0.25502599999999997 0
+		 0.29528799999999999 -0.20726700000000001 -0.93265500000000001 0 0.94606900000000005 0.19959299999999999 0.25517899999999999 0
+		 110.639544 84.569169000000002 20.469994 1;
+	setAttr ".radi" 0.65517241379310354;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_pinkyFB_result_jnt" -p "l_pinkyFA_result_jnt";
-	rename -uid "BD7D7FFC-441D-144E-F239-01A7A577EDD4";
-	setAttr ".t" -type "double3" 1.7866617233004192 5.773159728050814e-14 -0.057689573064664046 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "FD1AACB8-4821-12D1-3BE5-2EAE6559B462";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 1.7866617233004121 6.0396132539608516e-14 -0.057689573064664046 ;
+	setAttr ".r" -type "double3" 2.5972831710563329e-16 2.0673605429512861e-14 -1.5902773407317588e-15 ;
+	setAttr ".s" -type "double3" 0.999999999999999 0.99999999999999911 0.99999999999999922 ;
 	setAttr ".jo" -type "double3" 0 9.275802271607466 0 ;
+	setAttr ".bps" -type "matrix" -0.020975400000000002 -0.977356 0.21056 0 0.29528799999999999 -0.20726700000000001 -0.93265500000000001 0
+		 0.95517799999999997 0.042612900000000002 0.29294900000000001 0 110.823058 82.846556000000007 20.910919 1;
 	setAttr ".radi" 0.7068965517241379;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_pinkyFC_result_jnt" -p "l_pinkyFB_result_jnt";
-	rename -uid "DEE1C8E4-4183-1E82-84BE-17B58D91643B";
-	setAttr ".t" -type "double3" 1.8238056302438679 -6.8389738316909643e-14 -0.024136369082796705 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "48342E92-4199-22BC-84D0-DC9EAB44C3DA";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 1.8238056302438679 -8.1712414612411521e-14 -0.024136369082810916 ;
+	setAttr ".r" -type "double3" -1.235086969280249e-14 2.8624992133171654e-14 -3.1805546814635168e-15 ;
+	setAttr ".s" -type "double3" 0.999999999999999 0.99999999999999911 0.99999999999999922 ;
 	setAttr ".jo" -type "double3" 0 10.406676716626144 0 ;
-	setAttr ".radi" 0.81034482758620685;
+	setAttr ".bps" -type "matrix" -0.19316800000000001 -0.96897599999999995 0.15418000000000001 0
+		 0.29528799999999999 -0.20726700000000001 -0.93265500000000001 0 0.93567699999999998 -0.134632 0.32616400000000001 0
+		 110.761748 81.063019999999995 21.287868 1;
+	setAttr ".radi" 0.81034482758620696;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_pinkyFLast_result_jnt" -p "l_pinkyFC_result_jnt";
-	rename -uid "873CFA11-4998-1941-60D5-80AC5BAFFAE5";
-	setAttr ".t" -type "double3" 2.2463666888921949 7.9936057773011271e-15 1.4210854715202004e-14 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
-	setAttr ".radi" 0.81034482758620685;
+	rename -uid "A6FDAE8A-40D8-6595-016E-DDBF3C76D28D";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 2.2463666888922091 1.7763568394002505e-14 5.6843418860808015e-14 ;
+	setAttr ".r" -type "double3" -3.1805546814635176e-15 2.7034714792439897e-14 1.5902773407317588e-15 ;
+	setAttr ".s" -type "double3" 0.999999999999999 0.99999999999999911 0.99999999999999922 ;
+	setAttr ".bps" -type "matrix" -0.19316800000000001 -0.96897599999999995 0.15418000000000001 0
+		 0.29528799999999999 -0.20726700000000001 -0.93265500000000001 0 0.93567699999999998 -0.134632 0.32616400000000001 0
+		 110.327823 78.886343999999994 21.634212000000002 1;
+	setAttr ".radi" 0.81034482758620696;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_ringFA_result_jnt" -p "l_handCup_result_jnt";
-	rename -uid "2F9E1FEF-47C7-8A0E-1B2D-0AACC7F1A8F1";
-	setAttr ".t" -type "double3" 7.7054993674865342 -0.43039975983961654 4.6516322078192864 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "7C848487-4165-A7A3-4EBA-C69FD3E59BBF";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 7.7054993674865147 -0.43039975983961654 4.6516322078192847 ;
+	setAttr ".r" -type "double3" -1.510763473695171e-14 1.0634979716143637e-14 -4.7708320221952767e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999933 0.99999999999999922 0.99999999999999933 ;
 	setAttr ".jo" -type "double3" -86.616327332526367 -11.368034278187439 -21.947225499179716 ;
-	setAttr ".radi" 0.65517241379310343;
+	setAttr ".bps" -type "matrix" 0.27010099999999998 -0.89562200000000003 0.35342099999999999 0
+		 0.416433 -0.22228899999999999 -0.88157300000000005 0 0.86811799999999995 0.38529000000000002 0.31292700000000001 0
+		 109.52499899999999 84.614502000000002 22.924346 1;
+	setAttr ".radi" 0.65517241379310354;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_ringFB_result_jnt" -p "l_ringFA_result_jnt";
-	rename -uid "3989E532-4825-E83B-F1E7-AEB73A7427F3";
-	setAttr ".t" -type "double3" 2.5024517627291942 0.16412337121867715 -1.4210854715202004e-13 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "E1E7BAC1-4F7D-6967-ADC4-48AD47183681";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 2.50245176272918 0.16412337121867537 -1.4210854715202004e-13 ;
+	setAttr ".r" -type "double3" -1.1793502135191808e-15 0 1.1131941385122309e-14 ;
+	setAttr ".s" -type "double3" 0.99999999999999933 0.999999999999999 0.99999999999999933 ;
 	setAttr ".jo" -type "double3" 0 22.55403063315601 0 ;
+	setAttr ".bps" -type "matrix" -0.083527400000000002 -0.97490299999999996 0.20636599999999999 0
+		 0.416433 -0.22228899999999999 -0.88157300000000005 0 0.90532100000000004 0.012302199999999999 0.42454999999999998 0
+		 110.26926 82.336768000000006 23.664076999999999 1;
 	setAttr ".radi" 0.7068965517241379;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_ringFC_result_jnt" -p "l_ringFB_result_jnt";
-	rename -uid "884A610A-4676-7CBF-B95D-9297902CD793";
-	setAttr ".t" -type "double3" 2.4768593004479698 0.017215559492768762 0.060765312078387979 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "52F20680-48F2-4DF8-B20E-0CB6B1268211";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 2.4768593004479698 0.017215559492768762 0.0607653120784164 ;
+	setAttr ".r" -type "double3" 1.0390247394855868e-14 2.7034714792439894e-14 -4.7708320221952744e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999933 0.999999999999999 0.99999999999999922 ;
 	setAttr ".jo" -type "double3" 0 8.76730008590091 0 ;
-	setAttr ".radi" 0.81034482758620685;
+	setAttr ".bps" -type "matrix" -0.22054199999999999 -0.965387 0.13924400000000001 0
+		 0.416433 -0.22228899999999999 -0.88157300000000005 0 0.88201200000000002 -0.136438 0.451044 0
+		 110.124555 79.918989999999994 24.185836999999999 1;
+	setAttr ".radi" 0.81034482758620696;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_ringFLast_result_jnt" -p "l_ringFC_result_jnt";
-	rename -uid "02A3FC96-4C11-0209-E40D-2F8048B997BE";
-	setAttr ".t" -type "double3" 2.4467395480800604 0 -7.1054273576010019e-14 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
-	setAttr ".radi" 0.81034482758620685;
+	rename -uid "0C3A9687-441D-3A12-1E37-B09C97A24B2A";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 2.4467395480800747 3.5527136788005009e-15 -8.5265128291212022e-14 ;
+	setAttr ".r" -type "double3" -3.1805546814635164e-15 2.7034714792439894e-14 -3.975693351829396e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999933 0.999999999999999 0.99999999999999922 ;
+	setAttr ".bps" -type "matrix" -0.22054199999999999 -0.965387 0.13924400000000001 0
+		 0.416433 -0.22228899999999999 -0.88157300000000005 0 0.88201200000000002 -0.136438 0.451044 0
+		 109.584946 77.556939999999997 24.526530999999999 1;
+	setAttr ".radi" 0.81034482758620696;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_middleFA_result_jnt" -p "l_armEnd_result_jnt";
-	rename -uid "F16F2D64-488B-FDB0-79CA-4CA5B291A7BE";
-	setAttr ".t" -type "double3" 10.236259219043292 -4.0288345643779024 -1.7723483068266717 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
-	setAttr ".jo" -type "double3" 6.9697147333864375 22.891390456103906 -7.3352102815970071 ;
-	setAttr ".radi" 0.65517241379310343;
+	rename -uid "E598D154-43AE-5624-0EA6-9DB77CEA47E6";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 10.236259219043312 -4.0288345643779024 -1.7723483068267001 ;
+	setAttr ".r" -type "double3" -1.033680271475643e-14 6.3611093629270335e-15 -1.192708005548819e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999933 0.99999999999999933 0.99999999999999956 ;
+	setAttr ".jo" -type "double3" 6.9697147333864384 22.891390456103906 -7.3352102815970071 ;
+	setAttr ".bps" -type "matrix" 0.24645 -0.84118899999999996 0.48131400000000002 0
+		 0.48175400000000002 -0.324598 -0.813971 0 0.84093700000000005 0.43247799999999997 0.32524900000000001 0
+		 108.467668 85.548068000000001 25.086511000000002 1;
+	setAttr ".radi" 0.65517241379310354;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_middleFB_result_jnt" -p "l_middleFA_result_jnt";
-	rename -uid "9C7D7AA8-4429-708F-3564-51B63D09C823";
-	setAttr ".t" -type "double3" 3.159524734330688 2.3092638912203256e-14 0 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "75703370-4CFC-370F-48EA-B2A22DDD0A77";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 3.1595247343306774 1.7763568394002505e-14 0 ;
+	setAttr ".r" -type "double3" 6.8323970904162946e-15 9.5416640443905503e-15 0 ;
+	setAttr ".s" -type "double3" 0.99999999999999922 0.99999999999999933 0.99999999999999944 ;
 	setAttr ".jo" -type "double3" 0 21.405370083888382 0 ;
+	setAttr ".bps" -type "matrix" -0.077461799999999997 -0.94100399999999995 0.32940999999999998 0
+		 0.48175400000000002 -0.324598 -0.813971 0 0.87287599999999999 0.095642900000000003 0.47847699999999999 0
+		 109.246332 82.890309999999999 26.607234999999999 1;
 	setAttr ".radi" 0.7068965517241379;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_middleFC_result_jnt" -p "l_middleFB_result_jnt";
-	rename -uid "590F32CB-4F67-97D7-81B5-898B161F3706";
-	setAttr ".t" -type "double3" 2.7307334245698343 7.1054273576010019e-15 0 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "7C8B34A9-4E92-BB2B-82A1-8E93ACDFA724";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 2.7307334245698343 1.4210854715202004e-14 -1.4210854715202004e-14 ;
+	setAttr ".r" -type "double3" -4.2107187189977161e-15 1.5902773407317587e-14 3.1805546814635183e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999911 0.99999999999999922 0.99999999999999922 ;
 	setAttr ".jo" -type "double3" 0 15.869052521661141 0 ;
-	setAttr ".radi" 0.81034482758620685;
+	setAttr ".bps" -type "matrix" -0.313189 -0.93129399999999996 0.18602099999999999 0
+		 0.48175400000000002 -0.324598 -0.813971 0 0.81842899999999996 -0.16531000000000001 0.550315 0
+		 109.03480500000001 80.320678999999998 27.506765999999999 1;
+	setAttr ".radi" 0.81034482758620696;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_middleFLast_result_jnt" -p "l_middleFC_result_jnt";
-	rename -uid "B7FE592D-491B-C497-1931-FA8637B511F6";
-	setAttr ".t" -type "double3" 2.711508360893788 2.9309887850104133e-14 8.5265128291212022e-14 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
-	setAttr ".radi" 0.81034482758620685;
+	rename -uid "F578EC08-4817-BAC5-AC85-91B76D042B05";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 2.7115083608937738 2.4868995751603507e-14 7.1054273576010019e-14 ;
+	setAttr ".r" -type "double3" 6.3611093629270335e-15 3.9756933518293967e-15 6.3611093629270351e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999933 0.99999999999999944 0.99999999999999922 ;
+	setAttr ".bps" -type "matrix" -0.313189 -0.93129399999999996 0.18602099999999999 0
+		 0.48175400000000002 -0.324598 -0.813971 0 0.81842899999999996 -0.16531000000000001 0.550315 0
+		 108.185591 77.795467000000002 28.011164000000001 1;
+	setAttr ".radi" 0.81034482758620696;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_indexFA_result_jnt" -p "l_armEnd_result_jnt";
-	rename -uid "6BE8D1E5-47EF-45E2-1E28-87B48D5C97A0";
-	setAttr ".t" -type "double3" 9.335840646953864 -5.9742184922394515 -2.5529004898522487 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
-	setAttr ".jo" -type "double3" 3.3144701848373255 24.910364793697802 -18.323185003225067 ;
-	setAttr ".radi" 0.65517241379310343;
+	rename -uid "AE13B6F5-4A17-308F-4AE5-1D959428BEAC";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 9.3358406469538693 -5.9742184922394515 -2.5529004898522771 ;
+	setAttr ".r" -type "double3" 1.5902773407317584e-15 -9.5416640443905503e-15 6.5598940305185035e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999944 0.99999999999999911 0.99999999999999967 ;
+	setAttr ".jo" -type "double3" 3.3144701848373255 24.910364793697806 -18.323185003225067 ;
+	setAttr ".bps" -type "matrix" 0.14025199999999999 -0.77926899999999999 0.61079399999999995 0
+		 0.52805899999999995 -0.46296100000000001 -0.71191400000000005 0 0.83754600000000001 0.42238300000000001 0.34656799999999999 0
+		 106.760867 86.180109000000002 26.461970000000001 1;
+	setAttr ".radi" 0.65517241379310354;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_indexFB_result_jnt" -p "l_indexFA_result_jnt";
-	rename -uid "9B336C2C-4684-6710-E605-2B9CC4B348BA";
-	setAttr ".t" -type "double3" 2.4421801082270989 -3.1086244689504383e-15 -0.016255797943017569 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "35FBD66C-4783-CE9B-1F72-FE96AC21FB17";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 2.4421801082270918 -3.5527136788005009e-15 -0.016255797943017569 ;
+	setAttr ".r" -type "double3" 1.5112784334125509e-14 0 0 ;
+	setAttr ".s" -type "double3" 0.99999999999999922 0.99999999999999933 0.99999999999999967 ;
 	setAttr ".jo" -type "double3" 0 18.72940488936726 0 ;
+	setAttr ".bps" -type "matrix" -0.13611000000000001 -0.87363000000000002 0.467167 0
+		 0.52805899999999995 -0.46296100000000001 -0.71191400000000005 0 0.838229 0.14979300000000001 0.52434099999999995 0
+		 107.08977299999999 84.270128999999997 27.948004999999998 1;
 	setAttr ".radi" 0.7068965517241379;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_indexFC_result_jnt" -p "l_indexFB_result_jnt";
-	rename -uid "F410A37B-4E97-0179-CE96-82BC21408D85";
-	setAttr ".t" -type "double3" 2.4760321008187276 -3.5083047578154947e-14 0.03431894755468079 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "A7B76C01-4605-8A0C-4924-C98C13C07624";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 2.4760321008187276 -3.5527136788005009e-14 0.034318947554652368 ;
+	setAttr ".r" -type "double3" -5.052347111534369e-15 3.1805546814635164e-15 -4.7708320221952759e-15 ;
+	setAttr ".s" -type "double3" 0.999999999999999 0.99999999999999933 0.99999999999999933 ;
 	setAttr ".jo" -type "double3" 0 19.623035040106146 0 ;
-	setAttr ".radi" 0.81034482758620685;
+	setAttr ".bps" -type "matrix" -0.40970800000000002 -0.873197 0.26394600000000001 0
+		 0.52805899999999995 -0.46296100000000001 -0.71191400000000005 0 0.74383699999999997 -0.15229799999999999 0.65077799999999997 0
+		 106.781527 82.112133999999998 29.122720999999999 1;
+	setAttr ".radi" 0.81034482758620696;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_indexFLast_result_jnt" -p "l_indexFC_result_jnt";
-	rename -uid "FB575AED-4505-002A-1C7C-AD847E5005B2";
-	setAttr ".t" -type "double3" 3.1885207629966743 -1.7319479184152442e-14 -5.6843418860808015e-14 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
-	setAttr ".radi" 0.81034482758620685;
+	rename -uid "F228991A-41BC-B187-ACBD-39AA676C80CB";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 3.1885207629966459 -3.5527136788005009e-14 -2.8421709430404007e-14 ;
+	setAttr ".r" -type "double3" -3.1805546814635168e-15 3.1805546814635168e-15 6.3611093629270335e-15 ;
+	setAttr ".s" -type "double3" 0.999999999999999 0.99999999999999933 0.99999999999999933 ;
+	setAttr ".bps" -type "matrix" -0.40970800000000002 -0.873197 0.26394600000000001 0
+		 0.52805899999999995 -0.46296100000000001 -0.71191400000000005 0 0.74383699999999997 -0.15229799999999999 0.65077799999999997 0
+		 105.475165 79.327928999999997 29.964317000000001 1;
+	setAttr ".radi" 0.81034482758620696;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_thumbFA_result_jnt" -p "l_armEnd_result_jnt";
-	rename -uid "13BB768B-4474-6273-C1DE-BD8CFB385A59";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 1;
-	setAttr ".t" -type "double3" 0.7074402915120892 -3.5404542822147107 -0.69402418390805565 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
-	setAttr ".jot" -type "string" "xzy";
+	rename -uid "B6C3347B-421A-9993-4BAA-DE910B0C0316";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 3 -smx 3 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 0.70744029151210341 -3.5404542822147107 -0.69402418390808407 ;
+	setAttr ".r" -type "double3" -1.5902773407317584e-14 1.391492673140289e-15 -7.9513867036587935e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999933 0.99999999999999978 0.99999999999999933 ;
 	setAttr ".jo" -type "double3" 94.364349428392117 12.292300568488132 -42.740098624466832 ;
-	setAttr ".bps" -type "matrix" -0.18150540671527471 -0.39682250936684826 0.89977090606049281 0
-		 0.98025433296054665 -8.8817841970012523e-16 0.19774084735348435 0 -0.078468019251136001 0.91789536226075219 0.38898698422313049 0
-		 76.791404455011971 79.303135821587446 25.752237533343337 1;
-	setAttr -cb on ".size" 3;
+	setAttr ".bps" -type "matrix" 0.089808299999999994 -0.43041299999999999 0.89815299999999998 0
+		 0.71272599999999997 0.65767299999999995 0.24390300000000001 0 -0.69567000000000001 0.618232 0.36583100000000002 0
+		 103.511072 92.491918999999996 20.680291 1;
+	setAttr -k on ".Size" 33.333333333333336;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_thumbFB_result_jnt" -p "l_thumbFA_result_jnt";
-	rename -uid "4C9C6EFD-4E00-F24D-1B6E-02B449C1D754";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 2;
-	setAttr ".t" -type "double3" 2.7039301064179178 5.6843418860808015e-14 3.5527136788005009e-15 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
-	setAttr ".jot" -type "string" "xzy";
-	setAttr ".jo" -type "double3" 0.18723338632394232 -3.5043108531221954 -29.060524921018068 ;
-	setAttr ".bps" -type "matrix" -0.2887512555688948 -0.5711622058156296 0.76837259650199063 0
-		 0.93608401498220528 -1.5543122344752192e-15 0.35177651555326261 0 -0.20092145057753658 0.82083721568154078 0.53465581082598779 0
-		 74.957021812201859 75.292652957014866 34.845763519442635 1;
-	setAttr -cb on ".size" 3;
+	rename -uid "99F0ADE8-45F7-757A-6EDE-4996B0ACFE88";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 3 -smx 3 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 2.7039301064179071 5.6843418860808015e-14 6.2172489379008766e-15 ;
+	setAttr ".r" -type "double3" -8.2744117884949291e-15 -3.5781240166464568e-15 -6.1219465597310448e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999933 0.99999999999999944 0.99999999999999956 ;
+	setAttr ".jo" -type "double3" 0.18723338632394232 -3.5043108531221958 -29.060524921018068 ;
+	setAttr ".bps" -type "matrix" -0.30971399999999999 -0.65659100000000004 0.68772500000000003 0
+		 0.66440200000000005 0.36796400000000001 0.65051700000000001 0 -0.68018100000000004 0.65839999999999999 0.32227699999999998 0
+		 103.753907 91.328113000000002 23.108834000000002 1;
+	setAttr -k on ".Size" 33.333333333333336;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_thumbFC_result_jnt" -p "l_thumbFB_result_jnt";
-	rename -uid "C25B6456-4BEE-391C-D685-C0AF3382201C";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 3;
-	setAttr ".t" -type "double3" 4.2274190354271752 -5.6843418860808015e-14 -0.15650981173178913 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
-	setAttr ".jot" -type "string" "xzy";
+	rename -uid "61C72846-4F83-4682-6054-4D88AC9DC930";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 2 -smx 2 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 4.2274190354271752 -5.6843418860808015e-14 -0.15650981173176426 ;
+	setAttr ".r" -type "double3" -2.1907244042222989e-15 3.1805546814635168e-15 -3.1805546814635176e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999933 0.99999999999999922 0.99999999999999944 ;
 	setAttr ".jo" -type "double3" 0 20.882876716495328 0 ;
-	setAttr ".bps" -type "matrix" -0.1132474158176173 -0.72662580338419591 0.67763556921615564 0
-		 0.9863210928935674 1.6514567491299204e-15 0.16483537761427047 0 -0.11977363868510774 0.6870334357629706 0.71668635651856649 0
-		 73.15575667911979 71.729674279595997 39.638964382129473 1;
-	setAttr -cb on ".size" 2;
+	setAttr ".bps" -type "matrix" -0.046912500000000003 -0.84815300000000005 0.52766999999999997 0
+		 0.66440200000000005 0.36796400000000001 0.65051700000000001 0 -0.74590100000000004 0.38110300000000003 0.54625299999999999 0
+		 102.551072 88.449381000000002 25.965695 1;
+	setAttr -k on ".Size" 33.333333333333336;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_thumbFLast_result_jnt" -p "l_thumbFC_result_jnt";
-	rename -uid "7ECC206C-4EB2-FD43-642F-95A3876ECA95";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 4;
-	setAttr ".t" -type "double3" 3.3962031034157718 9.9475983006414026e-14 -1.3855583347321954e-13 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
-	setAttr ".bps" -type "matrix" -0.1132474158176173 -0.72662580338419591 0.67763556921615564 0
-		 0.9863210928935674 1.6514567491299204e-15 0.16483537761427047 0 -0.11977363868510774 0.6870334357629706 0.71668635651856649 0
-		 72.219897789623943 65.724952560123469 45.238838487079008 1;
-	setAttr -cb on ".size" 1.5;
+	rename -uid "84E59B39-486C-E6F0-6968-00926831EF7E";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 1.5 -smx 1.5 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 3.3962031034157647 1.1368683772161603e-13 -1.4921397450962104e-13 ;
+	setAttr ".r" -type "double3" -1.2722218725854067e-14 6.3611093629270335e-15 -2.2263882770244617e-14 ;
+	setAttr ".s" -type "double3" 0.99999999999999933 0.99999999999999922 0.99999999999999933 ;
+	setAttr ".bps" -type "matrix" -0.046912500000000003 -0.84815300000000005 0.52766999999999997 0
+		 0.66440200000000005 0.36796400000000001 0.65051700000000001 0 -0.74590100000000004 0.38110300000000003 0.54625299999999999 0
+		 102.391747 85.568882000000002 27.757771000000002 1;
+	setAttr -k on ".Size" 33.333333333333336;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_clavicle_result_jnt" -p "c_spineEnd_result_jnt";
-	rename -uid "90085664-43B6-3FF0-84FA-19936D2B44E8";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 5;
-	setAttr ".t" -type "double3" 28.678278316696918 -6.6464071456336917 4.9727700000000263 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "5C9790EC-4A18-68BC-9037-E1A6B54B888C";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 2 -smx 2 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 28.678278316696918 -6.64640714563369 4.9727700000000254 ;
+	setAttr ".r" -type "double3" -1.1330726052713776e-14 -1.590277340731758e-15 -1.2722218725854064e-14 ;
+	setAttr ".s" -type "double3" 0.99999999999999967 0.99999999999999956 1 ;
 	setAttr ".jo" -type "double3" 110.5336985761962 74.093030244410542 -70.704555139516302 ;
-	setAttr ".bps" -type "matrix" 0.96170797661426755 -0.099466518969540493 -0.25539024907105085 0
-		 -0.25666306443228992 1.4173687309706003e-16 -0.96650094224280292 0 0.096134484305672549 0.99504090951281077 -0.025529381567134621 0
-		 4.9727711836142614 129.09591859677909 4.807660169621923 1;
+	setAttr ".bps" -type "matrix" 0.96170800000000001 0.099466499999999999 0.25539000000000001 0
+		 -0.25666299999999997 0 0.96650100000000005 0 0.096134499999999998 -0.99504099999999995 0.025529400000000001 0
+		 -4.9727699999999997 163.04300000000001 -3.15307 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 2;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_armUpper_result_jnt" -p "r_clavicle_result_jnt";
-	rename -uid "8F7FB930-4788-7033-F98F-8BB64BD2CDCF";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 6;
-	setAttr ".t" -type "double3" -38.441307798954632 2.4399557483887842 0.2697144670489422 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "BBC5B82C-48AE-0E7B-7B94-D3A0F9032636";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 3 -smx 3 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -38.441307798954647 2.4399557483887904 0.26971446704891378 ;
+	setAttr ".r" -type "double3" 1.1529510720305249e-14 -3.1805546814635164e-15 -3.5781240166464568e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999978 0.99999999999999956 0.99999999999999978 ;
 	setAttr ".jo" -type "double3" 2.1357493607619964 41.156563087053001 -14.90241322705806 ;
-	setAttr ".bps" -type "matrix" 0.68615872115345522 -0.72722602375911227 0.018125113863529069 0
-		 0.026406125917679182 -2.0816681711721685e-16 -0.99965129746027903 0 0.72697243819767654 0.68639806990368979 0.019203221953996218 0
-		 33.896006272407448 126.10447672297023 -2.8731664356358184 1;
+	setAttr ".bps" -type "matrix" 0.68615899999999996 0.72722600000000004 -0.018125100000000002 0
+		 0.026406099999999998 0 0.99965099999999996 0 0.72697199999999995 -0.68639799999999995 -0.0192032 0
+		 -42.542400000000001 158.95099999999999 -10.605499999999999 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 3;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_armLower_result_jnt" -p "r_armUpper_result_jnt";
-	rename -uid "2FAE675B-40EB-1F2B-B729-7088856E6675";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 7;
-	setAttr ".t" -type "double3" -44.998673675157697 3.584438040495419 -0.00030089131601584995 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
-	setAttr ".jot" -type "string" "xzy";
+	rename -uid "8B50A2FE-4A64-CF2B-8DCC-44837EFCED43";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 2 -smx 2 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -44.998673675157704 3.5844380404954173 -0.00030089131601584995 ;
+	setAttr ".r" -type "double3" -2.6927627988119726e-15 2.2263882770244617e-14 -6.3611093629270327e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999978 0.99999999999999933 0.99999999999999978 ;
 	setAttr ".jo" -type "double3" 6.270886815458427e-15 -2.9917092472516203e-14 -23.676623604569272 ;
-	setAttr ".bps" -type "matrix" 0.52995821998744419 -0.5851124570356816 0.61383034927364688 0
-		 0.75692547152731149 4.9960036108132044e-16 -0.65350120929739441 0 0.38237169824778738 0.81095216420061877 0.44288652243823751 0
-		 59.163363489772323 99.32484228329389 -2.2057206793167445 1;
+	setAttr ".bps" -type "matrix" 0.61779799999999996 0.66601299999999997 -0.41803400000000002 0
+		 0.29972700000000002 0.29203499999999999 0.90822899999999995 0 0.72697199999999995 -0.68639799999999995 -0.0192032 0
+		 -73.324200000000005 126.227 -6.2066999999999997 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 2;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_armEnd_result_jnt" -p "r_armLower_result_jnt";
-	rename -uid "5EC24371-4C62-9C3A-06E9-DBAFB76CF185";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".t" -type "double3" -51.649790807034634 1.9792984763846473 0.00014468285482394094 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "CE5B1A43-488B-90BF-1D1B-D1BB6E8E68A0";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 2 -smx 2 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -51.649790807034599 1.9792984763846579 0.00014468285482394094 ;
+	setAttr ".r" -type "double3" 1.3613029114737293e-14 -6.858071442349434e-15 -9.5416647164921309e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999956 0.99999999999999933 0.99999999999999967 ;
 	setAttr ".jo" -type "double3" 1.4787793334710982e-06 1.6417747547842316e-22 8.4910543977958098e-22 ;
-	setAttr ".bps" -type "matrix" -0.59548579731083762 0.56389216790777041 0.57220825594651392 0
-		 0.69287321720158568 -5.3845816694320092e-15 0.72105943228330671 0 0.40659976646058277 0.82584842614869391 -0.39070578053303029 0
-		 80.349432295933667 75.933879927065647 22.333293009969278 1;
+	setAttr ".bps" -type "matrix" 0.61779799999999996 0.66601299999999997 -0.41803400000000002 0
+		 0.29972700000000002 0.29203499999999999 0.90822899999999995 0 0.72697199999999995 -0.68639799999999995 -0.0192032 0
+		 -104.64 92.405500000000004 17.182300000000001 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 2;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_handCup_result_jnt" -p "r_armEnd_result_jnt";
-	rename -uid "56524915-4D78-6D0B-3157-02ADC54248BB";
-	setAttr ".t" -type "double3" -2.2614271661057153 -1.6533152008010479 0.36266743608931051 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "20029544-4A96-FAE0-3312-0DA15003D168";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -2.2614271661057224 -1.6533152008010479 0.36266743608931051 ;
+	setAttr ".r" -type "double3" -1.5902773407317582e-15 -1.9555441674310843e-14 5.5659706925611543e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999933 0.99999999999999922 0.99999999999999944 ;
 	setAttr ".jo" -type "double3" 99.171141637295904 1.1682869502719919 9.947447945223951 ;
-	setAttr ".radi" 0.65517241379310343;
+	setAttr ".bps" -type "matrix" 0.64532699999999998 0.72029600000000005 -0.254413 0
+		 0.70077699999999998 -0.69077200000000005 -0.178174 0 -0.30407899999999999 -0.063305899999999998 -0.95054099999999997 0
+		 -106.26900000000001 90.167599999999993 16.6191 1;
+	setAttr ".radi" 0.65517241379310354;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_pinkyFA_result_jnt" -p "r_handCup_result_jnt";
-	rename -uid "3EFB2383-4A4A-7FDB-B237-7D807D104779";
-	setAttr ".t" -type "double3" -7.832950756931524 0.11799097936932412 -1.9768952775179418 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "FD13E98A-4D2F-E88A-BA77-D9BCE2089EE8";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -7.8329507569315195 0.11799097936932412 -1.9768952775179489 ;
+	setAttr ".r" -type "double3" 1.1529510720305249e-14 6.9077671988035752e-15 -1.5902773407317584e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999933 0.99999999999999933 0.99999999999999944 ;
 	setAttr ".jo" -type "double3" -91.880554701645295 -8.1208896119890728 -31.872230943936845 ;
-	setAttr ".radi" 0.65517241379310343;
+	setAttr ".bps" -type "matrix" 0.13326099999999999 0.95770699999999997 -0.25502599999999997 0
+		 0.29528799999999999 0.20726700000000001 0.93265500000000001 0 0.94606900000000005 -0.19959299999999999 -0.25517899999999999 0
+		 -110.64 84.569199999999995 20.469999999999999 1;
+	setAttr ".radi" 0.65517241379310354;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_pinkyFB_result_jnt" -p "r_pinkyFA_result_jnt";
-	rename -uid "5D86291A-4ED0-A226-1D5D-67A47FA39211";
-	setAttr ".t" -type "double3" -1.7865742869264665 0.00013218654292668219 0.058179634066121366 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "D39D39F9-4100-7A0F-68E7-1083E037EF9C";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -1.7865742869264736 0.00013218654292401766 0.058179634066135577 ;
+	setAttr ".s" -type "double3" 0.99999999999999933 0.99999999999999911 0.99999999999999944 ;
 	setAttr ".jo" -type "double3" 8.5377364481368683e-07 9.2758022716074588 -1.772482275428609e-14 ;
+	setAttr ".bps" -type "matrix" -0.020975400000000002 0.977356 -0.21056 0 0.29528799999999999 0.20726700000000001 0.93265500000000001 0
+		 0.95517799999999997 -0.042612900000000002 -0.29294900000000001 0 -110.82299999999999 82.846599999999995 20.910900000000002 1;
 	setAttr ".radi" 0.7068965517241379;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_pinkyFC_result_jnt" -p "r_pinkyFB_result_jnt";
-	rename -uid "40AA9672-4088-1FD9-4319-628C75591210";
-	setAttr ".t" -type "double3" -1.8238725716549737 -5.7514462017849155e-05 0.023828534506904475 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "A0CCB85B-4DC0-4C31-5380-38B71157B660";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -1.8238725716549737 -5.7514462017849155e-05 0.023828534506890264 ;
+	setAttr ".r" -type "double3" -9.3946508914620389e-15 9.5416640443905503e-15 7.9513867036588361e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999922 0.99999999999999911 0.99999999999999944 ;
 	setAttr ".jo" -type "double3" -1.7669048461458442e-15 10.406676716626174 -1.9402490755206548e-14 ;
-	setAttr ".radi" 0.81034482758620685;
+	setAttr ".bps" -type "matrix" -0.19316800000000001 0.96897599999999995 -0.15418000000000001 0
+		 0.29528799999999999 0.20726700000000001 0.93265500000000001 0 0.93567699999999998 0.134632 -0.32616400000000001 0
+		 -110.762 81.063000000000002 21.2879 1;
+	setAttr ".radi" 0.81034482758620696;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_pinkyFLast_result_jnt" -p "r_pinkyFC_result_jnt";
-	rename -uid "2B4223DE-4BA6-8455-6535-678C7775F985";
-	setAttr ".t" -type "double3" -2.2463976880560494 -2.4234988027060922e-05 8.0678936313915983e-05 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "669A6292-4DDB-125C-9CB5-1FA3919A2EEB";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -2.2463976880560494 -2.4234988028837279e-05 8.0678936313915983e-05 ;
+	setAttr ".s" -type "double3" 0.99999999999999922 0.99999999999999911 0.99999999999999944 ;
 	setAttr ".jo" -type "double3" 8.5377364625159408e-07 -2.843637509233251e-22 3.9692439608387766e-22 ;
-	setAttr ".radi" 0.81034482758620685;
+	setAttr ".bps" -type "matrix" -0.19316800000000001 0.96897599999999995 -0.15418000000000001 0
+		 0.29528799999999999 0.20726700000000001 0.93265500000000001 0 0.93567699999999998 0.134632 -0.32616400000000001 0
+		 -110.328 78.886300000000006 21.6342 1;
+	setAttr ".radi" 0.81034482758620696;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_ringFA_result_jnt" -p "r_handCup_result_jnt";
-	rename -uid "908425C9-4FCA-5EEC-7037-8DBF5BD19BB1";
-	setAttr ".t" -type "double3" -7.7051865567249092 0.43077220804860872 -4.6517242051563894 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "DEB04CB8-48DC-7BA5-9A50-18B73405A7B9";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -7.70518655672491 0.43077220804860872 -4.651724205156393 ;
+	setAttr ".r" -type "double3" 3.7371517507196315e-14 6.95746336570144e-16 -6.361109362927032e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999944 0.99999999999999922 0.99999999999999922 ;
 	setAttr ".jo" -type "double3" -86.616327332526311 -11.368034278187432 -21.947225499179734 ;
-	setAttr ".radi" 0.65517241379310343;
+	setAttr ".bps" -type "matrix" 0.27010099999999998 0.89562200000000003 -0.35342099999999999 0
+		 0.416433 0.22228899999999999 0.88157300000000005 0 0.86811799999999995 -0.38529000000000002 -0.31292700000000001 0
+		 -109.52500000000001 84.614500000000007 22.924299999999999 1;
+	setAttr ".radi" 0.65517241379310354;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_ringFB_result_jnt" -p "r_ringFA_result_jnt";
-	rename -uid "33026A7B-4DB6-1A56-030C-E68ABD509418";
-	setAttr ".t" -type "double3" -2.5023746504045405 -0.16394633957189519 0.00019171285720176456 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "234656EF-45F8-FD49-319C-A1A2FC8B6479";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -2.5023746504045263 -0.16394633957188276 0.00019171285720176456 ;
+	setAttr ".s" -type "double3" 0.99999999999999922 0.999999999999999 0.99999999999999956 ;
 	setAttr ".jo" -type "double3" 1.2074182628584e-06 22.55403063315601 -3.4439543386584622e-14 ;
+	setAttr ".bps" -type "matrix" -0.083527400000000002 0.97490299999999996 -0.20636599999999999 0
+		 0.416433 0.22228899999999999 0.88157300000000005 0 0.90532100000000004 -0.012302199999999999 -0.42454999999999998 0
+		 -110.26900000000001 82.336799999999997 23.664100000000001 1;
 	setAttr ".radi" 0.7068965517241379;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_ringFC_result_jnt" -p "r_ringFB_result_jnt";
-	rename -uid "BF8C2E42-4AFD-7F45-7AA1-7E9618F4CA92";
+	rename -uid "8BD42AE2-480B-9A51-728F-2F826288F5CF";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
 	setAttr ".t" -type "double3" -2.476810042155094 -0.017567133887945729 -0.061377038759360403 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	setAttr ".s" -type "double3" 0.99999999999999922 0.999999999999999 0.99999999999999978 ;
 	setAttr ".jo" -type "double3" 1.2074182662719347e-06 8.7673000859009012 -4.5054199803208716e-14 ;
-	setAttr ".radi" 0.81034482758620685;
+	setAttr ".bps" -type "matrix" -0.22054199999999999 0.965387 -0.13924400000000001 0
+		 0.416433 0.22228899999999999 0.88157300000000005 0 0.88201200000000002 0.136438 -0.451044 0
+		 -110.125 79.918999999999997 24.1858 1;
+	setAttr ".radi" 0.81034482758620696;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_ringFLast_result_jnt" -p "r_ringFC_result_jnt";
-	rename -uid "3B8270C7-4B8F-EACF-B4C5-9C84001185C2";
+	rename -uid "31CE7B02-451A-C80A-E905-B3AAC6F452BB";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
 	setAttr ".t" -type "double3" -2.446874079886058 0.00015732222968445342 0.00033530808943282864 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
-	setAttr ".radi" 0.81034482758620685;
+	setAttr ".s" -type "double3" 0.999999999999999 0.999999999999999 0.99999999999999978 ;
+	setAttr ".bps" -type "matrix" -0.22054199999999999 0.965387 -0.13924400000000001 0
+		 0.416433 0.22228899999999999 0.88157300000000005 0 0.88201200000000002 0.136438 -0.451044 0
+		 -109.58499999999999 77.556899999999999 24.526499999999999 1;
+	setAttr ".radi" 0.81034482758620696;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_middleFA_result_jnt" -p "r_armEnd_result_jnt";
-	rename -uid "8882601C-49EC-964B-2D63-31BC7E200F70";
-	setAttr ".t" -type "double3" -10.236269746661787 4.0288632610024067 1.7722694201848697 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "D4E24703-4A7D-1C95-AE91-E09A8C19F450";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -10.236269746661804 4.0288632610024049 1.7722694201848697 ;
+	setAttr ".r" -type "double3" -4.7708320221952759e-15 0 -2.2661452105427567e-14 ;
+	setAttr ".s" -type "double3" 0.99999999999999933 0.99999999999999911 0.99999999999999956 ;
 	setAttr ".jo" -type "double3" 6.9697131413245081 22.891390267301972 -7.3352109008860458 ;
-	setAttr ".radi" 0.65517241379310343;
+	setAttr ".bps" -type "matrix" 0.24645 0.84118899999999996 -0.48131400000000002 0
+		 0.48175400000000002 0.324598 0.813971 0 0.84093700000000005 -0.43247799999999997 -0.32524900000000001 0
+		 -108.468 85.548100000000005 25.086500000000001 1;
+	setAttr ".radi" 0.65517241379310354;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_middleFB_result_jnt" -p "r_middleFA_result_jnt";
-	rename -uid "B2578D5F-4293-1AB2-3CB1-00A52E4E3C05";
-	setAttr ".t" -type "double3" -3.1593848936048339 0.00028612701559271869 0.00058497236000221164 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "F576BE9E-41A5-732E-F988-E5AD2C0AB790";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -3.1593848936048374 0.00028612701559893594 0.00058497236000221164 ;
+	setAttr ".r" -type "double3" 1.9788489337965722e-15 3.1805546814635164e-15 2.2263882770244595e-14 ;
+	setAttr ".s" -type "double3" 0.99999999999999933 0.99999999999999933 0.99999999999999956 ;
 	setAttr ".jo" -type "double3" -3.8739793573234549e-15 21.405370083888343 -2.0497191271248852e-14 ;
+	setAttr ".bps" -type "matrix" -0.077461799999999997 0.94100399999999995 -0.32940999999999998 0
+		 0.48175400000000002 0.324598 0.813971 0 0.87287599999999999 -0.095642900000000003 -0.47847699999999999 0
+		 -109.246 82.890299999999996 26.607199999999999 1;
 	setAttr ".radi" 0.7068965517241379;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_middleFC_result_jnt" -p "r_middleFB_result_jnt";
-	rename -uid "E551DE5F-4D34-1949-32BE-E484EE0D4C34";
-	setAttr ".t" -type "double3" -2.7306858182968909 -0.00018704692702886661 -0.00049675513986358055 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "D9CE5834-43B3-5979-6B48-02892A7650B0";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -2.7306858182968909 -0.00018704692702442571 -0.0004967551398493697 ;
+	setAttr ".r" -type "double3" -1.4871902308435345e-14 9.5416640443905487e-15 7.9513869406285799e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999911 0.99999999999999933 0.99999999999999956 ;
 	setAttr ".jo" -type "double3" 1.4787793313972475e-06 15.869052521661137 -1.4879569672912524e-14 ;
-	setAttr ".radi" 0.81034482758620685;
+	setAttr ".bps" -type "matrix" -0.313189 0.93129399999999996 -0.18602099999999999 0
+		 0.48175400000000002 0.324598 0.813971 0 0.81842899999999996 0.16531000000000001 -0.550315 0
+		 -109.035 80.320700000000002 27.506799999999998 1;
+	setAttr ".radi" 0.81034482758620696;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_middleFLast_result_jnt" -p "r_middleFC_result_jnt";
-	rename -uid "0FD2158B-4931-5828-EE37-C69259885A42";
-	setAttr ".t" -type "double3" -2.7114305007391835 -9.7198026757006062e-05 -0.00017382237713547966 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "F3E53FC4-44C2-32D3-F096-2BBDF6E2A324";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -2.711430500739155 -9.719802675789424e-05 -0.00017382237713547966 ;
+	setAttr ".r" -type "double3" 4.2775915372224837e-15 1.0336802304312717e-14 -6.3611097733707535e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999956 0.99999999999999956 0.99999999999999978 ;
 	setAttr ".jo" -type "double3" -1.4787793334710986e-06 5.7462121126534387e-22 6.7723212413291277e-22 ;
-	setAttr ".radi" 0.81034482758620685;
+	setAttr ".bps" -type "matrix" -0.313189 0.93129399999999996 -0.18602099999999999 0
+		 0.48175400000000002 0.324598 0.813971 0 0.81842899999999996 0.16531000000000001 -0.550315 0
+		 -108.18600000000001 77.795500000000004 28.011199999999999 1;
+	setAttr ".radi" 0.81034482758620696;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_indexFA_result_jnt" -p "r_armEnd_result_jnt";
-	rename -uid "9A17F99A-49C8-2254-B388-3E9F0E7B1D61";
-	setAttr ".t" -type "double3" -9.3357730636616196 5.9743319852945049 2.5529937099997539 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "37B54D9E-4DFB-4E29-B67B-A6A4C31A3DE4";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -9.3357730636616267 5.9743319852945103 2.5529937099997539 ;
+	setAttr ".r" -type "double3" -1.1927080055488186e-14 6.3611093629270335e-15 -2.5444437451708134e-14 ;
+	setAttr ".s" -type "double3" 0.99999999999999967 0.99999999999999911 0.99999999999999967 ;
 	setAttr ".jo" -type "double3" 3.3144686370396572 24.910364328804086 -18.323185655157324 ;
-	setAttr ".radi" 0.65517241379310343;
+	setAttr ".bps" -type "matrix" 0.14025199999999999 0.77926899999999999 -0.61079399999999995 0
+		 0.52805899999999995 0.46296100000000001 0.71191400000000005 0 0.83754600000000001 -0.42238300000000001 -0.34656799999999999 0
+		 -106.761 86.180099999999996 26.462 1;
+	setAttr ".radi" 0.65517241379310354;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_indexFB_result_jnt" -p "r_indexFA_result_jnt";
-	rename -uid "2146EC66-470F-20CA-5051-F59BFF1BDF17";
-	setAttr ".t" -type "double3" -2.4421864447083976 -8.3871266014057255e-05 0.016197600068920792 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "DFD0F6F8-4CBA-779E-06EB-79B5587ECBA1";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -2.4421864447083834 -8.3871266010504542e-05 0.016197600068920792 ;
+	setAttr ".r" -type "double3" -5.6443616933942584e-15 -3.1805546814635168e-15 2.2952312749860827e-30 ;
+	setAttr ".s" -type "double3" 0.99999999999999989 0.99999999999999933 0.99999999999999967 ;
 	setAttr ".jo" -type "double3" -4.4308278626894168e-15 18.729404889367238 -2.6867172149556458e-14 ;
+	setAttr ".bps" -type "matrix" -0.13611000000000001 0.87363000000000002 -0.467167 0
+		 0.52805899999999995 0.46296100000000001 0.71191400000000005 0 0.838229 -0.14979300000000001 -0.52434099999999995 0
+		 -107.09 84.270099999999999 27.948 1;
 	setAttr ".radi" 0.7068965517241379;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_indexFC_result_jnt" -p "r_indexFB_result_jnt";
-	rename -uid "2C69D4C1-44D1-60C5-6BF7-87A53466CF2C";
-	setAttr ".t" -type "double3" -2.4759961086127191 -0.00014352336265543997 -0.034515786759982348 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "C193C45B-4936-C577-6A37-D0B8CD4FB6A1";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -2.4759961086127475 -0.00014352336266298948 -0.034515786759982348 ;
+	setAttr ".r" -type "double3" -3.2060448714261667e-14 0 5.8840261607075068e-14 ;
+	setAttr ".s" -type "double3" 0.99999999999999956 0.99999999999999933 0.99999999999999956 ;
 	setAttr ".jo" -type "double3" -1.2554924656722602e-14 19.623035040106149 -7.259824957530608e-14 ;
-	setAttr ".radi" 0.81034482758620685;
+	setAttr ".bps" -type "matrix" -0.40970800000000002 0.873197 -0.26394600000000001 0
+		 0.52805899999999995 0.46296100000000001 0.71191400000000005 0 0.74383699999999997 0.15229799999999999 -0.65077799999999997 0
+		 -106.782 82.112099999999998 29.122699999999998 1;
+	setAttr ".radi" 0.81034482758620696;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_indexFLast_result_jnt" -p "r_indexFC_result_jnt";
-	rename -uid "53F3B743-4B57-0688-DEF6-528F23B16AD3";
-	setAttr ".t" -type "double3" -3.1887785842345551 0.00034242277418572442 0.00047273006831005659 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
-	setAttr ".jo" -type "double3" 1.2074182697257329e-06 -1.4410413299515451e-21 -6.7025193353966504e-23 ;
-	setAttr ".radi" 0.81034482758620685;
+	rename -uid "A1445E07-4BDD-9FC8-8D72-49947A70B8C5";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -3.1887785842345693 0.00034242277419593847 0.00047273006829584574 ;
+	setAttr ".s" -type "double3" 0.99999999999999956 0.99999999999999933 0.99999999999999956 ;
+	setAttr ".jo" -type "double3" 1.2074182697257329e-06 -1.4410413299515453e-21 -6.7025193353966504e-23 ;
+	setAttr ".bps" -type "matrix" -0.40970800000000002 0.873197 -0.26394600000000001 0
+		 0.52805899999999995 0.46296100000000001 0.71191400000000005 0 0.74383699999999997 0.15229799999999999 -0.65077799999999997 0
+		 -105.47499999999999 79.3279 29.964300000000001 1;
+	setAttr ".radi" 0.81034482758620696;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_thumbFA_result_jnt" -p "r_armEnd_result_jnt";
-	rename -uid "261A05FB-4B7B-B3F3-45AD-D5A8D2466C9B";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 1;
-	setAttr ".t" -type "double3" -0.70724366260104965 3.5406072639174155 0.69427412770889418 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
-	setAttr ".jot" -type "string" "xzy";
+	rename -uid "C0932BEF-4F53-A579-6D6D-AC8DC0A7E4F1";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 3 -smx 3 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -0.70724366260106208 3.5406072639174173 0.69427412770889418 ;
+	setAttr ".r" -type "double3" 3.9756933518293975e-15 -1.5505204072134644e-14 1.2722218725854067e-14 ;
+	setAttr ".s" -type "double3" 0.99999999999999989 0.99999999999999956 0.99999999999999956 ;
 	setAttr ".jo" -type "double3" 94.36434831683431 12.292299564879221 -42.740098861116458 ;
-	setAttr ".bps" -type "matrix" -0.18150540671527471 -0.39682250936684826 0.89977090606049281 0
-		 0.98025433296054665 -8.8817841970012523e-16 0.19774084735348435 0 -0.078468019251136001 0.91789536226075219 0.38898698422313049 0
-		 76.791404455011971 79.303135821587446 25.752237533343337 1;
-	setAttr -cb on ".size" 3;
+	setAttr ".bps" -type "matrix" 0.089808299999999994 0.43041299999999999 -0.89815299999999998 0
+		 0.71272599999999997 -0.65767299999999995 -0.24390300000000001 0 -0.69567000000000001 -0.618232 -0.36583100000000002 0
+		 -103.511 92.491900000000001 20.680299999999999 1;
+	setAttr -k on ".Size" 33.333333333333336;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_thumbFB_result_jnt" -p "r_thumbFA_result_jnt";
-	rename -uid "961B185C-40B4-5F05-18B9-79A2A894CD4E";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 2;
-	setAttr ".t" -type "double3" -2.7039030422070969 -0.00011121354981469267 0.00012639067377140378 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
-	setAttr ".jot" -type "string" "xzy";
+	rename -uid "740E8987-47D8-D5BA-421D-73A775C55C4F";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 3 -smx 3 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -2.7039030422070915 -0.00011121354981469267 0.00012639067377939739 ;
+	setAttr ".r" -type "double3" 1.6896696745274934e-14 7.5538173684758519e-15 3.129305509350091e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999967 0.99999999999999956 0.99999999999999944 ;
 	setAttr ".jo" -type "double3" 0.18723338632216646 -3.5043108531221794 -29.060524921018065 ;
-	setAttr ".bps" -type "matrix" -0.2887512555688948 -0.5711622058156296 0.76837259650199063 0
-		 0.93608401498220528 -1.5543122344752192e-15 0.35177651555326261 0 -0.20092145057753658 0.82083721568154078 0.53465581082598779 0
-		 74.957021812201859 75.292652957014866 34.845763519442635 1;
-	setAttr -cb on ".size" 3;
+	setAttr ".bps" -type "matrix" -0.30971399999999999 0.65659100000000004 -0.68772500000000003 0
+		 0.66440200000000005 -0.36796400000000001 -0.65051700000000001 0 -0.68018100000000004 -0.65839999999999999 -0.32227699999999998 0
+		 -103.754 91.328100000000006 23.108799999999999 1;
+	setAttr -k on ".Size" 33.333333333333336;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_thumbFC_result_jnt" -p "r_thumbFB_result_jnt";
-	rename -uid "FAC29521-494D-9EF0-1B0C-0C986C335686";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 3;
-	setAttr ".t" -type "double3" -4.2274756560314017 7.2383331797709616e-05 0.15636454976286762 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
-	setAttr ".jot" -type "string" "xzy";
+	rename -uid "12FA3225-4C6A-32D2-4745-8A855EB925F4";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 2 -smx 2 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -4.2274756560313875 7.2383331769287906e-05 0.15636454976286185 ;
+	setAttr ".r" -type "double3" 2.2414312576822204e-13 0 -6.4247204518169076e-13 ;
+	setAttr ".s" -type "double3" 0.99999999999999911 0.99999999999999956 0.99999999999999956 ;
 	setAttr ".jo" -type "double3" 1.7075474185960366e-06 20.882876716495325 6.8423839474515099e-13 ;
-	setAttr ".bps" -type "matrix" -0.1132474158176173 -0.72662580338419591 0.67763556921615564 0
-		 0.9863210928935674 1.6514567491299204e-15 0.16483537761427047 0 -0.11977363868510774 0.6870334357629706 0.71668635651856649 0
-		 73.15575667911979 71.729674279595997 39.638964382129473 1;
-	setAttr -cb on ".size" 2;
+	setAttr ".bps" -type "matrix" -0.046912500000000003 0.84815300000000005 -0.52766999999999997 0
+		 0.66440200000000005 -0.36796400000000001 -0.65051700000000001 0 -0.74590100000000004 -0.38110300000000003 -0.54625299999999999 0
+		 -102.551 88.449399999999997 25.965699999999998 1;
+	setAttr -k on ".Size" 33.333333333333336;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_thumbFLast_result_jnt" -p "r_thumbFC_result_jnt";
-	rename -uid "68C8E112-4A1E-687F-3EE0-79AEFF6820BC";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 4;
-	setAttr ".t" -type "double3" -3.3962013418145034 -0.00023112844294814749 0.00022899132188314297 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "6C994B51-4B87-1032-14E1-D19C788D2FE7";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 1.5 -smx 1.5 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -3.3962013418145176 -0.00023112844290551493 0.00022899132187603755 ;
+	setAttr ".r" -type "double3" 1.1374549918640316e-21 3.1805261029068557e-15 -3.180554254917256e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999911 0.99999999999999956 0.99999999999999933 ;
 	setAttr ".jo" -type "double3" 2.5613209387547816e-06 2.8436374809312834e-20 -5.687268603295087e-22 ;
-	setAttr ".bps" -type "matrix" -0.1132474158176173 -0.72662580338419591 0.67763556921615564 0
-		 0.9863210928935674 1.6514567491299204e-15 0.16483537761427047 0 -0.11977363868510774 0.6870334357629706 0.71668635651856649 0
-		 72.219897789623943 65.724952560123469 45.238838487079008 1;
-	setAttr -cb on ".size" 1.5;
+	setAttr ".bps" -type "matrix" -0.046912500000000003 0.84815300000000005 -0.52766999999999997 0
+		 0.66440200000000005 -0.36796400000000001 -0.65051700000000001 0 -0.74590100000000004 -0.38110300000000003 -0.54625299999999999 0
+		 -102.392 85.568899999999999 27.7578 1;
+	setAttr -k on ".Size" 33.333333333333336;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_hip_result_jnt" -p "c_pelvis_result_jnt";
-	rename -uid "7E4C5A3C-4934-A17C-2E6E-15A939B90A97";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 1;
-	setAttr ".t" -type "double3" -0.69991018217523049 0.28659934544451815 -2.7813063461863172 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "C2A371CA-4671-C15F-3C59-4E831814C511";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 1 -smx 1 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -0.69991018217523049 0.28659934544451993 -2.7813063461863177 ;
+	setAttr ".r" -type "double3" 2.4736267073413517e-14 0 8.2495637050459953e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999989 0.99999999999999989 0.99999999999999989 ;
 	setAttr ".jo" -type "double3" 176.71088192232099 80.739614912233918 178.57384149513811 ;
-	setAttr ".bps" -type "matrix" 0.93315728265258779 -0.25396720382515015 0.25439761243705339 0
-		 0.2450250227706707 0.96721283044696782 0.066798793664239881 0 -0.26302133762999297 3.6660511854247056e-16 0.96479001650687146 0
-		 3.3701917695808805 64.940378222140552 -4.9863933428523213 1;
+	setAttr ".bps" -type "matrix" 0.98696700000000004 -0.160663 -0.0091128300000000006 0
+		 -0.0092327699999999995 0 -0.99995699999999998 0 0.16065599999999999 0.98700900000000003 -0.0014833699999999999 0
+		 2.7813059999999998 80.191239999999993 -11.106261999999999 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 1;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_legUpper_result_jnt" -p "l_hip_result_jnt";
-	rename -uid "8060D4BF-448E-EB76-42A0-5CA78CE9FCD2";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 2;
-	setAttr ".t" -type "double3" 12.041316370473329 -3.5527136788005009e-15 4.2632564145606011e-14 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "8D221850-404C-8E05-7442-96B1009EC8DD";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 4 -smx 4 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 12.041316370473327 -3.5527136788005009e-15 4.2632564145606011e-14 ;
+	setAttr ".r" -type "double3" -5.0690090235824809e-15 0 2.5444437451708134e-14 ;
+	setAttr ".s" -type "double3" 0.99999999999999989 0.99999999999999978 0.99999999999999989 ;
 	setAttr ".jo" -type "double3" -21.464172054669749 79.549462494459632 -22.293764297649709 ;
-	setAttr ".bps" -type "matrix" 0.0082848127802416655 -0.99760045244771334 0.06873644705186957 0
-		 -0.11937691236782427 -0.069233931537347707 -0.99043213574550726 0 0.99281444120778251 -2.2132363942780943e-16 -0.11966405195077928 0
-		 10.922223305937118 62.885024459015305 -2.9275562876057331 1;
+	setAttr ".bps" -type "matrix" 0.0082848100000000001 -0.99760000000000004 0.068736400000000003 0
+		 -4.0854199999999999e-05 -0.068739099999999997 -0.99763500000000005 0 0.99996600000000002 0.0082624099999999995 -0.00061024699999999996 0
+		 14.665691000000001 78.256642999999997 -11.215992999999999 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 4;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_legLower_result_jnt" -p "l_legUpper_result_jnt";
-	rename -uid "395B509B-4939-8928-BCC4-C0BD3552F793";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 3;
-	setAttr ".t" -type "double3" 36.78536273947735 0.94569555657427706 -7.1054273576010019e-15 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "29E96496-4B99-64C7-8256-DA99A072FB0C";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 3 -smx 3 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 36.78536273947735 0.94569555657428772 -3.5527136788005009e-15 ;
+	setAttr ".r" -type "double3" -1.3610537709153447e-14 -2.4062651061165087e-14 2.3854160110976371e-14 ;
+	setAttr ".s" -type "double3" 0.99999999999999956 0.99999999999999978 0.99999999999999967 ;
 	setAttr ".jo" -type "double3" 0 -6.2120208622334343e-18 7.625080812360399 ;
-	setAttr ".bps" -type "matrix" 0.0064012267350062029 -0.99786625189781719 -0.064976669810706017 0
-		 0.097831962610065867 0.06529121934381725 -0.99305889239685086 0 0.99518236087068479 -1.2014010745660188e-15 0.098041157744338775 0
-		 11.168458658052703 33.235048630356118 -0.88462017161328577 1;
+	setAttr ".bps" -type "matrix" 0.0082061300000000007 -0.99790000000000001 -0.064247799999999994 0
+		 -0.00113981 0.064240599999999995 -0.99793399999999999 0 0.99996600000000002 0.0082624099999999995 -0.00061024699999999996 0
+		 14.970412 41.494542000000003 -9.6309559999999994 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 3;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_legEnd_result_jnt" -p "l_legLower_result_jnt";
-	rename -uid "05BCE8AD-4E2D-B075-4CF0-82B83452BF22";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 4;
-	setAttr ".t" -type "double3" 30.490747055476454 2.4868995751603507e-14 3.0198066269804258e-14 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "43259E17-4761-FEC5-E3B7-4284E77C932E";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 4 -smx 4 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 30.490747055476454 3.907985046680551e-14 3.1974423109204508e-14 ;
+	setAttr ".r" -type "double3" 7.9750545031439013e-13 -1.9426153990116053e-14 3.1805546814634896e-14 ;
+	setAttr ".s" -type "double3" 0.99999999999999944 0.99999999999999978 0.99999999999999944 ;
 	setAttr ".jo" -type "double3" -7.9831922504734269e-13 6.7089825312121068e-15 -1.1131941385122312e-14 ;
-	setAttr ".bps" -type "matrix" 0.0064012267350062029 -0.99786625189781719 -0.064976669810706017 0
-		 0.097831962610065867 0.06529121934381725 -0.99305889239685086 0 0.99518236087068479 -1.2014010745660188e-15 0.098041157744338775 0
-		 11.315513996892468 10.311073919837728 -2.3773287712692639 1;
+	setAttr ".bps" -type "matrix" 0.0082061300000000007 -0.99790000000000001 -0.064247799999999994 0
+		 -0.00113981 0.064240599999999995 -0.99793399999999999 0 0.99996600000000002 0.0082624099999999995 -0.00061024699999999996 0
+		 15.220623 11.067818000000001 -11.589919 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 4;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_footHeelLast_result_jnt" -p "l_legEnd_result_jnt";
-	rename -uid "E425787C-45EE-E453-0B9F-46830E269864";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 5;
-	setAttr ".t" -type "double3" 10.397153597487749 2.9787105640650413 -0.51128270921615737 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "11E8719E-4B78-3227-2687-DCAF93C34CB9";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 2 -smx 2 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 10.397153597487748 2.9787105640650413 -0.51128270921615737 ;
+	setAttr ".r" -type "double3" 1.2722218725854064e-14 -8.1874434964236602e-15 2.2411418265722655e-14 ;
+	setAttr ".s" -type "double3" 0.99999999999999944 0.99999999999999956 0.99999999999999933 ;
 	setAttr ".jo" -type "double3" 5.6801057284818111 0.10336848948807588 0.041919639509234927 ;
-	setAttr ".bps" -type "matrix" 0.0064012267350062029 -0.99786625189781719 -0.064976669810706017 0
-		 0.097831962610065867 0.06529121934381725 -0.99305889239685086 0 0.99518236087068479 -1.2014010745660188e-15 0.098041157744338775 0
-		 11.797878707759489 0.35658516804247498 -11.139831070626213 1;
+	setAttr ".bps" -type "matrix" 0.0064012299999999999 -0.99786600000000003 -0.064976699999999998 0
+		 0.097832000000000002 0.065291199999999994 -0.99305900000000003 0 0.99518200000000001 0 0.098041199999999995 0
+		 14.791283 0.87962600000000002 -15.230157 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 2;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_footLower_result_jnt" -p "l_legEnd_result_jnt";
-	rename -uid "F4C25597-414D-B285-4C3F-43BDA31120CD";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 5;
-	setAttr ".t" -type "double3" 8.0987991784051161 -17.783350055102911 1.3656241561024505 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
-	setAttr ".jot" -type "string" "xzy";
+	rename -uid "07162F87-4456-2444-4E0D-3296408368CA";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 2 -smx 2 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 8.0987991784051196 -17.783350055102915 1.3656241561024505 ;
+	setAttr ".r" -type "double3" -7.6432704688920118e-14 -1.5803381073521846e-14 -2.564244561669182e-14 ;
+	setAttr ".s" -type "double3" 0.99999999999999989 0.99999999999999978 0.99999999999999967 ;
 	setAttr ".jo" -type "double3" 179.28147637408799 0.28677382735677781 -90.589516711697271 ;
-	setAttr ".bps" -type "matrix" 0.080371887437293427 -0.053206965155573265 0.99534384941521625 0
-		 0.0042824102218746328 0.99858350620212732 0.0530343483391469 0 -0.99675574774989817 -8.3413777682505608e-15 0.080485895208672151 0
-		 12.028945366692072 3.0212148882034171 16.794351620800711 1;
+	setAttr ".bps" -type "matrix" -0.0039496499999999999 -0.054010599999999999 0.998533 0
+		 0.0043229699999999998 0.99853000000000003 0.054027600000000002 0 -0.99998299999999996 0.0045300200000000001 -0.0037103599999999998 0
+		 16.672930000000001 1.8548960000000001 5.6355240000000002 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 2;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_footEnd_result_jnt" -p "l_footLower_result_jnt";
-	rename -uid "DD785636-410D-419D-BC9B-B6AD6239598C";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 6;
-	setAttr ".t" -type "double3" 5.3773235713170777 0.16738760637842631 0.28209641644523487 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
-	setAttr ".jot" -type "string" "xzy";
+	rename -uid "9E4C88DC-456C-308D-8A1D-27AAD65EAFEB";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 2 -smx 2 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 5.3773235713170786 0.16738760637842454 0.28209641644523842 ;
+	setAttr ".r" -type "double3" 6.2815954958904455e-14 7.5538173684758535e-14 4.5720473546038059e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999978 0.99999999999999922 0.99999999999999933 ;
 	setAttr ".jo" -type "double3" -4.0155697809410169 3.8111539795571092 -43.514108059032097 ;
-	setAttr ".bps" -type "matrix" 0.12146763056925836 -0.72453797923298136 0.67844699967858835 0
-		 0.12768928915425076 0.68923487770787428 0.71319753840453914 0 -0.98434803812430716 -3.3837628457446809e-14 0.17623546703438453 0
-		 12.696185485259601 2.5794954901524241 25.057605966014791 1;
-	setAttr -cb on ".size" 2;
+	setAttr ".bps" -type "matrix" 0.060639100000000001 -0.72538400000000003 0.68566800000000006 0
+		 0.070313200000000006 0.68833 0.72198200000000001 0 -0.99568000000000001 0.0044312400000000004 0.092743800000000001 0
+		 16.370322999999999 1.732883 11.012954000000001 1;
+	setAttr -k on ".Size" 33.333333333333336;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_footToetipLast_result_jnt" -p "l_footEnd_result_jnt";
-	rename -uid "022AAD2B-42E2-1257-6697-0BBD1BC390C1";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 7;
-	setAttr ".t" -type "double3" 2.9271317724024097 -1.5987211554602254e-14 1.2789769243681803e-13 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "418A52EC-44C6-71DC-4CC9-8E83807B7A0F";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 1 -smx 1 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 2.9271317724024106 -1.5987211554602254e-14 1.2079226507921703e-13 ;
+	setAttr ".r" -type "double3" -7.2317440787253799e-28 -2.520589585059839e-12 2.2263882770244576e-14 ;
+	setAttr ".s" -type "double3" 0.99999999999999933 0.99999999999999989 0.99999999999999911 ;
 	setAttr ".jo" -type "double3" 179.99999999999889 -2.5182041690487399e-12 -65.820079743843039 ;
-	setAttr ".bps" -type "matrix" -0.066732757730615155 -0.92553715697660888 -0.37273007673291358 0
-		 -0.16311247311748123 0.37865679850711326 -0.91105068468106809 0 0.98434803812430394 4.1282926073022171e-14 -0.17623546703440243 0
-		 13.051737246017185 0.45867735082731809 27.043509734665108 1;
-	setAttr -cb on ".size" 1;
+	setAttr ".bps" -type "matrix" -0.039306199999999999 -0.92505800000000005 -0.37778600000000001 0
+		 -0.084119399999999997 0.379799 -0.92123600000000005 0 0.99568000000000001 -0.0044312400000000004 -0.092743800000000001 0
+		 16.547822 -0.39041199999999998 13.019995 1;
+	setAttr -k on ".Size" 33.333333333333336;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_footBankoutsideLast_result_jnt" -p "l_footLower_result_jnt";
-	rename -uid "3304874C-4D97-CC23-29B0-5B9AA4592F1E";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 6;
-	setAttr ".t" -type "double3" -0.35729750909949765 -1.8455972587915266 -5.2800252254275897 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "E81FEA9F-48C3-7378-A275-C9AAECCD18DC";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 1 -smx 1 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -0.35729750909949853 -1.8455972587915261 -5.2800252254275897 ;
+	setAttr ".r" -type "double3" -5.1143567758767874e-14 -2.9817700138720503e-15 -2.3854160110976305e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999989 0.99999999999999933 0.99999999999999944 ;
 	setAttr ".jo" -type "double3" 6.3809878296861843e-14 5.5659706925611559e-15 -9.9392333795734934e-15 ;
-	setAttr ".bps" -type "matrix" 0.080371887437293427 -0.053206965155573265 0.99534384941521625 0
-		 0.0042824102218746328 0.99858350620212732 0.0530343483391469 0 -0.99675574774989817 -8.3413777682505608e-15 0.080485895208672151 0
-		 23.171303359403794 0.08022316974214494 15.378447864334232 1;
+	setAttr ".bps" -type "matrix" -0.0039496499999999999 -0.054010599999999999 0.998533 0
+		 0.0043229699999999998 0.99853000000000003 0.054027600000000002 0 -0.99998299999999996 0.0045300200000000001 -0.0037103599999999998 0
+		 21.946297000000001 0.0073906600000000003 5.1986290000000004 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 1;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "l_footBankinsideLast_result_jnt" -p "l_footLower_result_jnt";
-	rename -uid "C664F900-40FA-990B-5DC1-C682F218F8F2";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 6;
-	setAttr ".t" -type "double3" -0.1972538394579324 -1.8782917927724154 5.2648828099768785 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "101611B5-422A-6074-6CDB-7C92FFA51B1F";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 1 -smx 1 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -0.19725383945793329 -1.878291792772415 5.2648828099768785 ;
+	setAttr ".r" -type "double3" -5.1143567758767874e-14 -2.9817700138720503e-15 -2.3854160110976305e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999989 0.99999999999999933 0.99999999999999944 ;
 	setAttr ".jo" -type "double3" 6.3809878296861843e-14 5.5659706925611559e-15 -9.9392333795734934e-15 ;
-	setAttr ".bps" -type "matrix" 0.080371887437293427 -0.053206965155573265 0.99534384941521625 0
-		 0.0042824102218746328 0.99858350620212732 0.0530343483391469 0 -0.99675574774989817 -8.3413777682505608e-15 0.080485895208672151 0
-		 4.035359499826348 0.037509983596651253 17.082143484214193 1;
+	setAttr ".bps" -type "matrix" -0.0039496499999999999 -0.054010599999999999 0.998533 0
+		 0.0043229699999999998 0.99853000000000003 0.054027600000000002 0 -0.99998299999999996 0.0045300200000000001 -0.0037103599999999998 0
+		 11.400797000000001 0.013868800000000001 5.3175460000000001 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 1;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_hip_result_jnt" -p "c_pelvis_result_jnt";
-	rename -uid "8E879766-4FFA-2030-66CF-43900975DF17";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 1;
-	setAttr ".t" -type "double3" -0.69995104209327508 0.28663588193311362 2.7813099999999911 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "07809F1D-41C3-83E7-D8D5-61B1868BFE4B";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 1 -smx 1 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -0.69995104209327508 0.2866358819331154 2.7813099999999906 ;
+	setAttr ".r" -type "double3" 6.7214065729365729e-15 0 -2.9817700138720464e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999989 0.99999999999999967 0.99999999999999989 ;
 	setAttr ".jo" -type "double3" 176.71088192232102 80.739614912233861 -1.4261585048622847 ;
-	setAttr ".bps" -type "matrix" 0.93315728265258779 -0.25396720382515015 0.25439761243705339 0
-		 0.2450250227706707 0.96721283044696782 0.066798793664239881 0 -0.26302133762999297 3.6660511854247056e-16 0.96479001650687146 0
-		 3.3701917695808805 64.940378222140552 -4.9863933428523213 1;
+	setAttr ".bps" -type "matrix" 0.98696700000000004 0.160663 0.0091128300000000006 0
+		 -0.0092327699999999995 0 0.99995699999999998 0 0.16065599999999999 -0.98700900000000003 0.0014833699999999999 0
+		 -2.7813099999999999 80.191199999999995 -11.106299999999999 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 1;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_legUpper_result_jnt" -p "r_hip_result_jnt";
-	rename -uid "F18B9565-4253-61A4-59F6-CB99CB7021F6";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 2;
-	setAttr ".t" -type "double3" -12.041322058692723 3.0571109089549964e-05 2.3707126928229627e-06 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "35AB413E-4BA4-B820-7DCA-50B4728DBD65";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 4 -smx 4 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -12.041322058692725 3.0571109089549964e-05 2.370712678612108e-06 ;
+	setAttr ".r" -type "double3" -6.162324695335562e-15 0 1.5902773407317576e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999989 0.99999999999999978 0.99999999999999989 ;
 	setAttr ".jo" -type "double3" -21.464172054671231 79.549462494459519 -22.293764297651972 ;
-	setAttr ".bps" -type "matrix" 0.0082848127802416655 -0.99760045244771334 0.06873644705186957 0
-		 -0.11937691236782427 -0.069233931537347707 -0.99043213574550726 0 0.99281444120778251 -2.2132363942780943e-16 -0.11966405195077928 0
-		 10.922223305937118 62.885024459015305 -2.9275562876057331 1;
+	setAttr ".bps" -type "matrix" 0.0082848100000000001 0.99760000000000004 -0.068736400000000003 0
+		 -4.0854199999999999e-05 0.068739099999999997 0.99763500000000005 0 0.99996600000000002 -0.0082624099999999995 0.00061024699999999996 0
+		 -14.665699999999999 78.256600000000006 -11.215999999999999 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 4;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_legLower_result_jnt" -p "r_legUpper_result_jnt";
-	rename -uid "72CAD597-49DC-6374-B3F5-5DA3B104C9C1";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 3;
-	setAttr ".t" -type "double3" -36.785361993417354 -0.9456919764912497 2.1202442507473052e-05 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "952812EA-44D2-B1CB-0EA6-F1920C446457";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 3 -smx 3 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -36.785361993417389 -0.94569197649124082 2.1202442500367624e-05 ;
+	setAttr ".r" -type "double3" 6.8046908764311842e-15 -1.0309896899396831e-13 -7.9513867036587888e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999956 0.99999999999999967 0.99999999999999978 ;
 	setAttr ".jo" -type "double3" 5.7498032861425947e-15 8.6281863765990728e-14 7.6250808123603635 ;
-	setAttr ".bps" -type "matrix" 0.0064012267350062029 -0.99786625189781719 -0.064976669810706017 0
-		 0.097831962610065867 0.06529121934381725 -0.99305889239685086 0 0.99518236087068479 -1.2014010745660188e-15 0.098041157744338775 0
-		 11.168458658052703 33.235048630356118 -0.88462017161328577 1;
+	setAttr ".bps" -type "matrix" 0.0082061300000000007 0.99790000000000001 0.064247799999999994 0
+		 -0.00113981 -0.064240599999999995 0.99793399999999999 0 0.99996600000000002 -0.0082624099999999995 0.00061024699999999996 0
+		 -14.9704 41.494500000000002 -9.63096 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 3;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_legEnd_result_jnt" -p "r_legLower_result_jnt";
-	rename -uid "E9BD6B9A-4692-14F2-3B75-35A10733F0DB";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 4;
-	setAttr ".t" -type "double3" -30.490721848671306 2.0913613749229398e-05 1.0967232519476511e-05 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
-	setAttr ".bps" -type "matrix" 0.0064012267350062029 -0.99786625189781719 -0.064976669810706017 0
-		 0.097831962610065867 0.06529121934381725 -0.99305889239685086 0 0.99518236087068479 -1.2014010745660188e-15 0.098041157744338775 0
-		 11.315513996892468 10.311073919837728 -2.3773287712692639 1;
+	rename -uid "8E5DEA18-464F-4C6C-E9F7-B5A7065672B5";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 4 -smx 4 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -30.490721848671285 2.0913613749229398e-05 1.0967232512371083e-05 ;
+	setAttr ".r" -type "double3" -8.137747329525797e-16 -1.2663204527662852e-14 -8.7465253740246703e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999978 0.99999999999999967 0.99999999999999967 ;
+	setAttr ".bps" -type "matrix" 0.0082061300000000007 0.99790000000000001 0.064247799999999994 0
+		 -0.00113981 -0.064240599999999995 0.99793399999999999 0 0.99996600000000002 -0.0082624099999999995 0.00061024699999999996 0
+		 -15.220599999999999 11.0678 -11.5899 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 4;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_footHeelLast_result_jnt" -p "r_legEnd_result_jnt";
-	rename -uid "84D2966B-4154-C629-460B-E8B50B05C5DB";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 5;
-	setAttr ".t" -type "double3" -10.397139514478896 -2.978773727047459 0.51124263690419269 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
+	rename -uid "ED00EFD7-4A5B-ECDE-B6F4-DF8AECD486F3";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 2 -smx 2 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -10.397139514478898 -2.9787737270474572 0.51124263690418736 ;
+	setAttr ".r" -type "double3" -1.6697912077683464e-14 -1.5033090486604904e-14 -7.9824468079699587e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999956 0.99999999999999978 0.99999999999999967 ;
 	setAttr ".jo" -type "double3" 5.6801057284807612 0.10336848948771228 0.041919639509039222 ;
-	setAttr ".bps" -type "matrix" 0.0064012267350062029 -0.99786625189781719 -0.064976669810706017 0
-		 0.097831962610065867 0.06529121934381725 -0.99305889239685086 0 0.99518236087068479 -1.2014010745660188e-15 0.098041157744338775 0
-		 11.797878707759489 0.35658516804247498 -11.139831070626213 1;
+	setAttr ".bps" -type "matrix" 0.0064012299999999999 0.99786600000000003 0.064976699999999998 0
+		 0.097832000000000002 -0.065291199999999994 0.99305900000000003 0 0.99518200000000001 0 -0.098041199999999995 0
+		 -14.7913 0.87962600000000002 -15.2302 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 2;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_footLower_result_jnt" -p "r_legEnd_result_jnt";
-	rename -uid "D654F41F-4D31-EE69-DAC1-AC8280766681";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 5;
-	setAttr ".t" -type "double3" -8.0987780454728036 17.783325855190718 -1.3656176531786439 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
-	setAttr ".jot" -type "string" "xzy";
+	rename -uid "093B3729-4A33-12DC-9E92-DBB32722C792";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 2 -smx 2 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -8.0987780454728036 17.783325855190721 -1.3656176531786475 ;
+	setAttr ".r" -type "double3" 7.6432704688920118e-14 1.8486974086006691e-14 1.3045243810690206e-14 ;
+	setAttr ".s" -type "double3" 0.99999999999999944 0.99999999999999989 0.99999999999999944 ;
 	setAttr ".jo" -type "double3" 179.28147637408918 0.28677382735596418 -90.589516711697215 ;
-	setAttr ".bps" -type "matrix" 0.080371887437293427 -0.053206965155573265 0.99534384941521625 0
-		 0.0042824102218746328 0.99858350620212732 0.0530343483391469 0 -0.99675574774989817 -8.3413777682505608e-15 0.080485895208672151 0
-		 12.028945366692072 3.0212148882034171 16.794351620800711 1;
+	setAttr ".bps" -type "matrix" -0.0039496499999999999 0.054010599999999999 -0.998533 0
+		 0.0043229699999999998 -0.99853000000000003 -0.054027600000000002 0 -0.99998299999999996 -0.0045300200000000001 0.0037103599999999998 0
+		 -16.672899999999998 1.8549 5.6355199999999996 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 2;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_footEnd_result_jnt" -p "r_footLower_result_jnt";
-	rename -uid "75DDDC30-42A7-8EB2-4A9F-1599CDFC91F5";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 6;
-	setAttr ".t" -type "double3" -5.3773743583098312 -0.16738345335703109 -0.28208966825123483 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
-	setAttr ".jot" -type "string" "xzy";
+	rename -uid "C6293CDE-4F14-53A0-558F-3D83B1827B05";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 2 -smx 2 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -5.377374358309833 -0.16738345335703197 -0.28208966825123838 ;
+	setAttr ".r" -type "double3" -6.3611093629270323e-14 -6.7586786981099723e-14 3.9756933518293952e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999978 0.99999999999999978 0.99999999999999967 ;
 	setAttr ".jo" -type "double3" -4.0155697809417399 3.811153979556233 -43.514108059032139 ;
-	setAttr ".bps" -type "matrix" 0.12146763056925836 -0.72453797923298136 0.67844699967858835 0
-		 0.12768928915425076 0.68923487770787428 0.71319753840453914 0 -0.98434803812430716 -3.3837628457446809e-14 0.17623546703438453 0
-		 12.696185485259601 2.5794954901524241 25.057605966014791 1;
-	setAttr -cb on ".size" 2;
+	setAttr ".bps" -type "matrix" 0.060639100000000001 0.72538400000000003 -0.68566800000000006 0
+		 0.070313200000000006 -0.68833 -0.72198200000000001 0 -0.99568000000000001 -0.0044312400000000004 -0.092743800000000001 0
+		 -16.3703 1.73288 11.013 1;
+	setAttr -k on ".Size" 33.333333333333336;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_footToetipLast_result_jnt" -p "r_footEnd_result_jnt";
-	rename -uid "BEF151DB-40E8-9DC1-9238-6A945A737F61";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 7;
-	setAttr ".t" -type "double3" -2.9271016665688743 2.8402366453406103e-05 5.1954461373071581e-06 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
-	setAttr ".jo" -type "double3" -179.99999999999986 -1.84472171524884e-13 -65.820079743843053 ;
-	setAttr ".bps" -type "matrix" -0.066732757730615155 -0.92553715697660888 -0.37273007673291358 0
-		 -0.16311247311748123 0.37865679850711326 -0.91105068468106809 0 0.98434803812430394 4.1282926073022171e-14 -0.17623546703440243 0
-		 13.051737246017185 0.45867735082731809 27.043509734665108 1;
-	setAttr -cb on ".size" 1;
+	rename -uid "DEFB23A4-429D-65ED-E269-02AB084C8D34";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 1 -smx 1 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" -2.9271016665688716 2.8402366453406103e-05 5.1954461426362286e-06 ;
+	setAttr ".r" -type "double3" 0 -2.0554334628957987e-13 4.9367881432317608e-29 ;
+	setAttr ".s" -type "double3" 0.99999999999999967 1.0000000000000002 0.99999999999999967 ;
+	setAttr ".jo" -type "double3" -179.99999999999986 -1.8447217152488403e-13 -65.820079743843053 ;
+	setAttr ".bps" -type "matrix" -0.039306199999999999 0.92505800000000005 0.37778600000000001 0
+		 -0.084119399999999997 -0.379799 0.92123600000000005 0 0.99568000000000001 0.0044312400000000004 0.092743800000000001 0
+		 -16.547799999999999 -0.39041199999999998 13.02 1;
+	setAttr -k on ".Size" 33.333333333333336;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_footBankoutsideLast_result_jnt" -p "r_footLower_result_jnt";
-	rename -uid "D3690E9F-47B6-A20B-A35A-488C9028583D";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 6;
-	setAttr ".t" -type "double3" 0.35729187320249611 1.8456010057021235 5.2800578253066561 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
-	setAttr ".bps" -type "matrix" 0.080371887437293427 -0.053206965155573265 0.99534384941521625 0
-		 0.0042824102218746328 0.99858350620212732 0.0530343483391469 0 -0.99675574774989817 -8.3413777682505608e-15 0.080485895208672151 0
-		 23.171303359403794 0.08022316974214494 15.378447864334232 1;
+	rename -uid "4CDFB3B8-4874-AA82-D806-5DBADA977B57";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 1 -smx 1 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 0.357291873202497 1.8456010057021222 5.2800578253066597 ;
+	setAttr ".r" -type "double3" -2.4607367640522178e-14 8.6968292071268054e-16 1.2324649390671129e-14 ;
+	setAttr ".s" -type "double3" 0.99999999999999989 0.99999999999999989 0.99999999999999967 ;
+	setAttr ".bps" -type "matrix" -0.0039496499999999999 0.054010599999999999 -0.998533 0
+		 0.0043229699999999998 -0.99853000000000003 -0.054027600000000002 0 -0.99998299999999996 -0.0045300200000000001 0.0037103599999999998 0
+		 -21.946300000000001 0.0073906600000000003 5.1986299999999996 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 1;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 createNode joint -n "r_footBankinsideLast_result_jnt" -p "r_footLower_result_jnt";
-	rename -uid "3936766B-45E0-6259-A51D-208B89FB813E";
-	addAttr -ci true -sn "size" -ln "Size" -at "float";
-	addAttr -ci true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 1 -at "bool";
-	setAttr ".oc" 6;
-	setAttr ".t" -type "double3" 0.19724520645322929 1.8782953353235949 -5.2648494918759354 ;
-	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
-	setAttr ".mxrl" -type "double3" 360 360 360 ;
-	setAttr ".bps" -type "matrix" 0.080371887437293427 -0.053206965155573265 0.99534384941521625 0
-		 0.0042824102218746328 0.99858350620212732 0.0530343483391469 0 -0.99675574774989817 -8.3413777682505608e-15 0.080485895208672151 0
-		 4.035359499826348 0.037509983596651253 17.082143484214193 1;
+	rename -uid "FEF7B0F9-414C-8309-D7BE-A1AF74456DD3";
+	addAttr -is true -ci true -k true -sn "Size" -ln "Size" -smn 1 -smx 1 -at "double";
+	addAttr -is true -ci true -k true -sn "liw" -ln "lockInfluenceWeights" -min 0 -max 
+		1 -at "bool";
+	addAttr -ci true -h true -sn "fbxID" -ln "filmboxTypeID" -at "short";
+	setAttr ".t" -type "double3" 0.19724520645322929 1.878295335323596 -5.2648494918759372 ;
+	setAttr ".r" -type "double3" -2.4607367640522178e-14 8.6968292071268054e-16 1.2324649390671129e-14 ;
+	setAttr ".s" -type "double3" 0.99999999999999989 0.99999999999999989 0.99999999999999967 ;
+	setAttr ".bps" -type "matrix" -0.0039496499999999999 0.054010599999999999 -0.998533 0
+		 0.0043229699999999998 -0.99853000000000003 -0.054027600000000002 0 -0.99998299999999996 -0.0045300200000000001 0.0037103599999999998 0
+		 -11.4008 0.013868800000000001 5.3175499999999998 1;
 	setAttr ".radi" 2;
-	setAttr -cb on ".size" 1;
+	setAttr -k on ".Size" 66.666666666666671;
+	setAttr -k on ".liw";
+	setAttr ".fbxID" 5;
 select -ne :time1;
-	setAttr ".o" 227.5;
-	setAttr ".unw" 227.5;
+	setAttr ".o" 1;
+	setAttr ".unw" 1;
 select -ne :hardwareRenderingGlobals;
 	setAttr ".otfna" -type "stringArray" 22 "NURBS Curves" "NURBS Surfaces" "Polygons" "Subdiv Surface" "Particles" "Particle Instance" "Fluids" "Strokes" "Image Planes" "UI" "Lights" "Cameras" "Locators" "Joints" "IK Handles" "Deformers" "Motion Trails" "Components" "Hair Systems" "Follicles" "Misc. UI" "Ornaments"  ;
 	setAttr ".otfva" -type "Int32Array" 22 0 1 1 1 1 1
@@ -910,8 +1287,6 @@ select -ne :defaultResolution;
 select -ne :hardwareRenderGlobals;
 	setAttr ".ctrs" 256;
 	setAttr ".btrs" 512;
-select -ne :ikSystem;
-	setAttr -s 4 ".sol";
 connectAttr "root.s" "c_pelvis_result_jnt.is";
 connectAttr "c_pelvis_result_jnt.s" "c_spineA_result_jnt.is";
 connectAttr "c_spineA_result_jnt.s" "c_spineB_result_jnt.is";

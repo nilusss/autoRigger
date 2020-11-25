@@ -154,6 +154,7 @@ class Setup():
         mc.setAttr(self.look_at_grp + '.inheritsTransform', 0)
 
         ctrl_loc = mc.spaceLocator(name=self.prefix + 'Ctrl_loc')[0]
+        mc.hide(ctrl_loc)
         stretch_blend_loc = mc.spaceLocator(name=self.prefix + 'StretchBlend_loc')[0]
         upper_aim_loc = mc.spaceLocator(name=self.prefix + 'UpperAim_loc')[0]
         no_stretch_max_loc = mc.spaceLocator(name=self.prefix + 'NoStretchMax_loc')[0]
