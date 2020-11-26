@@ -79,7 +79,10 @@ def build(leg_joints,
     # setup of leg blending
 
     try:
-        blend_size = mc.getAttr(result_chain[-1] + '.size')
+        blend_size = mc.getAttr(result_chain[-1] + '.Fat')
+        if blend_size == 0:
+            blend_size = 2
+        
     except:
         blend_size = 2
 

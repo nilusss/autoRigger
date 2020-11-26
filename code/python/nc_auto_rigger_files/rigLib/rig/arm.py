@@ -73,7 +73,9 @@ def build(armJoints,
     # setup of arm blending
 
     try:
-        blend_size = mc.getAttr(result_chain[-1] + '.size')
+        blend_size = mc.getAttr(result_chain[-1] + '.Fat')
+        if blend_size == 0:
+            blend_size = 2
     except:
         blend_size = 2
 

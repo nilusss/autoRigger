@@ -57,7 +57,9 @@ class Setup():
         fk_ctrl_grps = []
         for i, j in enumerate(self.fkChain):
             try:
-                jnt_size = mc.getAttr(j + '.size')
+                jnt_size = mc.getAttr(j + '.Fat')
+                if jnt_size == 0:
+                    jnt_size = 2
             except:
                 jnt_size = 2
             if j == self.fkChain[-1] and self.incl_last is False:

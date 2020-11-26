@@ -34,7 +34,9 @@ def build(com_joint,
 
     rigModule = nc_module.Module(prefix=prefix, baseObj=baseRig)
     try:
-        jnt_size = mc.getAttr(com_joint + '.size')
+        jnt_size = mc.getAttr(com_joint + '.Fat')
+        if jnt_size == 0:
+            jnt_size = 2.5
     except:
         jnt_size = 2.5
     com_ctrl = nc_control.Control(prefix=prefix, translateTo=com_joint, scale=rigScale * jnt_size,

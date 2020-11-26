@@ -75,7 +75,9 @@ def build(neck_joints,
 
     # create head controller and constrain it to the neck end bind joint
     try:
-        jnt_size = mc.getAttr(result_chain[-1] + '.size')
+        jnt_size = mc.getAttr(result_chain[-1] + '.Fat')
+        if jnt_size == 0:
+            jnt_size = 5
     except:
         jnt_size = 5
 
@@ -110,7 +112,9 @@ def build(neck_joints,
     neck_end_fk_jnt = mc.duplicate(chain[-1], parentOnly=True, name=chain[-1].replace('IK_jnt', 'FK_jnt'))[0]
     mc.parent(neck_end_fk_jnt, neck_start_fk_jnt)
     try:
-        jnt_size = mc.getAttr(result_chain[0] + '.size')
+        jnt_size = mc.getAttr(result_chain[0] + '.Fat')
+        if jnt_size == 0:
+            jnt_size = 2
     except:
         jnt_size = 2
 

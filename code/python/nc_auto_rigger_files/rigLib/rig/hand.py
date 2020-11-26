@@ -58,7 +58,7 @@ def build(finger_joints='',
     finger_chain = []
 
     for index, joint in enumerate(finger_joints):
-        if index is 0:
+        if index == 0:
             iteration = 0
             temp_finger_list = []
 

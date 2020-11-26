@@ -63,7 +63,9 @@ class Setup():
 
     def create_ik_ctrl(self):
         try:
-            jnt_size = mc.getAttr(self.ikChain[-1] + '.size')
+            jnt_size = mc.getAttr(self.ikChain[-1] + '.Fat')
+            if jnt_size == 0:
+                jnt_size = 2
         except:
             jnt_size = 2
         if self.rotateTo is True:
@@ -96,7 +98,9 @@ class Setup():
 
     def create_pole_vec(self):
         try:
-            jnt_size = mc.getAttr(nc_joint.get_mid_joint(self.ikChain) + '.size')
+            jnt_size = mc.getAttr(nc_joint.get_mid_joint(self.ikChain) + '.Fat')
+            if jnt_size == 0:
+                jnt_size = 2
         except:
             jnt_size = 2
         self.pole_vector_ctrl = nc_control.Control(prefix=self.prefix + 'PoleVec', scale=self.rigScale * jnt_size,

@@ -96,8 +96,13 @@ def build(spineJoints,
     scls = mc.skinCluster(influences, spine_crv, **kwargs)[0]
 
     try:
-        pelvis_size = mc.getAttr(resultChain[0] + '.size')
-        spine_end_size = mc.getAttr(resultChain[-1] + '.size')
+        pelvis_size = mc.getAttr(resultChain[0] + '.Fat')
+        spine_end_size = mc.getAttr(resultChain[-1] + '.Fat')
+        if pelvis_size == 0:
+            pelvis_size = 2
+        if spine_end_size == 0:
+            spine_end_size = 2
+
     except:
         pelvis_size = 2
         spine_end_size = 2
