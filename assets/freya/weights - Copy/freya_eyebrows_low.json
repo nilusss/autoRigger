@@ -1,0 +1,662 @@
+{
+  "layers": [
+    {
+      "opacity": 1.0, 
+      "name": "Base Weights", 
+      "enabled": true, 
+      "mask": [], 
+      "influences": [
+        {
+          "index": 33, 
+          "weights": [0.07177384097933234, 0.0616125485572, 0.04406837716508889, 0.05274869647408693, 0.0517945089989, 0.042519114124, 0.059555346579685274, 0.0706148449300833, 0.05200309943352633, 0.0333279818867, 0.0358526824998, 0.05544829296599999, 0.07651697601549395, 0.07113957057016708, 0.0751615616369, 0.0750825941250826, 0.061256097029, 0.0612635698703, 0.026298374256093226, 0.030324957574553762, 0.0297064049729, 0.0255122901498, 0.022049114282094447, 0.023510138453660772, 0.013897102300289696, 0.01668267430809594, 0.016299419867480243, 0.0135755607099, 0.011706192853582879, 0.0136441806707, 0.00598104464461, 0.00748485051093, 0.00720005044158, 0.00580923356915, 0.0049314253272, 0.004985815950376035, 0.002638700653199042, 0.00341614650966, 0.00320741956897, 0.00256164751852, 0.002107061257, 0.0020379969848, 0.00120452453461, 0.0014515314631696184, 0.0014308074531297122, 0.00117940159443, 0.00105155972652, 0.0011733263255, 0.0006126008513287072, 0.000609128658398, 0.000637205377827, 0.0006307950644396006, 0.0007005316014145887, 0.0007005316014145887, 4.929952383557697e-05, 5.17996413357e-05, 3.43827813093e-05, 3.21893359904e-05, 3.52459838542e-05, 5.25472934171e-05, 2.156118361769514e-05, 1.716594964409569e-05, 1.734400572479599e-05, 4.574722104848297e-05, 4.48775481618e-05, 4.63264739417e-05, 2.7739086798994245e-05, 2.5540849448890723e-05, 2.48757059802e-05, 1.7274768777596844e-05, 1.79197390402e-05, 1.92348759275e-05, 0.00229955596848, 0.0009453312942516885, 0.00496432017083, 0.010397778239, 0.024596136329, 0.0457393756057, 0.0722052138601, 0.09100903072225237, 0.0989325655628, 0.09829293623908321, 0.0841461239842575, 0.0636418700985, 0.0423488027104, 0.0319203632621888, 0.0180627557514, 0.00655416883442, 0.002625819268219144, 0.00156201270983, 0.000796771760326659, 4.281901176769236e-05, 2.3090274698e-05, 4.41604976211e-05, 2.2418590680095823e-05, 1.628952809409675e-05, 1.56049147984e-05, 1.5621121392698514e-05, 0.0498515057037, 0.070844965649, 0.0337861000725, 0.019471720855096582, 0.007325375779651926, 0.0030315610193981627, 0.0017088436204, 0.00084000183984, 0.000756196727893, 0.0009640982840019975, 0.00235881420196, 0.005620506756208205, 0.0123122937254, 0.0261682670868, 0.0439475813169, 0.0741466352548, 0.0971746125650832, 0.100358517966, 0.09534739219758637, 0.0810318130876, 5.029650025818605e-05, 3.17746279499e-05, 1.61475289645e-05, 1.52822194778e-05, 5.34071424258e-05, 5.2901625454185494e-05, 3.57019937794e-05, 2.1450965001599967e-05], 
+          "name": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|c_eyebrow_result_jnt"
+        }, 
+        {
+          "index": 34, 
+          "weights": [0.575806086888, 0.583596328462, 0.603359687947, 0.596273575932, 0.0, 0.0, 0.0, 0.0, 0.576523056975, 0.596612941082, 0.0, 0.0, 0.567003834084, 0.567827462563, 0.0, 0.0, 0.566024339498, 0.0, 0.611841244498, 0.606493307844, 0.0, 0.0, 0.603100945387, 0.0, 0.595344453111, 0.588858459415, 0.0, 0.0, 0.589783743696, 0.0, 0.532549968044, 0.527355996402, 0.0, 0.0, 0.531922146461, 0.0, 0.448897611402, 0.445494083661, 0.0, 0.0, 0.445334163972, 0.0, 0.362076763969, 0.353533116227, 0.0, 0.0, 0.369704829239, 0.0, 0.31124213245599996, 0.296629552576, 0.0, 0.0, 0.2930526925, 0.0, 0.0675067225926, 0.0708808880106, 0.0496363672936, 0.0463568650919, 0.0511892338979, 0.0722851974812, 0.0341006420826, 0.0280090534966, 0.0278865117975, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.397397102464, 0.396476533148, 0.42992131228, 0.430614135684, 0.401206007729, 0.339797974737, 0.291631023703, 0.243676669961, 0.228498228294, 0.230644141013, 0.278031125384, 0.342070927101, 0.399653669273, 0.440789300479, 0.449688948371, 0.439681589986, 0.421752769837, 0.415814352834, 0.412639105266, 0.404304415293, 0.068708139435, 0.0456273307378, 0.0263556337457, 0.0255874190835, 0.0728069080394, 0.0727524891348, 0.051915360888, 0.033984497917], 
+          "name": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|l_eyebrow_result_jnt"
+        }, 
+        {
+          "index": 37, 
+          "weights": [0.0, 0.0, 0.0, 0.0, 0.59679365974, 0.604095781504, 0.584738690875, 0.576969120508, 0.0, 0.0, 0.564436784146, 0.519629879542, 0.0, 0.0, 0.544756727622, 0.568771079941, 0.0, 0.564389306958, 0.0, 0.0, 0.605839354304, 0.610676827045, 0.0, 0.580505948181, 0.0, 0.0, 0.587490136475, 0.593014548432, 0.0, 0.552461910923, 0.0, 0.0, 0.525041208421, 0.528465856984, 0.0, 0.52212911841, 0.0, 0.0, 0.438352238326, 0.44446307051, 0.0, 0.440380816824, 0.0, 0.0, 0.353682903042, 0.359291670248, 0.0, 0.377558396974, 0.0, 0.0, 0.299715369291, 0.305013119354, 0.0, 0.2930526925, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0635352779343, 0.0629355800418, 0.0638317432897, 0.0412426373324, 0.0390555336619, 0.0372736176197, 0.0279341297684, 0.0290076712589, 0.0308764558108, 0.276019462612, 0.235088166604, 0.340060159053, 0.400009702045, 0.436122308763, 0.453320406457, 0.440327044512, 0.426554634136, 0.418474531895, 0.414505595158, 0.406119493484, 0.396793338411, 0.412586498331, 0.430011694706, 0.427204911606, 0.390178333423, 0.325025354529, 0.283529992645, 0.235847124006, 0.0605375338744, 0.034917821844, 0.0611397729351, 0.0341130146445, 0.0265861853891, 0.0260022618461, 0.0260231018617, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 
+          "name": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|r_eyebrow_result_jnt"
+        }, 
+        {
+          "index": 40, 
+          "weights": [0.35242007213266774, 0.35479112298, 0.3525719348879111, 0.350977727593913, 0.351411831261, 0.353385104372, 0.3557059625453148, 0.35241603456191667, 0.37147384359147373, 0.370059077031, 0.399710533354, 0.42492182749199997, 0.35647918990050603, 0.36103296686683295, 0.380081710741, 0.35614632593391743, 0.372719563473, 0.374347123171, 0.36186038124590675, 0.3631817345814462, 0.364454240723, 0.363810882805, 0.3748499403309056, 0.3959839133653393, 0.39075844458871023, 0.394458866276904, 0.39621044365751973, 0.393409890858, 0.3985100634504171, 0.433893908406, 0.461468987311, 0.465159153087, 0.467758741137, 0.465724909446, 0.463146428211, 0.47288506563962396, 0.5484636879448009, 0.551089769829, 0.558440342105, 0.552975281971, 0.552558774771, 0.557581186191, 0.636718711496, 0.6450153523098304, 0.6448862895048703, 0.639528928157, 0.629243611034, 0.6212682767, 0.6881452666926713, 0.702761318765, 0.699647425331, 0.6943560855815605, 0.7062467758985853, 0.7062467758985853, 0.9324439778835644, 0.929067312348, 0.950329249925, 0.953610945572, 0.948775520118, 0.927662255225, 0.9658777967337823, 0.9719737805537559, 0.9720961441967751, 0.9364189748446514, 0.93701954241, 0.936121930236, 0.958729623580801, 0.9609189254886511, 0.962701506674, 0.9720485954628224, 0.970974409002, 0.969104309313, 0.721680981419, 0.7639665021017483, 0.654975520776, 0.589592519716, 0.539281554908, 0.500940217937, 0.487467741627, 0.48243633514174755, 0.482592902542, 0.48720146860291674, 0.5097343825317425, 0.53956479149, 0.545064698958, 0.5380679420318112, 0.554732332642, 0.603267497742, 0.6723488262027808, 0.714907994645, 0.7633561042336733, 0.9394196471138323, 0.965059087881, 0.938816066567, 0.9658645667648199, 0.973397525082806, 0.973982133239, 0.9739612770169073, 0.552751391832, 0.532678501203, 0.536292587647, 0.5499141434609035, 0.5914686164913481, 0.6571704642436018, 0.706660132676, 0.755483328199, 0.770745574978, 0.768391760702998, 0.719610060414, 0.6523085661427918, 0.588034037001, 0.533042432434, 0.506363470312, 0.486171774759, 0.4810726175979168, 0.483827129199, 0.4920135025364136, 0.514663771619, 0.9312415640647418, 0.954340894634, 0.973628218725, 0.974397298697, 0.927139684818, 0.9271946092397457, 0.948048937118, 0.9659940511179984], 
+          "name": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt"
+        }], 
+      "dqWeights": []
+    }], 
+  "influences": {
+    "0": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|c_headLast_result_jnt", 
+      "pivot": [-5.85070749176867e-14, 177.55283313146577, -6.367574943701588], 
+      "index": 0
+    }, 
+    "1": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|l_eyeA_result_jnt|l_eyeLast_result_jnt", 
+      "pivot": [3.9349436759948624, 164.33747863769548, 2.2677125930785857], 
+      "index": 1
+    }, 
+    "2": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|l_eyeA_result_jnt", 
+      "pivot": [3.933919429779052, 164.33749389648438, -0.8899180889129655], 
+      "index": 2
+    }, 
+    "3": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|c_hairA_result_jnt|c_hairB_result_jnt|c_hairC_result_jnt|c_hairD_result_jnt|c_hairE_result_jnt|c_hairF_result_jnt|c_hairG_result_jnt|c_hairLast_result_jnt", 
+      "pivot": [-5.235630358195459e-15, 85.02164297035382, -27.65292398822416], 
+      "index": 3
+    }, 
+    "4": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|c_hairA_result_jnt|c_hairB_result_jnt|c_hairC_result_jnt|c_hairD_result_jnt|c_hairE_result_jnt|c_hairF_result_jnt|c_hairG_result_jnt", 
+      "pivot": [-5.6498127264522185e-15, 100.83668507858677, -23.389123137402404], 
+      "index": 4
+    }, 
+    "5": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|c_hairA_result_jnt|c_hairB_result_jnt|c_hairC_result_jnt|c_hairD_result_jnt|c_hairE_result_jnt|c_hairF_result_jnt", 
+      "pivot": [-6.480683988896896e-15, 111.69563734939082, -23.259849896083388], 
+      "index": 5
+    }, 
+    "6": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|c_hairA_result_jnt|c_hairB_result_jnt|c_hairC_result_jnt|c_hairD_result_jnt|c_hairE_result_jnt", 
+      "pivot": [-7.265457757935178e-15, 121.64967693096126, -23.259849896083452], 
+      "index": 6
+    }, 
+    "7": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|c_hairA_result_jnt|c_hairB_result_jnt|c_hairC_result_jnt|c_hairD_result_jnt", 
+      "pivot": [-8.080807128364512e-15, 131.99153623648888, -23.25984989608352], 
+      "index": 7
+    }, 
+    "8": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|c_hairA_result_jnt|c_hairB_result_jnt|c_hairC_result_jnt", 
+      "pivot": [-8.805834242539078e-15, 143.10903498993122, -22.48421044816898], 
+      "index": 8
+    }, 
+    "9": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|c_hairA_result_jnt|c_hairB_result_jnt", 
+      "pivot": [-9.449326419670714e-15, 153.19234781282063, -21.708571000254494], 
+      "index": 9
+    }, 
+    "10": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|c_hairA_result_jnt", 
+      "pivot": [-9.449326419670706e-15, 161.4166893020495, -18.388330098942614], 
+      "index": 10
+    }, 
+    "11": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|c_hairHelper_result_jnt|r_hairA_result_jnt|r_hairB_result_jnt|r_hairC_result_jnt|r_hairD_result_jnt|r_hairLast_result_jnt", 
+      "pivot": [-8.959600736485186, 151.85218755305272, -2.3692733011167504], 
+      "index": 11
+    }, 
+    "12": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|c_hairHelper_result_jnt|r_hairA_result_jnt|r_hairB_result_jnt|r_hairC_result_jnt|r_hairD_result_jnt", 
+      "pivot": [-8.64300164185204, 157.44543822490488, -2.36927330111672], 
+      "index": 12
+    }, 
+    "13": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|c_hairHelper_result_jnt|r_hairA_result_jnt|r_hairB_result_jnt|r_hairC_result_jnt", 
+      "pivot": [-9.170666799573942, 164.67445088569514, -1.865848329991446], 
+      "index": 13
+    }, 
+    "14": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|c_hairHelper_result_jnt|r_hairA_result_jnt|r_hairB_result_jnt", 
+      "pivot": [-7.938696837899513, 169.85697573860458, -0.7715504291813667], 
+      "index": 14
+    }, 
+    "15": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|c_hairHelper_result_jnt|r_hairA_result_jnt", 
+      "pivot": [-5.318711148204011, 173.22262644079, 0.16715769585115192], 
+      "index": 15
+    }, 
+    "16": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|c_hairHelper_result_jnt", 
+      "pivot": [0.06347346055945621, 174.59455585086693, 0.23523974590905983], 
+      "index": 16
+    }, 
+    "17": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|c_mouthHelper_result_jnt|c_jawA_result_jnt|c_jawLast_result_jnt", 
+      "pivot": [1.9704700242234953e-16, 153.86578581586008, 3.056270374885408], 
+      "index": 17
+    }, 
+    "18": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|c_mouthHelper_result_jnt|c_jawA_result_jnt|c_lipLower_result_jnt", 
+      "pivot": [5.980600887970649e-15, 156.1288286362559, 4.025482583762022], 
+      "index": 18
+    }, 
+    "19": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|c_mouthHelper_result_jnt|c_jawA_result_jnt|l_lipLower_result_jnt", 
+      "pivot": [1.2472815582683157, 156.38105460437345, 3.778231809897004], 
+      "index": 19
+    }, 
+    "20": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|c_mouthHelper_result_jnt|c_jawA_result_jnt|c_teethLower_result_jnt", 
+      "pivot": [2.919649656631985e-15, 156.66602244713144, 2.8035631915889376], 
+      "index": 20
+    }, 
+    "21": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|c_mouthHelper_result_jnt|c_jawA_result_jnt|c_tongue_result_jnt", 
+      "pivot": [8.382277312696295e-15, 156.67870264091766, 1.5076784709745206], 
+      "index": 21
+    }, 
+    "22": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|c_mouthHelper_result_jnt|c_jawA_result_jnt|r_lipLower_result_jnt", 
+      "pivot": [-1.2472800000000144, 156.38100000000014, 3.778229999999993], 
+      "index": 22
+    }, 
+    "23": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|c_mouthHelper_result_jnt|c_jawA_result_jnt", 
+      "pivot": [-9.770937239220923e-15, 159.90466815504593, -4.892139976691197], 
+      "index": 23
+    }, 
+    "24": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|c_mouthHelper_result_jnt|l_lipUpperCorner_result_jnt", 
+      "pivot": [2.3059394375080142, 157.07219009273206, 3.0752338099085548], 
+      "index": 24
+    }, 
+    "25": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|c_mouthHelper_result_jnt|c_teethUpper_result_jnt", 
+      "pivot": [1.7421963575932087e-15, 157.4771161834835, 3.0488175901404664], 
+      "index": 25
+    }, 
+    "26": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|c_mouthHelper_result_jnt|l_lipUpper_result_jnt", 
+      "pivot": [1.3176843475636426, 157.67907020506343, 4.196182448686595], 
+      "index": 26
+    }, 
+    "27": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|c_mouthHelper_result_jnt|c_lipUpper_result_jnt", 
+      "pivot": [-1.9928480142687247e-15, 157.72769755899304, 4.461796474652486], 
+      "index": 27
+    }, 
+    "28": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|c_mouthHelper_result_jnt|r_lipUpperCorner_result_jnt", 
+      "pivot": [-2.305940000000015, 157.07200000000017, 3.0752299999999773], 
+      "index": 28
+    }, 
+    "29": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|c_mouthHelper_result_jnt|r_lipUpper_result_jnt", 
+      "pivot": [-1.3176800000000168, 157.67900000000017, 4.196179999999976], 
+      "index": 29
+    }, 
+    "30": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|c_mouthHelper_result_jnt", 
+      "pivot": [-1.194208827258787e-14, 161.09922761545684, -5.566540270450018], 
+      "index": 30
+    }, 
+    "31": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|l_eyelidLower_result_jnt", 
+      "pivot": [4.331200888079316, 162.52645935310508, 1.918035380219449], 
+      "index": 31
+    }, 
+    "32": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|l_eyelidUpper_result_jnt", 
+      "pivot": [4.400360924143195, 165.48694756915978, 2.073072186968989], 
+      "index": 32
+    }, 
+    "33": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|c_eyebrow_result_jnt", 
+      "pivot": [-6.424678996779857e-15, 165.0780135326319, 3.250327677671325], 
+      "index": 33
+    }, 
+    "34": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|l_eyebrow_result_jnt", 
+      "pivot": [2.8445492042756007, 166.31440025121992, 3.309036595819628], 
+      "index": 34
+    }, 
+    "35": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|r_eyelidUpper_result_jnt", 
+      "pivot": [-4.4003600000000285, 165.48700000000014, 2.073069999999975], 
+      "index": 35
+    }, 
+    "36": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|r_eyelidLower_result_jnt", 
+      "pivot": [-4.331200000000024, 162.52600000000015, 1.9180399999999656], 
+      "index": 36
+    }, 
+    "37": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|r_eyebrow_result_jnt", 
+      "pivot": [-2.8445499999999995, 166.314, 3.3090399999999995], 
+      "index": 37
+    }, 
+    "38": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|r_eyeA_result_jnt|r_eyeLast_result_jnt", 
+      "pivot": [-3.934940000000001, 164.337, 2.2677099999999997], 
+      "index": 38
+    }, 
+    "39": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt|r_eyeA_result_jnt", 
+      "pivot": [-3.933919999999999, 164.337, -0.8899180000000005], 
+      "index": 39
+    }, 
+    "40": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt|c_headA_result_jnt", 
+      "pivot": [-2.4834297697905103e-14, 157.32852974311058, -6.590894194560301], 
+      "index": 40
+    }, 
+    "41": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt|c_neckB_result_jnt", 
+      "pivot": [-3.043042362816118e-14, 153.2399475117002, -7.941943973728424], 
+      "index": 41
+    }, 
+    "42": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|c_neckA_result_jnt", 
+      "pivot": [-2.6572978094003797e-14, 148.6652376291537, -8.743120446291295], 
+      "index": 42
+    }, 
+    "43": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|l_clavicle_result_jnt|l_armUpper_result_jnt|l_armLower_result_jnt|l_armEnd_result_jnt|l_handCup_result_jnt|l_pinkyFA_result_jnt|l_pinkyFB_result_jnt|l_pinkyFC_result_jnt|l_pinkyFLast_result_jnt", 
+      "pivot": [41.162750418648194, 83.3174775638754, 6.789245061472596], 
+      "index": 43
+    }, 
+    "44": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|l_clavicle_result_jnt|l_armUpper_result_jnt|l_armLower_result_jnt|l_armEnd_result_jnt|l_handCup_result_jnt|l_pinkyFA_result_jnt|l_pinkyFB_result_jnt|l_pinkyFC_result_jnt", 
+      "pivot": [41.42801915899728, 85.21646219330053, 7.236662078138117], 
+      "index": 44
+    }, 
+    "45": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|l_clavicle_result_jnt|l_armUpper_result_jnt|l_armLower_result_jnt|l_armEnd_result_jnt|l_handCup_result_jnt|l_pinkyFA_result_jnt|l_pinkyFB_result_jnt", 
+      "pivot": [41.410193418420256, 87.5019675061663, 7.572975895337747], 
+      "index": 45
+    }, 
+    "46": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|l_clavicle_result_jnt|l_armUpper_result_jnt|l_armLower_result_jnt|l_armEnd_result_jnt|l_handCup_result_jnt|l_pinkyFA_result_jnt", 
+      "pivot": [40.74899917490651, 89.61833318371244, 7.497744327396862], 
+      "index": 46
+    }, 
+    "47": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|l_clavicle_result_jnt|l_armUpper_result_jnt|l_armLower_result_jnt|l_armEnd_result_jnt|l_handCup_result_jnt|l_ringFA_result_jnt|l_ringFB_result_jnt|l_ringFC_result_jnt|l_ringFLast_result_jnt", 
+      "pivot": [41.0362070229205, 80.9468645776733, 9.070533508203798], 
+      "index": 47
+    }, 
+    "48": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|l_clavicle_result_jnt|l_armUpper_result_jnt|l_armLower_result_jnt|l_armEnd_result_jnt|l_handCup_result_jnt|l_ringFA_result_jnt|l_ringFB_result_jnt|l_ringFC_result_jnt", 
+      "pivot": [41.13879388804087, 83.9585424674199, 9.45579228537913], 
+      "index": 48
+    }, 
+    "49": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|l_clavicle_result_jnt|l_armUpper_result_jnt|l_armLower_result_jnt|l_armEnd_result_jnt|l_handCup_result_jnt|l_ringFA_result_jnt|l_ringFB_result_jnt", 
+      "pivot": [40.96436941751211, 86.75806525825038, 9.652459457798154], 
+      "index": 49
+    }, 
+    "50": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|l_clavicle_result_jnt|l_armUpper_result_jnt|l_armLower_result_jnt|l_armEnd_result_jnt|l_handCup_result_jnt|l_ringFA_result_jnt", 
+      "pivot": [40.12927572179423, 89.59045558202992, 9.457284262626438], 
+      "index": 50
+    }, 
+    "51": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|l_clavicle_result_jnt|l_armUpper_result_jnt|l_armLower_result_jnt|l_armEnd_result_jnt|l_handCup_result_jnt", 
+      "pivot": [37.34442044245843, 95.27766620778291, 6.293010973462317], 
+      "index": 51
+    }, 
+    "52": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|l_clavicle_result_jnt|l_armUpper_result_jnt|l_armLower_result_jnt|l_armEnd_result_jnt|l_thumbFA_result_jnt|l_thumbFB_result_jnt|l_thumbFC_result_jnt|l_thumbFLast_result_jnt", 
+      "pivot": [33.03646077221722, 88.02474863973964, 13.48987860922076], 
+      "index": 52
+    }, 
+    "53": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|l_clavicle_result_jnt|l_armUpper_result_jnt|l_armLower_result_jnt|l_armEnd_result_jnt|l_thumbFA_result_jnt|l_thumbFB_result_jnt|l_thumbFC_result_jnt", 
+      "pivot": [33.33648644828547, 90.19626324889454, 11.911153046254508], 
+      "index": 53
+    }, 
+    "54": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|l_clavicle_result_jnt|l_armUpper_result_jnt|l_armLower_result_jnt|l_armEnd_result_jnt|l_thumbFA_result_jnt|l_thumbFB_result_jnt", 
+      "pivot": [33.38646437688982, 94.1194846760005, 9.538022745522802], 
+      "index": 54
+    }, 
+    "55": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|l_clavicle_result_jnt|l_armUpper_result_jnt|l_armLower_result_jnt|l_armEnd_result_jnt|l_thumbFA_result_jnt", 
+      "pivot": [34.402422275203655, 96.729765769304, 7.527035074316585], 
+      "index": 55
+    }, 
+    "56": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|l_clavicle_result_jnt|l_armUpper_result_jnt|l_armLower_result_jnt|l_armEnd_result_jnt|l_indexFA_result_jnt|l_indexFB_result_jnt|l_indexFC_result_jnt|l_indexFLast_result_jnt", 
+      "pivot": [36.95238765974678, 82.21669761056414, 13.451728322989222], 
+      "index": 56
+    }, 
+    "57": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|l_clavicle_result_jnt|l_armUpper_result_jnt|l_armLower_result_jnt|l_armEnd_result_jnt|l_indexFA_result_jnt|l_indexFB_result_jnt|l_indexFC_result_jnt", 
+      "pivot": [37.56266077818279, 84.76371373313167, 13.363875855389372], 
+      "index": 57
+    }, 
+    "58": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|l_clavicle_result_jnt|l_armUpper_result_jnt|l_armLower_result_jnt|l_armEnd_result_jnt|l_indexFA_result_jnt|l_indexFB_result_jnt", 
+      "pivot": [37.877765190087956, 87.17983980095148, 13.011709062294624], 
+      "index": 58
+    }, 
+    "59": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|l_clavicle_result_jnt|l_armUpper_result_jnt|l_armLower_result_jnt|l_armEnd_result_jnt|l_indexFA_result_jnt", 
+      "pivot": [37.53676200833128, 89.7067355715127, 11.960077894433043], 
+      "index": 59
+    }, 
+    "60": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|l_clavicle_result_jnt|l_armUpper_result_jnt|l_armLower_result_jnt|l_armEnd_result_jnt|l_middleFA_result_jnt|l_middleFB_result_jnt|l_middleFC_result_jnt|l_middleFLast_result_jnt", 
+      "pivot": [39.498337119967594, 80.48611060937958, 11.852027579158422], 
+      "index": 60
+    }, 
+    "61": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|l_clavicle_result_jnt|l_armUpper_result_jnt|l_armLower_result_jnt|l_armEnd_result_jnt|l_middleFA_result_jnt|l_middleFB_result_jnt|l_middleFC_result_jnt", 
+      "pivot": [39.92278401543089, 83.22128723353258, 12.031483796050876], 
+      "index": 61
+    }, 
+    "62": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|l_clavicle_result_jnt|l_armUpper_result_jnt|l_armLower_result_jnt|l_armEnd_result_jnt|l_middleFA_result_jnt|l_middleFB_result_jnt", 
+      "pivot": [39.6263192637178, 86.70811918832972, 11.706457819365145], 
+      "index": 62
+    }, 
+    "63": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|l_clavicle_result_jnt|l_armUpper_result_jnt|l_armLower_result_jnt|l_armEnd_result_jnt|l_middleFA_result_jnt", 
+      "pivot": [38.860056027771755, 89.47450169702915, 11.097450805821353], 
+      "index": 63
+    }, 
+    "64": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|l_clavicle_result_jnt|l_armUpper_result_jnt|l_armLower_result_jnt|l_armEnd_result_jnt", 
+      "pivot": [35.43134428663098, 97.3828107779491, 6.1258904840055415], 
+      "index": 64
+    }, 
+    "65": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|l_clavicle_result_jnt|l_armUpper_result_jnt|l_armLower_result_jnt", 
+      "pivot": [23.902593208084344, 121.40977282438125, -6.071284307124001], 
+      "index": 65
+    }, 
+    "66": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|l_clavicle_result_jnt|l_armUpper_result_jnt|l_armUpperHelper_result_jnt", 
+      "pivot": [18.13955636644571, 144.92638921603222, -8.13258850063852], 
+      "index": 66
+    }, 
+    "67": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|l_clavicle_result_jnt|l_armUpper_result_jnt", 
+      "pivot": [13.612773428120816, 142.6425048528944, -8.87043699154757], 
+      "index": 67
+    }, 
+    "68": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|l_clavicle_result_jnt", 
+      "pivot": [3.8938255499440637, 141.98440835325988, -2.6431391413897987], 
+      "index": 68
+    }, 
+    "69": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|l_chestA_result_jnt|l_chestLast_result_jnt", 
+      "pivot": [8.99992490359814, 133.5605250202379, 7.937865615726072], 
+      "index": 69
+    }, 
+    "70": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|l_chestA_result_jnt", 
+      "pivot": [7.55227897722033, 135.99631208959454, -0.878624537489512], 
+      "index": 70
+    }, 
+    "71": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|r_chestA_result_jnt|r_chestLast_result_jnt", 
+      "pivot": [-8.999920000000015, 133.56100000000012, 7.937869999999994], 
+      "index": 71
+    }, 
+    "72": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|r_chestA_result_jnt", 
+      "pivot": [-7.552280000000016, 135.99600000000015, -0.8786250000000145], 
+      "index": 72
+    }, 
+    "73": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|r_clavicle_result_jnt|r_armUpper_result_jnt|r_armLower_result_jnt|r_armEnd_result_jnt|r_handCup_result_jnt|r_pinkyFA_result_jnt|r_pinkyFB_result_jnt|r_pinkyFC_result_jnt|r_pinkyFLast_result_jnt", 
+      "pivot": [-41.162800000000004, 83.31749999999998, 6.789249999999991], 
+      "index": 73
+    }, 
+    "74": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|r_clavicle_result_jnt|r_armUpper_result_jnt|r_armLower_result_jnt|r_armEnd_result_jnt|r_handCup_result_jnt|r_pinkyFA_result_jnt|r_pinkyFB_result_jnt|r_pinkyFC_result_jnt", 
+      "pivot": [-41.428, 85.2165, 7.23665999999999], 
+      "index": 74
+    }, 
+    "75": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|r_clavicle_result_jnt|r_armUpper_result_jnt|r_armLower_result_jnt|r_armEnd_result_jnt|r_handCup_result_jnt|r_pinkyFA_result_jnt|r_pinkyFB_result_jnt", 
+      "pivot": [-41.410199999999996, 87.50199999999997, 7.572979999999994], 
+      "index": 75
+    }, 
+    "76": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|r_clavicle_result_jnt|r_armUpper_result_jnt|r_armLower_result_jnt|r_armEnd_result_jnt|r_handCup_result_jnt|r_pinkyFA_result_jnt", 
+      "pivot": [-40.74900000000001, 89.61829999999998, 7.497739999999998], 
+      "index": 76
+    }, 
+    "77": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|r_clavicle_result_jnt|r_armUpper_result_jnt|r_armLower_result_jnt|r_armEnd_result_jnt|r_handCup_result_jnt|r_ringFA_result_jnt|r_ringFB_result_jnt|r_ringFC_result_jnt|r_ringFLast_result_jnt", 
+      "pivot": [-41.0362, 80.94690000000003, 9.07053], 
+      "index": 77
+    }, 
+    "78": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|r_clavicle_result_jnt|r_armUpper_result_jnt|r_armLower_result_jnt|r_armEnd_result_jnt|r_handCup_result_jnt|r_ringFA_result_jnt|r_ringFB_result_jnt|r_ringFC_result_jnt", 
+      "pivot": [-41.13880000000002, 83.95850000000003, 9.455790000000013], 
+      "index": 78
+    }, 
+    "79": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|r_clavicle_result_jnt|r_armUpper_result_jnt|r_armLower_result_jnt|r_armEnd_result_jnt|r_handCup_result_jnt|r_ringFA_result_jnt|r_ringFB_result_jnt", 
+      "pivot": [-40.9644, 86.75809999999997, 9.652459999999994], 
+      "index": 79
+    }, 
+    "80": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|r_clavicle_result_jnt|r_armUpper_result_jnt|r_armLower_result_jnt|r_armEnd_result_jnt|r_handCup_result_jnt|r_ringFA_result_jnt", 
+      "pivot": [-40.129300000000015, 89.5905, 9.457280000000004], 
+      "index": 80
+    }, 
+    "81": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|r_clavicle_result_jnt|r_armUpper_result_jnt|r_armLower_result_jnt|r_armEnd_result_jnt|r_handCup_result_jnt", 
+      "pivot": [-37.34440000000001, 95.2777, 6.293010000000005], 
+      "index": 81
+    }, 
+    "82": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|r_clavicle_result_jnt|r_armUpper_result_jnt|r_armLower_result_jnt|r_armEnd_result_jnt|r_thumbFA_result_jnt|r_thumbFB_result_jnt|r_thumbFC_result_jnt|r_thumbFLast_result_jnt", 
+      "pivot": [-33.036500000000004, 88.0247, 13.489900000000015], 
+      "index": 82
+    }, 
+    "83": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|r_clavicle_result_jnt|r_armUpper_result_jnt|r_armLower_result_jnt|r_armEnd_result_jnt|r_thumbFA_result_jnt|r_thumbFB_result_jnt|r_thumbFC_result_jnt", 
+      "pivot": [-33.33650000000001, 90.1963, 11.911199999999996], 
+      "index": 83
+    }, 
+    "84": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|r_clavicle_result_jnt|r_armUpper_result_jnt|r_armLower_result_jnt|r_armEnd_result_jnt|r_thumbFA_result_jnt|r_thumbFB_result_jnt", 
+      "pivot": [-33.38650000000001, 94.1195, 9.538019999999989], 
+      "index": 84
+    }, 
+    "85": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|r_clavicle_result_jnt|r_armUpper_result_jnt|r_armLower_result_jnt|r_armEnd_result_jnt|r_thumbFA_result_jnt", 
+      "pivot": [-34.40239999999999, 96.72979999999998, 7.527040000000006], 
+      "index": 85
+    }, 
+    "86": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|r_clavicle_result_jnt|r_armUpper_result_jnt|r_armLower_result_jnt|r_armEnd_result_jnt|r_indexFA_result_jnt|r_indexFB_result_jnt|r_indexFC_result_jnt|r_indexFLast_result_jnt", 
+      "pivot": [-36.952400000000004, 82.2167, 13.451700000000011], 
+      "index": 86
+    }, 
+    "87": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|r_clavicle_result_jnt|r_armUpper_result_jnt|r_armLower_result_jnt|r_armEnd_result_jnt|r_indexFA_result_jnt|r_indexFB_result_jnt|r_indexFC_result_jnt", 
+      "pivot": [-37.5627, 84.76369999999997, 13.363900000000008], 
+      "index": 87
+    }, 
+    "88": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|r_clavicle_result_jnt|r_armUpper_result_jnt|r_armLower_result_jnt|r_armEnd_result_jnt|r_indexFA_result_jnt|r_indexFB_result_jnt", 
+      "pivot": [-37.87780000000001, 87.17979999999999, 13.011700000000001], 
+      "index": 88
+    }, 
+    "89": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|r_clavicle_result_jnt|r_armUpper_result_jnt|r_armLower_result_jnt|r_armEnd_result_jnt|r_indexFA_result_jnt", 
+      "pivot": [-37.53679999999999, 89.70669999999998, 11.960099999999992], 
+      "index": 89
+    }, 
+    "90": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|r_clavicle_result_jnt|r_armUpper_result_jnt|r_armLower_result_jnt|r_armEnd_result_jnt|r_middleFA_result_jnt|r_middleFB_result_jnt|r_middleFC_result_jnt|r_middleFLast_result_jnt", 
+      "pivot": [-39.49829999999999, 80.48609999999996, 11.852], 
+      "index": 90
+    }, 
+    "91": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|r_clavicle_result_jnt|r_armUpper_result_jnt|r_armLower_result_jnt|r_armEnd_result_jnt|r_middleFA_result_jnt|r_middleFB_result_jnt|r_middleFC_result_jnt", 
+      "pivot": [-39.922799999999995, 83.22129999999999, 12.03149999999999], 
+      "index": 91
+    }, 
+    "92": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|r_clavicle_result_jnt|r_armUpper_result_jnt|r_armLower_result_jnt|r_armEnd_result_jnt|r_middleFA_result_jnt|r_middleFB_result_jnt", 
+      "pivot": [-39.62630000000001, 86.7081, 11.706499999999998], 
+      "index": 92
+    }, 
+    "93": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|r_clavicle_result_jnt|r_armUpper_result_jnt|r_armLower_result_jnt|r_armEnd_result_jnt|r_middleFA_result_jnt", 
+      "pivot": [-38.8601, 89.47449999999999, 11.09750000000002], 
+      "index": 93
+    }, 
+    "94": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|r_clavicle_result_jnt|r_armUpper_result_jnt|r_armLower_result_jnt|r_armEnd_result_jnt", 
+      "pivot": [-35.431300000000036, 97.38279999999999, 6.125890000000016], 
+      "index": 94
+    }, 
+    "95": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|r_clavicle_result_jnt|r_armUpper_result_jnt|r_armLower_result_jnt", 
+      "pivot": [-23.902599999999985, 121.41000000000001, -6.071279999999997], 
+      "index": 95
+    }, 
+    "96": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|r_clavicle_result_jnt|r_armUpper_result_jnt|r_armUpperHelper_result_jnt", 
+      "pivot": [-17.233385850735313, 146.64369110739347, -8.184224804984526], 
+      "index": 96
+    }, 
+    "97": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|r_clavicle_result_jnt|r_armUpper_result_jnt", 
+      "pivot": [-13.612800000000009, 142.643, -8.870440000000002], 
+      "index": 97
+    }, 
+    "98": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt|r_clavicle_result_jnt", 
+      "pivot": [-3.8938299999999995, 141.984, -2.643139999999999], 
+      "index": 98
+    }, 
+    "99": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_spineEnd_result_jnt", 
+      "pivot": [-7.314220196999397e-15, 129.3090923018257, -4.728034334464693], 
+      "index": 99
+    }, 
+    "100": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt|c_belt_result_jnt", 
+      "pivot": [2.8496587268183466, 126.37313879973341, 7.947572535968535], 
+      "index": 100
+    }, 
+    "101": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt|c_spineC_result_jnt", 
+      "pivot": [-4.123331897736598e-15, 123.53120870661175, -3.82733145226171], 
+      "index": 101
+    }, 
+    "102": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt|c_spineB_result_jnt", 
+      "pivot": [3.6714641957719093e-16, 117.59382325068762, -3.7537940051447114], 
+      "index": 102
+    }, 
+    "103": {
+      "path": "|root|c_pelvis_result_jnt|c_spineA_result_jnt", 
+      "pivot": [-3.101504279656319e-15, 111.36343721164219, -4.205269542405424], 
+      "index": 103
+    }, 
+    "104": {
+      "path": "|root|c_pelvis_result_jnt|l_hip_result_jnt|l_legUpper_result_jnt|l_legLower_result_jnt|l_legEnd_result_jnt|l_footHeelLast_result_jnt", 
+      "pivot": [11.144930950413805, 0.6001117861767326, -11.344584048900204], 
+      "index": 104
+    }, 
+    "105": {
+      "path": "|root|c_pelvis_result_jnt|l_hip_result_jnt|l_legUpper_result_jnt|l_legLower_result_jnt|l_legEnd_result_jnt|l_footLower_result_jnt|l_footEnd_result_jnt|l_footToetipLast_result_jnt", 
+      "pivot": [11.219035631975666, 0.5932315946129377, 16.681631896673395], 
+      "index": 105
+    }, 
+    "106": {
+      "path": "|root|c_pelvis_result_jnt|l_hip_result_jnt|l_legUpper_result_jnt|l_legLower_result_jnt|l_legEnd_result_jnt|l_footLower_result_jnt|l_footEnd_result_jnt", 
+      "pivot": [11.219282256447816, 3.207021567848183, 15.550979181204655], 
+      "index": 106
+    }, 
+    "107": {
+      "path": "|root|c_pelvis_result_jnt|l_hip_result_jnt|l_legUpper_result_jnt|l_legLower_result_jnt|l_legEnd_result_jnt|l_footLower_result_jnt|l_footBankoutsideLast_result_jnt", 
+      "pivot": [16.904909830977278, 1.22557614225286, 8.603256172779307], 
+      "index": 107
+    }, 
+    "108": {
+      "path": "|root|c_pelvis_result_jnt|l_hip_result_jnt|l_legUpper_result_jnt|l_legLower_result_jnt|l_legEnd_result_jnt|l_footLower_result_jnt|l_footBankinsideLast_result_jnt", 
+      "pivot": [6.469337788740986, 1.1929369734311666, 9.604953888228797], 
+      "index": 108
+    }, 
+    "109": {
+      "path": "|root|c_pelvis_result_jnt|l_hip_result_jnt|l_legUpper_result_jnt|l_legLower_result_jnt|l_legEnd_result_jnt|l_footLower_result_jnt", 
+      "pivot": [11.22059672118469, 3.163236811963778, 9.52480054841756], 
+      "index": 109
+    }, 
+    "110": {
+      "path": "|root|c_pelvis_result_jnt|l_hip_result_jnt|l_legUpper_result_jnt|l_legLower_result_jnt|l_legEnd_result_jnt", 
+      "pivot": [11.058347134182586, 10.70044373852621, -6.968789855981813], 
+      "index": 110
+    }, 
+    "111": {
+      "path": "|root|c_pelvis_result_jnt|l_hip_result_jnt|l_legUpper_result_jnt|l_legLower_result_jnt", 
+      "pivot": [10.710417156638135, 58.617175421992776, -5.122677077221773], 
+      "index": 111
+    }, 
+    "112": {
+      "path": "|root|c_pelvis_result_jnt|l_hip_result_jnt|l_legUpper_result_jnt", 
+      "pivot": [10.36111006654672, 103.9373352842215, -6.174720654685783], 
+      "index": 112
+    }, 
+    "113": {
+      "path": "|root|c_pelvis_result_jnt|l_hip_result_jnt", 
+      "pivot": [2.9449261878789357, 104.96853524485576, -5.894692974314035], 
+      "index": 113
+    }, 
+    "114": {
+      "path": "|root|c_pelvis_result_jnt|r_hip_result_jnt|r_legUpper_result_jnt|r_legLower_result_jnt|r_legEnd_result_jnt|r_footHeelLast_result_jnt", 
+      "pivot": [-11.144899999999883, 0.6001120000001272, -11.344600000000874], 
+      "index": 114
+    }, 
+    "115": {
+      "path": "|root|c_pelvis_result_jnt|r_hip_result_jnt|r_legUpper_result_jnt|r_legLower_result_jnt|r_legEnd_result_jnt|r_footLower_result_jnt|r_footEnd_result_jnt|r_footToetipLast_result_jnt", 
+      "pivot": [-11.218999999999847, 0.5932319999999247, 16.681599999999168], 
+      "index": 115
+    }, 
+    "116": {
+      "path": "|root|c_pelvis_result_jnt|r_hip_result_jnt|r_legUpper_result_jnt|r_legLower_result_jnt|r_legEnd_result_jnt|r_footLower_result_jnt|r_footEnd_result_jnt", 
+      "pivot": [-11.219299999999867, 3.2070199999999356, 15.550999999999195], 
+      "index": 116
+    }, 
+    "117": {
+      "path": "|root|c_pelvis_result_jnt|r_hip_result_jnt|r_legUpper_result_jnt|r_legLower_result_jnt|r_legEnd_result_jnt|r_footLower_result_jnt|r_footBankoutsideLast_result_jnt", 
+      "pivot": [-16.904899999999863, 1.2255799999999548, 8.603259999999178], 
+      "index": 117
+    }, 
+    "118": {
+      "path": "|root|c_pelvis_result_jnt|r_hip_result_jnt|r_legUpper_result_jnt|r_legLower_result_jnt|r_legEnd_result_jnt|r_footLower_result_jnt|r_footBankinsideLast_result_jnt", 
+      "pivot": [-6.469339999999854, 1.192940000000025, 9.604949999999173], 
+      "index": 118
+    }, 
+    "119": {
+      "path": "|root|c_pelvis_result_jnt|r_hip_result_jnt|r_legUpper_result_jnt|r_legLower_result_jnt|r_legEnd_result_jnt|r_footLower_result_jnt", 
+      "pivot": [-11.220599999999873, 3.163239999999991, 9.524799999999198], 
+      "index": 119
+    }, 
+    "120": {
+      "path": "|root|c_pelvis_result_jnt|r_hip_result_jnt|r_legUpper_result_jnt|r_legLower_result_jnt|r_legEnd_result_jnt", 
+      "pivot": [-11.058299999999889, 10.700400000000137, -6.968790000000786], 
+      "index": 120
+    }, 
+    "121": {
+      "path": "|root|c_pelvis_result_jnt|r_hip_result_jnt|r_legUpper_result_jnt|r_legLower_result_jnt", 
+      "pivot": [-10.710399999999947, 58.61720000000013, -5.122680000000385], 
+      "index": 121
+    }, 
+    "122": {
+      "path": "|root|c_pelvis_result_jnt|r_hip_result_jnt|r_legUpper_result_jnt", 
+      "pivot": [-10.3611, 103.93700000000015, -6.174720000000008], 
+      "index": 122
+    }, 
+    "123": {
+      "path": "|root|c_pelvis_result_jnt|r_hip_result_jnt", 
+      "pivot": [-2.94493, 104.96900000000012, -5.894690000000005], 
+      "index": 123
+    }, 
+    "124": {
+      "path": "|root|c_pelvis_result_jnt", 
+      "pivot": [3.1907679144576814e-15, 105.57146726096401, -5.067196683199967], 
+      "index": 124
+    }
+  }, 
+  "meshInfo": {
+    "verts": [1.4279426336288452, 166.19625854492188, 3.5098209381103516, 1.6895983219146729, 165.80848693847656, 3.476109504699707, 2.2352991104125977, 166.1326141357422, 3.4272546768188477, 2.002732753753662, 166.57838439941406, 3.4763336181640625, -2.0369653701782227, 166.57838439941406, 3.4763336181640625, -2.2971200942993164, 166.1570281982422, 3.440056324005127, -1.7598276138305664, 165.8172149658203, 3.453235149383545, -1.4621753692626953, 166.19625854492188, 3.5098209381103516, 2.11334490776062, 165.5128631591797, 3.340643882751465, 2.755608081817627, 165.82179260253906, 3.248326301574707, -2.7462680339813232, 165.75209045410156, 3.178983211517334, -2.147578239440918, 165.4637908935547, 3.187192440032959, 1.2853834629058838, 165.88648986816406, 3.505692481994629, 1.2738860845565796, 165.59886169433594, 3.4944772720336914, -1.2852206230163574, 165.59886169433594, 3.4352245330810547, -1.3247461318969727, 165.8953094482422, 3.500229835510254, 1.6610534191131592, 165.4652862548828, 3.396656036376953, -1.672387719154358, 165.44081115722656, 3.4004602432250977, 2.9213321208953857, 166.4161834716797, 3.3697562217712402, 2.827913522720337, 166.86170959472656, 3.382931709289551, -2.862147331237793, 166.86170959472656, 3.382931709289551, -2.9665229320526123, 166.4337158203125, 3.3512396812438965, 3.1448140144348145, 165.9591827392578, 3.1931586265563965, -3.1511106491088867, 165.9144744873047, 3.143617630004883, 3.6317825317382812, 166.60618591308594, 3.1632418632507324, 3.578831672668457, 167.03187561035156, 3.237987995147705, -3.602229118347168, 167.01454162597656, 3.2187719345092773, -3.666016101837158, 166.60618591308594, 3.1632418632507324, 3.785691261291504, 166.21896362304688, 3.089080333709717, -3.768488883972168, 166.1366729736328, 2.997868061065674, 4.4545769691467285, 166.8308563232422, 2.966845989227295, 4.382412433624268, 167.2023162841797, 3.0071167945861816, -4.409728527069092, 167.1660919189453, 2.9918060302734375, -4.488809585571289, 166.8308563232422, 2.966845989227295, 4.506396770477295, 166.42478942871094, 2.916882038116455, -4.529788970947266, 166.4074249267578, 2.8976569175720215, 5.041543960571289, 166.98793029785156, 2.7373862266540527, 4.9971747398376465, 167.36692810058594, 2.7285780906677246, -5.055417537689209, 167.3325653076172, 2.7210817337036133, -5.075777053833008, 166.98793029785156, 2.7373862266540527, 5.109686374664307, 166.65696716308594, 2.705458641052246, -5.143918991088867, 166.65696716308594, 2.705458641052246, 5.553168296813965, 167.0508575439453, 2.4487180709838867, 5.601507186889648, 167.35704040527344, 2.336489200592041, -5.617247581481934, 167.3391876220703, 2.358243942260742, -5.587399959564209, 167.0508575439453, 2.4487180709838867, 5.516141414642334, 166.71974182128906, 2.4970617294311523, -5.4823899269104, 166.72181701660156, 2.5382137298583984, 5.829185485839844, 166.72340393066406, 2.1543846130371094, 5.9756178855896, 166.96238708496094, 2.0567641258239746, -6.019594669342041, 166.97276306152344, 2.1426939964294434, -5.886620044708252, 166.6696014404297, 2.148149013519287, 6.054917812347412, 167.2065887451172, 1.9323334693908691, -6.142712116241455, 167.22755432128906, 1.9945330619812012, 6.462886810302734, 167.02467346191406, 1.4854555130004883, 6.334676265716553, 166.8761444091797, 1.6488533020019531, 6.89253044128418, 166.41551208496094, 1.2558507919311523, 6.966760635375977, 166.65147399902344, 1.059462547302246, 6.773872375488281, 166.20875549316406, 1.2754406929016113, 6.242880344390869, 166.59483337402344, 1.8359618186950684, 7.203380584716797, 165.97865295410156, 0.9025626182556152, 7.459490776062012, 165.8800506591797, 0.5681819915771484, 7.321444511413574, 166.13877868652344, 0.7055149078369141, -6.567017078399658, 166.6812286376953, 1.5974187850952148, -6.475426197052002, 166.39695739746094, 1.5861034393310547, -6.6172308921813965, 166.99314880371094, 1.4612460136413574, -7.134559631347656, 166.25086975097656, 1.0375943183898926, -7.094999313354492, 166.04637145996094, 1.0306181907653809, -7.188094139099121, 166.4008026123047, 0.9205713272094727, -7.400060653686523, 166.04615783691406, 0.6622133255004883, -7.458403587341309, 165.90414428710938, 0.6374011039733887, -7.359086036682129, 165.90707397460938, 0.7466926574707031, -5.436111927032471, 167.3043975830078, 1.9529104232788086, -6.045147895812988, 167.19590759277344, 1.5261812210083008, -4.947915077209473, 167.2928466796875, 2.289745807647705, -4.368855953216553, 167.15904235839844, 2.5508904457092285, -3.6129751205444336, 167.02635192871094, 2.7018327713012695, -2.843989133834839, 166.8924102783203, 2.8555808067321777, -2.0256168842315674, 166.64720153808594, 2.921113967895508, -1.4213616847991943, 166.23948669433594, 2.9567203521728516, -1.2800456285476685, 165.91416931152344, 2.9549641609191895, -1.2241545915603638, 165.6267547607422, 2.9227986335754395, -1.551148533821106, 165.3948516845703, 2.7814011573791504, -2.115144729614258, 165.42112731933594, 2.5877761840820312, -2.748739004135132, 165.77200317382812, 2.520449161529541, -3.077078342437744, 165.93333435058594, 2.48763370513916, -3.6941633224487305, 166.21896362304688, 2.3984084129333496, -4.471312046051025, 166.40821838378906, 2.406618118286133, -5.034152030944824, 166.68434143066406, 2.0790328979492188, -5.384735107421875, 166.73524475097656, 1.8857135772705078, -5.79451322555542, 166.65174865722656, 1.6559901237487793, -6.324038982391357, 166.37213134765625, 1.1115031242370605, -7.030975341796875, 166.14332580566406, 0.641080379486084, -6.521664142608643, 166.9959259033203, 1.061502456665039, -7.175450325012207, 166.44395446777344, 0.5296940803527832, -7.391505241394043, 166.0658416748047, 0.2875332832336426, -7.497359275817871, 165.86412048339844, 0.22203922271728516, -7.469155311584473, 165.85044860839844, 0.25293827056884766, 2.580648422241211, 165.52322387695312, 2.7635884284973145, 1.9792511463165283, 165.31068420410156, 2.894850254058838, 3.0839436054229736, 165.81065368652344, 2.7603893280029297, 3.672825813293457, 166.0321502685547, 2.650235176086426, 4.460111141204834, 166.35755920410156, 2.6237592697143555, 5.032884120941162, 166.54869079589844, 2.3200507164001465, 5.419473171234131, 166.64422607421875, 2.126254081726074, 5.797556400299072, 166.495361328125, 1.8430218696594238, 5.989030838012695, 166.72996520996094, 1.7673711776733398, 6.041239261627197, 166.9893035888672, 1.6584720611572266, 5.502657890319824, 167.14083862304688, 2.1297507286071777, 4.9216532707214355, 167.09825134277344, 2.4494171142578125, 4.316595077514648, 166.93907165527344, 2.678232192993164, 3.5847349166870117, 166.8555450439453, 2.865358352661133, 2.9708993434906006, 166.73199462890625, 2.890557289123535, 2.025268316268921, 166.49729919433594, 3.072772979736328, 1.3527166843414307, 166.00624084472656, 3.1944479942321777, 1.202027440071106, 165.75767517089844, 3.131911277770996, 1.1980856657028198, 165.43565368652344, 3.1286544799804688, 1.6701996326446533, 165.23452758789062, 3.0038084983825684, 6.286004066467285, 166.8141326904297, 1.298935890197754, 6.797504425048828, 166.415283203125, 0.8782930374145508, 7.224692344665527, 165.95387268066406, 0.42742395401000977, 7.31357479095459, 165.7451934814453, 0.3513655662536621, 6.208539009094238, 166.71742248535156, 1.462334156036377, 6.131490230560303, 166.37400817871094, 1.6494431495666504, 6.647735595703125, 166.05108642578125, 1.0889215469360352, 7.077244758605957, 165.8929901123047, 0.7160434722900391], 
+    "triangles": [1, 2, 0, 0, 2, 3, 7, 4, 6, 6, 4, 5, 1, 8, 2, 2, 8, 9, 6, 5, 11, 11, 5, 10, 0, 12, 1, 1, 12, 13, 7, 6, 15, 15, 6, 14, 8, 1, 16, 16, 1, 13, 11, 17, 6, 6, 17, 14, 19, 3, 18, 18, 3, 2, 4, 20, 5, 5, 20, 21, 2, 9, 18, 18, 9, 22, 5, 21, 10, 10, 21, 23, 18, 24, 19, 19, 24, 25, 27, 21, 26, 26, 21, 20, 28, 24, 22, 22, 24, 18, 29, 23, 27, 27, 23, 21, 24, 30, 25, 25, 30, 31, 27, 26, 33, 33, 26, 32, 34, 30, 28, 28, 30, 24, 29, 27, 35, 35, 27, 33, 30, 36, 31, 31, 36, 37, 33, 32, 39, 39, 32, 38, 34, 40, 30, 30, 40, 36, 35, 33, 41, 41, 33, 39, 36, 42, 37, 37, 42, 43, 39, 38, 45, 45, 38, 44, 40, 46, 36, 36, 46, 42, 41, 39, 47, 47, 39, 45, 49, 42, 48, 48, 42, 46, 50, 51, 45, 45, 51, 47, 42, 49, 43, 43, 49, 52, 45, 44, 50, 50, 44, 53, 57, 54, 56, 56, 54, 55, 59, 58, 55, 55, 58, 56, 58, 60, 56, 56, 60, 61, 57, 56, 62, 62, 56, 61, 64, 51, 63, 63, 51, 50, 50, 53, 63, 63, 53, 65, 67, 64, 66, 66, 64, 63, 65, 68, 63, 63, 68, 66, 68, 69, 66, 66, 69, 70, 67, 66, 71, 71, 66, 70, 44, 72, 53, 53, 72, 73, 72, 44, 74, 74, 44, 38, 74, 38, 75, 75, 38, 32, 75, 32, 76, 76, 32, 26, 20, 77, 26, 26, 77, 76, 77, 20, 78, 78, 20, 4, 78, 4, 79, 79, 4, 7, 79, 7, 80, 80, 7, 15, 81, 80, 14, 14, 80, 15, 82, 81, 17, 17, 81, 14, 17, 11, 82, 82, 11, 83, 11, 10, 83, 83, 10, 84, 85, 84, 23, 23, 84, 10, 86, 85, 29, 29, 85, 23, 86, 29, 87, 87, 29, 35, 35, 41, 87, 87, 41, 88, 89, 88, 47, 47, 88, 41, 90, 89, 51, 51, 89, 47, 91, 90, 64, 64, 90, 51, 64, 67, 91, 91, 67, 92, 93, 65, 73, 73, 65, 53, 65, 93, 68, 68, 93, 94, 68, 94, 69, 69, 94, 95, 69, 95, 70, 70, 95, 96, 71, 70, 97, 97, 70, 96, 67, 71, 92, 92, 71, 97, 99, 98, 8, 8, 98, 9, 22, 9, 100, 100, 9, 98, 100, 101, 22, 22, 101, 28, 101, 102, 28, 28, 102, 34, 103, 40, 102, 102, 40, 34, 104, 46, 103, 103, 46, 40, 105, 48, 104, 104, 48, 46, 105, 106, 48, 48, 106, 49, 106, 107, 49, 49, 107, 52, 43, 52, 108, 108, 52, 107, 108, 109, 43, 43, 109, 37, 110, 31, 109, 109, 31, 37, 110, 111, 31, 31, 111, 25, 19, 25, 112, 112, 25, 111, 112, 113, 19, 19, 113, 3, 3, 113, 0, 0, 113, 114, 0, 114, 12, 12, 114, 115, 116, 13, 115, 115, 13, 12, 13, 116, 16, 16, 116, 117, 8, 16, 99, 99, 16, 117, 119, 118, 57, 57, 118, 54, 57, 62, 119, 119, 62, 120, 62, 61, 120, 120, 61, 121, 54, 118, 55, 55, 118, 122, 59, 123, 58, 58, 123, 124, 55, 122, 59, 59, 122, 123, 58, 124, 60, 60, 124, 125, 60, 125, 61, 61, 125, 121]
+  }
+}
